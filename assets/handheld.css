@@ -1,0 +1,33 @@
+h1 {
+    text-align: left;
+    font-size: 3em;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+nav .yt-button-group:first-child {
+    margin-bottom: 16px;
+}
+
+#sumbit_add_show {
+    margin-top: 10px;
+}
+
+#remote a {
+    font-size: 12px;
+}
+
+#response {
+    font-size: 18px;
+    margin: 16px auto;
+}
+
+#hidden_actions {
+    margin-top: 4%;
+}
+
+.yt-button {
+    zoom: 1.5;
+}
