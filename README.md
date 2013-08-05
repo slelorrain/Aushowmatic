@@ -23,9 +23,12 @@ Add in your crontab something like this:
 
 
 	0 */8 * * * php /var/www/aushowmatic/_cron.php
-	
-	
+
 ###Step 3:
+
+Update permissions to allow write access on ./files/*
+	
+###Step 4(optionnal):
 If you want to be able to execute systems commands (like start/stop XBMC, poweroff or reboot) by sudo, you have to add some permissions by editing /etc/sudoers:
 
 
