@@ -37,7 +37,7 @@ class Utils{
 
     public static function updateDate(){
     	$info = self::getFeedInfo();
-    	$info->date_min = date("Y-m-d H:i:s");
+        $info->min_date = date("Y-m-d H:i:s");
     	self::setFeedInfo($info);
     }
 
