@@ -2,22 +2,58 @@
 class Utils{
 
     public static function getShowList(){
-        return self::getList(SL_FILE);
+        $info = self::getFeedInfo();
+        return $info->shows;
     }
 
     public static function getDoneList(){
-        return self::getList(DL_FILE);
+        $info = self::getFeedInfo();
+        return $info->done;
     }
 
-    public static function getDateMin(){
-        $date = self::getList(DATE_FILE);
-        return $date[0];
+    public static function getMinDate(){
+        $info = self::getFeedInfo();
+        return $info->min_date;
     }
 
-    private static function getList( $list_file ){
-        $list = file_get_contents($list_file);
-        return array_map('trim', explode("\n", $list));
+    public static function addShow( $name ){
+    	$info = self::getFeedInfo();
+    	$info->shows[] = trim($name);
+    	self::setFeedInfo($info);
     }
+
+    public static function removeShow( $name ){
+    	$info = self::getFeedInfo();
+    	$pos = array_search($name, $info->shows);
+    	if( $pos !== false ) unset($info->shows[$pos]);
+    	self::setFeedInfo($info);
+    }
+
+  	public static function addUrlDone( $url ){
+    	$info = self::getFeedInfo(true);
+    	array_unshift($info['done'], $url);
+    	self::setFeedInfo($info);
+    }
+
+    public static function updateDate(){
+    	$info = self::getFeedInfo();
+    	$info->date_min = date("Y-m-d H:i:s");
+    	self::setFeedInfo($info);
+    }
+
+    public static function emptyDoneList(){
+        $info = self::getFeedInfo();
+    	$info->done = array();
+    	self::setFeedInfo($info);
+    }
+
+    private static function getFeedInfo( $assoc = false ){
+    	return json_decode(file_get_contents(FEED_INFO), $assoc);
+    }
+
+    private static function setFeedInfo( $info ){
+    	file_put_contents(FEED_INFO, json_encode($info));
+   	}
 
     public static function printLink( $link ){
         if( $link ){
@@ -49,10 +85,6 @@ class Utils{
         return $class;
     }
 
-    public static function addShow( $name ){
-        file_put_contents(SL_FILE, $name . "\n", FILE_APPEND);
-    }
-
     public static function getWebsiteLinkToShow($show_id){
         $feed = constant('FEED_CLASS');
         return $feed::getWebsiteLinkToShow($show_id);
@@ -69,20 +101,12 @@ class Utils{
         if( !in_array($url, self::getDoneList()) ){
             if( !$preview ){
                 Transmission::add($url);
-                file_put_contents(DL_FILE, $url . "\n" . file_get_contents(DL_FILE));
+                self::addUrlDone($url);
             }
             $added_now = $url;
         }
 
         return $added_now;
-    }
-
-    public static function updateDate(){
-        file_put_contents(DATE_FILE, date("Y-m-d H:i:s"));
-    }
-
-    public static function emptyDoneList(){
-        file_put_contents(DL_FILE, '');
     }
 
 }

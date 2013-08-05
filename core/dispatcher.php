@@ -4,9 +4,7 @@ require_once(dirname(__FILE__).'/feed.php');
 require_once(dirname(__FILE__).'/system.php');
 require_once(dirname(__FILE__).'/transmission.php');
 
-define('DATE_FILE', dirname(__FILE__).'/../files/_'.FEED_CLASS.'_date_min.txt');
-define('DL_FILE', dirname(__FILE__).'/../files/_'.FEED_CLASS.'_done_list.txt');
-define('SL_FILE', dirname(__FILE__).'/../files/_'.FEED_CLASS.'_show_list.txt');
+define('FEED_INFO', dirname(__FILE__).'/../files/_'.FEED_CLASS.'.json');
 
 function __autoload($class){
     $class = strtolower($class);
@@ -21,7 +19,11 @@ class Dispatcher{
 
         if( isset($_GET['a']) ){
             if( method_exists('Dispatcher', $_GET['a']) ){
-                $to_echo = call_user_func('self::'.$_GET['a']);
+            	if( !isset($_GET['param']) ){
+                	$to_echo = call_user_func('self::'.$_GET['a']);
+                }else{
+                	$to_echo = call_user_func('self::'.$_GET['a'], $_GET['param']);
+               	}
             }else{
                 $to_echo = '404 - Not Found';
             }
@@ -43,7 +45,8 @@ class Dispatcher{
     private static function shows(){
         $to_echo = '';
         foreach( Utils::getShowList() as $show ){
-            $to_echo .= '<a target="_blank" href="' . Utils::getWebsiteLinkToShow($show) . '">' . $show . '</a><br>';
+            $to_echo .= '<a target="_blank" href="' . Utils::getWebsiteLinkToShow($show) . '">' . $show . '</a> ';
+            $to_echo .= '(<a title="Delete ' . $show . '" onclick="return confirm(\'Are you sure?\')" href="./?a=remove_show&param=' . $show . '">&#10007;</a>)<br>';
         }
         return $to_echo;
     }
@@ -51,6 +54,13 @@ class Dispatcher{
     private static function add_show(){
         if( isset($_POST['name_of_show']) ){
             Utils::addShow($_POST['name_of_show']);
+        }
+        return self::shows();
+    }
+
+    private static function remove_show( $name = '' ){
+        if( isset($name) ){
+            Utils::removeShow($name);
         }
         return self::shows();
     }

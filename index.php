@@ -1,4 +1,4 @@
-<?php require_once(dirname(__FILE__) . '/config.php'); ?>
+<?php require_once(dirname(__FILE__) . '/conf/config.php'); ?>
 <?php require_once(dirname(__FILE__) . '/core/dispatcher.php'); ?>
 <?php $GLOBALS['start'] = microtime(true); ?>
 <!DOCTYPE html>
@@ -60,19 +60,21 @@
                     <a href="?a=update_date" class="yt-button">Update min. date</a>
                     <a href="?a=empty_done" class="yt-button danger">Empty processed links</a>
                 </div>
-                <div class="right">
-                    <ul class="yt-button-group">
-                        <li><a href="?a=status_xbmc" class="yt-button">XBMC Status</a></li>
-                        <li><a href="?a=start_xbmc" class="yt-button primary">Start XBMC</a></li>
-                    </ul>
-                    <a id="show_hidden_actions" href="#bottom_links" class="yt-button">&#9660;</a>
+                <?php if( SYSTEM_CMDS_ENABLED ): ?>
+	                <div class="right">
+	                    <ul class="yt-button-group">
+	                        <li><a href="?a=status_xbmc" class="yt-button">XBMC Status</a></li>
+	                        <li><a href="?a=start_xbmc" class="yt-button primary">Start XBMC</a></li>
+	                    </ul>
+	                    <a id="show_hidden_actions" href="#bottom_links" class="yt-button">&#9660;</a>
 
-                    <div id="hidden_actions">
-                        <a href="?a=kill_xbmc" class="yt-button danger big">Kill XBMC</a>
-                        <a href="?a=reboot" class="yt-button danger big">Reboot</a>
-                        <a href="?a=shutdown" class="yt-button danger big">Shutdown</a>
-                    </div>
-                </div>
+	                    <div id="hidden_actions">
+	                        <a href="?a=kill_xbmc" class="yt-button danger big">Kill XBMC</a>
+	                        <a href="?a=reboot" class="yt-button danger big">Reboot</a>
+	                        <a href="?a=shutdown" class="yt-button danger big">Shutdown</a>
+	                    </div>
+	                </div>
+                <?php endif; ?>
                 <div class="clear"></div>
             </div>
 

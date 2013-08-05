@@ -15,7 +15,7 @@ Aushowmatic is a light torrent-based PVR. I'm currently using it on Raspbian but
 ##Installation
 
 ###Step 1:
-Download source and configure by editing config.php
+Download source and configure by editing ./conf/user_config.json
 (at least TRANSMISSION_CMD and TRANSMISSION_WEB)
 
 ###Step 2:
@@ -28,7 +28,7 @@ Add in your crontab something like this:
 
 Update permissions to allow write access on ./files/*
 	
-###Step 4(optionnal):
+###Step 4 (optional):
 If you want to be able to execute systems commands (like start/stop XBMC, poweroff or reboot) by sudo, you have to add some permissions by editing /etc/sudoers:
 
 
