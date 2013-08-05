@@ -1,4 +1,19 @@
 <?php
+require_once(dirname(__FILE__).'/utils.php');
+require_once(dirname(__FILE__).'/feed.php');
+require_once(dirname(__FILE__).'/system.php');
+require_once(dirname(__FILE__).'/transmission.php');
+
+define('DATE_FILE', dirname(__FILE__).'/../files/_'.FEED_CLASS.'_date_min.txt');
+define('DL_FILE', dirname(__FILE__).'/../files/_'.FEED_CLASS.'_done_list.txt');
+define('SL_FILE', dirname(__FILE__).'/../files/_'.FEED_CLASS.'_show_list.txt');
+
+function __autoload($class){
+    $class = strtolower($class);
+    $path = dirname(__FILE__).'/../feeds/'.$class.'.php';
+    if( is_file($path) ) require_once($path);
+}
+
 class Dispatcher{
 
     public static function dispatch(){

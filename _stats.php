@@ -1,4 +1,6 @@
 <?php require_once(dirname(__FILE__) . '/config.php'); ?>
+<?php require_once(dirname(__FILE__) . '/core/dispatcher.php'); ?>	
+
 <?php $feed = constant('FEED_CLASS'); ?>
 
 <?php if ($feed::getFeedStats()): ?>
