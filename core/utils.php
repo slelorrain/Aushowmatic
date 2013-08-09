@@ -18,8 +18,11 @@ class Utils{
 
     public static function addShow( $name ){
     	$info = self::getFeedInfo();
-    	$info->shows[] = trim($name);
-    	self::setFeedInfo($info);
+    	$name = trim($name);
+    	if( !empty($name) ){
+	    	$info->shows[] = $name;
+	    	self::setFeedInfo($info);
+    	}
     }
 
     public static function removeShow( $name ){
