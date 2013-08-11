@@ -4,11 +4,10 @@ Aushowmatic is a light torrent-based PVR. I'm currently using it on Raspbian but
 
 **Note:** It used to parse dailytvtorrents.org but it is offline at the moment, so now it parse eztv.it. (Not ezrss.it because their data seems not as good as EZTV)
 
-**Note 2:** I know that EZTV parsing is slow and not optimal, but it mostly done by crontab so it is not really a problem :p
-
 ##Requirements
 
 - PHP
+- php5-curl
 - transmission-daemon
 - transmission-remote
 
