@@ -17,19 +17,21 @@ class Utils{
     }
 
     public static function addShow( $name ){
-    	$info = self::getFeedInfo();
+    	$info = self::getFeedInfo(true);
     	$name = trim($name);
     	if( !empty($name) ){
-	    	$info->shows[] = $name;
+			array_push($info['shows'], $name);
 	    	self::setFeedInfo($info);
     	}
     }
 
     public static function removeShow( $name ){
-    	$info = self::getFeedInfo();
-    	$pos = array_search($name, $info->shows);
-    	if( $pos !== false ) unset($info->shows[$pos]);
-    	self::setFeedInfo($info);
+    	$info = self::getFeedInfo(true);
+    	$pos = array_search($name, $info['shows']);
+    	if( $pos !== false ){
+			unset($info['shows'][$pos]);
+			self::setFeedInfo($info);
+		}
     }
 
   	public static function addUrlDone( $url ){
