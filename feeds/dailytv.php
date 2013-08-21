@@ -46,7 +46,7 @@ class DailyTV implements Feed{
             if( !empty($show) ){
                 $xml = self::getShowFeed($show);
                 foreach( $xml->channel->item as $item ){
-                    if( strtotime($item->pubDate) >= strtotime(Utils::getDateMin()) ){
+                    if( strtotime($item->pubDate) >= strtotime(Utils::getMinDate()) ){
                         $link = $item->enclosure->attributes()->url;
                         $tmp = Utils::downloadTorrent($link, $preview);
                         if( isset($tmp) ) $added[] = $tmp;
