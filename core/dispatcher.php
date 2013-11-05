@@ -96,7 +96,7 @@ class Dispatcher{
     }
 
     private static function start_xbmc(){
-        System::startXBMC();
+        return System::startXBMC();
     }
 
     private static function status_xbmc(){
