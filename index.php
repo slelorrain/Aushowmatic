@@ -6,6 +6,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 		<title>Aushowmatic</title>
+		<link rel="shortcut icon" type="image/png" href="./assets/favicon.png" />
+		<link rel="apple-touch-icon" href="./assets/favicon-touch.png" />
 		<link rel="stylesheet" type="text/css" href="./assets/main.css" />
 		<link rel="stylesheet" type="text/css" href="./assets/yt-buttons.min.css" />
         <link rel="stylesheet" type="text/css" media="only screen and (max-device-width:1080px)" href="assets/handheld.css" />
