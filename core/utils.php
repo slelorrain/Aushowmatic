@@ -60,7 +60,7 @@ class Utils{
     	file_put_contents(FEED_INFO, json_encode($info));
    	}
 
-    public static function printLink( $link ){
+    public static function printLink( $link, $alt = null ){
         if( $link ){
         	if( strpos($link, 'magnet') !== false  ){
         		// Magnet link
@@ -72,6 +72,7 @@ class Utils{
 	            $exploded = explode("/", $link);
 	            $exploded = $exploded[count($exploded) - 1];
         	}
+            if( $alt != null && !is_int($alt) ) $exploded = $alt . ' - ' . $exploded;
             return '<a href="' . $link . '">' . $exploded . '</a>';
         } else{
             return '';

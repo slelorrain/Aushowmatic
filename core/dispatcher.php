@@ -77,8 +77,8 @@ class Dispatcher{
         $to_echo = '';
         $links = Utils::launchDownloads($preview);
         if( count($links) ){
-            foreach( $links as $link ){
-                $to_echo .= Utils::printLink($link) . '<br>';
+            foreach( $links as $key => $link ){
+                $to_echo .= Utils::printLink($link, $key) . '<br>';
             }
             $to_echo = 'Links that will be processed:<br>' . $to_echo;
         } else{
