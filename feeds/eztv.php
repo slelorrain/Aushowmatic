@@ -105,11 +105,11 @@ class EZTV implements Feed{
 		$nodes = $finderEpinfo->query("//*[contains(@class, 'epinfo')]");
 
 		foreach( $nodes as $item ){
-			// Date of realesed
-			$realeased = $item->parentNode->nextSibling->nextSibling->nextSibling->nextSibling->nodeValue;
+			// Date of released
+			$released = $item->parentNode->nextSibling->nextSibling->nextSibling->nextSibling->nodeValue;
 
-			// At the moment, for EZTV we only handle episodes with a realease date below a week
-			if( $realeased != ">1 week" ){
+			// At the moment, for EZTV we only handle episodes with a release date below a week
+			if( $released != ">1 week" ){
 
 				$episodeName = $item->nodeValue;
 				$infoLink = $item->parentNode->previousSibling->previousSibling->firstChild->nextSibling->getAttribute('href');
