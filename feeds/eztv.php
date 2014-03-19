@@ -53,6 +53,9 @@ class EZTV implements Feed{
 
 	// Create cURL handles, add them to a multi handle, and then run them in parallel
 	// Based on the example of http://php.net/manual/en/function.curl-multi-exec.php
+	//
+    // On php 5.3.18+, curl_multi_select() may return -1 forever until you call curl_multi_exec()
+    // See https://bugs.php.net/bug.php?id=63411 for more information
 	private static function doCurlMulti(){
 
 		// Create a new cURL multi handle
@@ -71,15 +74,12 @@ class EZTV implements Feed{
 		$active = null;
 		do {
 			$mrc = curl_multi_exec($mh, $active);
-		} while ($mrc == CURLM_CALL_MULTI_PERFORM);
+		} while( $mrc == CURLM_CALL_MULTI_PERFORM );
 
-		while ($active && $mrc == CURLM_OK) {
-			if (curl_multi_select($mh) != -1) {
-				do {
-					$mrc = curl_multi_exec($mh, $active);
-				} while ($mrc == CURLM_CALL_MULTI_PERFORM);
-			}
-		}
+        do {
+            curl_multi_select($mh); // non-busy wait for state change
+            $mrc = curl_multi_exec($mh, $active); // get new state
+        } while( $active );
 
 		// Retrieve the content of cURL handles and remove them
 		foreach( $handles as $ch ){
@@ -112,7 +112,14 @@ class EZTV implements Feed{
 			if( $released != ">1 week" ){
 
 				$episodeName = $item->nodeValue;
-				$infoLink = $item->parentNode->previousSibling->previousSibling->firstChild->nextSibling->getAttribute('href');
+
+                $infoLink = $item->parentNode->previousSibling->previousSibling->firstChild->nextSibling;
+                if( $infoLink->nodeType == XML_ELEMENT_NODE && $infoLink->hasAttribute('href') ){
+                    $infoLink = $infoLink->getAttribute('href');
+                }else{
+                    $infoLink = $episodeName;
+                }
+
 				$downloadLink = $item->parentNode->nextSibling->nextSibling->firstChild->getAttribute('href');
 
 				if( !array_key_exists($infoLink, $could_be_added) ){
