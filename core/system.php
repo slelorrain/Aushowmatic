@@ -1,11 +1,11 @@
 <?php
+define("PS_AUX_CMD", "ps aux | grep '".constant("XBMC_CMD")."'");
+
 class System{
 
-	const PS_AUX_CMD = "ps aux | grep 'sudo /usr/lib/xbmc/xbmc.bin'";
-
 	private static function isXBMCStarted(){
-        exec(self::PS_AUX_CMD, $ps_aux);
-		if( isset($ps_aux[0]) && !strstr($ps_aux[0], self::PS_AUX_CMD) ){
+        exec(PS_AUX_CMD, $ps_aux);
+		if( isset($ps_aux[0]) && strstr($ps_aux[0], XBMC_CMD) && !strstr($ps_aux[0], "grep") ){
 			return true;
 		}else{
 			return false;
@@ -14,7 +14,7 @@ class System{
 
     public static function startXBMC(){
 		if( !self::isXBMCStarted() ){
-			pclose(popen("clear ; sudo /usr/lib/xbmc/xbmc.bin &", "r"));
+			pclose(popen("clear ; ".XBMC_CMD." &", "r"));
 			return "Done";
 		}else{
 			return "XBMC is already started";
@@ -30,7 +30,7 @@ class System{
     }
 
     public static function killXBMC(){
-        exec(self::PS_AUX_CMD, $ps_aux);
+        exec(PS_AUX_CMD, $ps_aux);
         $ps_aux = array_filter(explode(" ", $ps_aux[0]));
         if( array_shift($ps_aux) == 'root' ){
             $pid = array_shift($ps_aux);
