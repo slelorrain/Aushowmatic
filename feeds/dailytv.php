@@ -1,7 +1,8 @@
 <?php
+
 class DailyTV implements Feed{
 
-	const PATH = "http://www.dailytvtorrents.org/";
+    const PATH = "http://www.dailytvtorrents.org/";
 
     public static function getFeedStats(){
         if( !isset($GLOBALS['rss_stats']) ){

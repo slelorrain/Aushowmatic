@@ -1,14 +1,14 @@
 <?php
-require_once(dirname(__FILE__).'/utils.php');
-require_once(dirname(__FILE__).'/feed.php');
-require_once(dirname(__FILE__).'/system.php');
-require_once(dirname(__FILE__).'/transmission.php');
+require_once(dirname(__FILE__) . '/utils.php');
+require_once(dirname(__FILE__) . '/feed.php');
+require_once(dirname(__FILE__) . '/system.php');
+require_once(dirname(__FILE__) . '/transmission.php');
 
-define('FEED_INFO', dirname(__FILE__).'/../files/_'.FEED_CLASS.'.json');
+define('FEED_INFO', dirname(__FILE__) . '/../files/_' . FEED_CLASS . '.json');
 
-function __autoload($class){
+function __autoload( $class ){
     $class = strtolower($class);
-    $path = dirname(__FILE__).'/../feeds/'.$class.'.php';
+    $path = dirname(__FILE__) . '/../feeds/' . $class . '.php';
     if( is_file($path) ) require_once($path);
 }
 
@@ -19,11 +19,11 @@ class Dispatcher{
 
         if( isset($_GET['a']) ){
             if( method_exists('Dispatcher', $_GET['a']) ){
-            	if( !isset($_GET['param']) ){
-                	$to_echo = call_user_func('self::'.$_GET['a']);
+                if( !isset($_GET['param']) ){
+                    $to_echo = call_user_func('self::' . $_GET['a']);
                 }else{
-                	$to_echo = call_user_func('self::'.$_GET['a'], $_GET['param']);
-               	}
+                    $to_echo = call_user_func('self::' . $_GET['a'], $_GET['param']);
+                }
             }else{
                 $to_echo = '404 - Not Found';
             }
@@ -81,7 +81,7 @@ class Dispatcher{
                 $to_echo .= Utils::printLink($link, $key) . '<br>';
             }
             $to_echo = 'Links that will be processed:<br>' . $to_echo;
-        } else{
+        }else{
             $to_echo = 'No link will be processed.';
         }
         return $to_echo;
@@ -110,7 +110,7 @@ class Dispatcher{
     private static function reboot(){
         System::reboot();
     }
-    
+
     private static function shutdown(){
         System::shutdown();
     }
@@ -140,4 +140,5 @@ class Dispatcher{
     }
 
 }
+
 ?>
