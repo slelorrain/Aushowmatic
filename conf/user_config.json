@@ -1,5 +1,5 @@
 {
-    "FEED_CLASS"            : "EZTV",
+    "FEED_CLASS"            : "showRSS",
     "PREFERRED_FORMAT"      : "720",
     "TRANSMISSION_CMD"      : "transmission-remote -n login:pass",
     "TRANSMISSION_WEB"      : "http://127.0.0.1:9091/transmission/web/",

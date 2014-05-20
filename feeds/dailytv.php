@@ -1,6 +1,6 @@
 <?php
 
-class DailyTV implements Feed{
+class DailyTV extends Feed{
 
     const PATH = "http://www.dailytvtorrents.org/";
 
@@ -33,29 +33,28 @@ class DailyTV implements Feed{
     }
 
     public static function getShowFeed( $show ){
-        if( isset($show) ){
-            $data = file_get_contents(self::PATH . 'rss/show/' . $show . '?onlynew=yes&norar=yes&minage=8&prefer=' . PREFERRED_FORMAT);
-            $xml = simplexml_load_string($data);
-            return $xml;
-        }
+        return self::PATH . 'rss/show/' . $show . '?onlynew=yes&norar=yes&minage=8&prefer=' . PREFERRED_FORMAT;
     }
 
-    public static function launchDownloads( $preview = false ){
-        $added = array();
+    public static function parsePage( $page, &$could_be_added ){
+        $xml = simplexml_load_string($page);
+        foreach( $xml->channel->item as $item ){
+            if( strtotime($item->pubDate) >= strtotime(Utils::getMinDate()) ){
 
-        foreach( Utils::getShowList() as $show ){
-            if( !empty($show) ){
-                $xml = self::getShowFeed($show);
-                foreach( $xml->channel->item as $item ){
-                    if( strtotime($item->pubDate) >= strtotime(Utils::getMinDate()) ){
-                        $link = $item->enclosure->attributes()->url;
-                        $tmp = Utils::downloadTorrent($link, $preview);
-                        if( isset($tmp) ) $added[] = $tmp;
+                $epTitle = $item->title;
+                $downloadLink = $item->link;
+
+                if( !array_key_exists($epTitle, $could_be_added) ){
+                    $could_be_added[$epTitle] = $downloadLink;
+                }else{
+                    // If current download link contains preferred format replace link previously set in array
+                    if( strpos($downloadLink, PREFERRED_FORMAT) !== false ){
+                        $could_be_added[$epTitle] = $downloadLink;
                     }
                 }
+
             }
         }
-        return $added;
     }
 
 }
