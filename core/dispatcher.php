@@ -46,7 +46,7 @@ class Dispatcher{
         $to_echo = '';
         foreach( Utils::getShowList() as $show ){
             $to_echo .= '<a target="_blank" href="' . Utils::getWebsiteLinkToShow($show) . '">' . $show . '</a> ';
-            $to_echo .= '(<a title="Delete ' . $show . '" onclick="return confirm(\'Are you sure?\')" href="./?a=remove_show&param=' . $show . '">&#10007;</a>)<br>';
+            $to_echo .= '(<a title="Delete ' . $show . '" onclick="return confirm(\'Are you sure?\')" href="./?a=remove_show&param=' . bin2hex($show) . '">&#10007;</a>)<br>';
         }
         return $to_echo;
     }
@@ -59,8 +59,8 @@ class Dispatcher{
     }
 
     private static function remove_show( $name = '' ){
-        if( isset($name) ){
-            Utils::removeShow($name);
+        if( !empty($name) ){
+            Utils::removeShow(hex2bin($name));
         }
         return self::shows();
     }
