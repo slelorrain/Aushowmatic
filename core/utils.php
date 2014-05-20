@@ -58,7 +58,9 @@ class Utils{
     }
 
     private static function setFeedInfo( $info ){
-        file_put_contents(FEED_INFO, json_encode($info));
+    	if ( is_writable(FEED_INFO) ) {
+    		file_put_contents(FEED_INFO, json_encode($info));
+    	}
     }
 
     public static function printLink( $link, $alt = null ){

@@ -36,6 +36,10 @@
 
         <div id="main_container" class="auto">
 
+            <?php if( !is_writable(FEED_INFO) ): ?>
+                <div class="alert">The feed file is not writable. Please update permissions.</div>
+            <?php endif; ?>
+
             <nav>
                 <ul class="yt-button-group left">
                     <li><a href="?a=done" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'done') echo 'active'; ?>">See links already processed</a></li>
@@ -50,7 +54,7 @@
                 <div class="clear"></div>
 
                 <form id="form_add_show" method="post" action="?a=add_show">
-                    <input id="name_of_show" name="name_of_show" type="text" placeholder="Show name..." />
+                    <input id="name_of_show" name="name_of_show" type="text" placeholder="Show name or ID..."/>
                     <input id="sumbit_add_show" class="yt-button big" type="submit" value="Add" />
                 </form>
             </nav>

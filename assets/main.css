@@ -20,6 +20,10 @@ header {
     color: #EEE;
 }
 
+nav {
+    margin-top: 24px;
+}
+
 footer {
     display: block;
     margin-top: 28px;
