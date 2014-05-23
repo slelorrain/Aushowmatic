@@ -21,16 +21,16 @@
 
         <div id="remote">
             <ul class="yt-button-group">
-                <li><a href="?a=transmission_stop" class="yt-button" title="Stop all torrents">&#8718;</a></li>
-                <li><a href="?a=transmission_start" class="yt-button" title="Start all torrents">&#9658;</a></li>
+                <li><a href="?a=transmission&param=stop" class="yt-button" title="Stop all torrents">&#8718;</a></li>
+                <li><a href="?a=transmission&param=start" class="yt-button" title="Start all torrents">&#9658;</a></li>
             </ul>
             <ul class="yt-button-group">
-                <li><a href="?a=transmission_turtle_on" class="yt-button" title="Turtle ON">Turtle</a></li>
-                <li><a href="?a=transmission_turtle_off" class="yt-button" title="Turtle OFF">&infin;</a></li>
+                <li><a href="?a=transmission&param=altSpeedOn" class="yt-button" title="Turtle ON">Turtle</a></li>
+                <li><a href="?a=transmission&param=altSpeedOff" class="yt-button" title="Turtle OFF">&infin;</a></li>
             </ul>
             <ul class="yt-button-group">
-                <li><a href="?a=transmission_list" class="yt-button" title="List torrents">&equiv;</a></li>
-                <li><a href="?a=transmission_info" class="yt-button" title="Info">&iexcl;</a></li>
+                <li><a href="?a=transmission&param=listFiles" class="yt-button" title="List torrents">&equiv;</a></li>
+                <li><a href="?a=transmission&param=info" class="yt-button" title="Info">&iexcl;</a></li>
                 <li><a href="<?php echo TRANSMISSION_WEB; ?>" target="_blank" class="yt-button" title="Transmission Web Interface">TWI</a></li>
             </ul>
         </div>

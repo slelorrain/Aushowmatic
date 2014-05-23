@@ -18,6 +18,8 @@ class Dispatcher{
         session_start();
 
         if( isset($_GET['a']) ){
+            $_SESSION['result'] = '';
+
             if( method_exists('Dispatcher', $_GET['a']) ){
                 if( !isset($_GET['param']) ){
                     $to_echo = call_user_func('self::' . $_GET['a']);
@@ -25,10 +27,10 @@ class Dispatcher{
                     $to_echo = call_user_func('self::' . $_GET['a'], $_GET['param']);
                 }
             }else{
-                $to_echo = '404 - Not Found';
+                $to_echo = 'Action not Found';
             }
 
-            $_SESSION['result'] = $to_echo;
+            if( !empty($to_echo) ) $_SESSION['result'] = $to_echo;
 
             // Avoid unwanted call of previous action
             header('Location: ./');
@@ -108,28 +110,8 @@ class Dispatcher{
         System::shutdown();
     }
 
-    private static function transmission_start(){
-        return Transmission::start();
-    }
-
-    private static function transmission_stop(){
-        return Transmission::stop();
-    }
-
-    private static function transmission_list(){
-        return Transmission::listFiles();
-    }
-
-    private static function transmission_info(){
-        return Transmission::info();
-    }
-
-    private static function transmission_turtle_on(){
-        return Transmission::altSpeedOn();
-    }
-
-    private static function transmission_turtle_off(){
-        return Transmission::altSpeedOff();
+    private static function transmission( $function ){
+        Transmission::call($function);
     }
 
 }

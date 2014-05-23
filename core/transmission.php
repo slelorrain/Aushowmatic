@@ -2,33 +2,45 @@
 
 class Transmission{
 
-    public static function add( $torrent ){
+    public static function call( $function ){
+        if( method_exists('Transmission', $function) ){
+            ob_start();
+            call_user_func('self::' . $function);
+            $_SESSION['result'] = ob_get_contents();
+            ob_end_clean();
+        }else{
+            $_SESSION['result'] = 'Transmission action not found';
+        }
+    }
+
+    private static function add( $torrent ){
         passthru(TRANSMISSION_CMD . ' -a ' . $torrent);
     }
 
-    public static function listFiles(){
-        return passthru(TRANSMISSION_CMD . ' -l');
+    private static function listFiles(){
+        passthru(TRANSMISSION_CMD . ' -l');
     }
 
-    public static function start(){
-        return passthru(TRANSMISSION_CMD . ' --torrent all --start');
+    private static function start(){
+        passthru(TRANSMISSION_CMD . ' --torrent all --start');
     }
 
-    public static function stop(){
-        return passthru(TRANSMISSION_CMD . ' --torrent all --stop');
+    private static function stop(){
+        passthru(TRANSMISSION_CMD . ' --torrent all --stop');
     }
 
-    public static function altSpeedOn(){
-        return passthru(TRANSMISSION_CMD . ' -as');
+    private static function altSpeedOn(){
+        passthru(TRANSMISSION_CMD . ' -as');
     }
 
-    public static function altSpeedOff(){
-        return passthru(TRANSMISSION_CMD . ' -AS');
+    private static function altSpeedOff(){
+        passthru(TRANSMISSION_CMD . ' -AS');
     }
 
-    public static function info(){
-        return passthru(TRANSMISSION_CMD . ' -si');
+    private static function info(){
+        passthru(TRANSMISSION_CMD . ' -si');
     }
+
 }
 
 ?>
