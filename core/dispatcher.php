@@ -15,7 +15,7 @@ function __autoload( $class ){
 class Dispatcher{
 
     public static function dispatch(){
-        $to_echo = '';
+        session_start();
 
         if( isset($_GET['a']) ){
             if( method_exists('Dispatcher', $_GET['a']) ){
@@ -27,9 +27,12 @@ class Dispatcher{
             }else{
                 $to_echo = '404 - Not Found';
             }
-        }
 
-        return $to_echo;
+            $_SESSION['result'] = $to_echo;
+
+            // Avoid unwanted call of previous action
+            header('Location: ./');
+        }
     }
 
     /* Functions that can be called by dispatcher */

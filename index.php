@@ -1,6 +1,7 @@
 <?php require_once(dirname(__FILE__) . '/conf/config.php'); ?>
 <?php require_once(dirname(__FILE__) . '/core/dispatcher.php'); ?>
 <?php $GLOBALS['start'] = microtime(true); ?>
+<?php Dispatcher::dispatch(); ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -59,7 +60,7 @@
                 </form>
             </nav>
 
-            <pre id="response"><?php echo Dispatcher::dispatch(); ?></pre>
+            <pre id="response"><?php if( isset($_SESSION['result']) ) echo $_SESSION['result']; ?></pre>
 
             <div id="bottom_links">
                 <div class="left">
