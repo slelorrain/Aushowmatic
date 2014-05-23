@@ -25,7 +25,7 @@ class EZTV extends Feed{
     }
 
     // This parsing is crappy but the DOM is crappy too :p
-    public static function parsePage( $page, &$could_be_added ){
+    public static function parsePage( $page, &$could_be_added, $use_min_date = true ){
 
         $dom = new DomDocument();
         // Warnings are muted because DOM retrieved is not valid
@@ -40,7 +40,7 @@ class EZTV extends Feed{
             $released = $item->parentNode->nextSibling->nextSibling->nextSibling->nextSibling->nodeValue;
 
             // At the moment, for EZTV we only handle episodes with a release date below a week
-            if( $released != ">1 week" ){
+            if( !$use_min_date || $released != ">1 week" ){
 
                 $episodeName = $item->nodeValue;
 

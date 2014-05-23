@@ -82,6 +82,19 @@ class Utils{
         }
     }
 
+    public static function printLinks( $links ){
+        if( count($links) ){
+            $to_echo = '';
+            foreach( $links as $key => $link ){
+                $to_echo .= Utils::printLink($link, $key) . '<br>';
+            }
+            $to_echo = 'Links that will be processed:<br>' . $to_echo;
+        }else{
+            $to_echo = 'No link will be processed.';
+        }
+        return $to_echo;
+    }
+
     public static function getClassForPercentage( $int ){
         $int = (int) $int;
         $class = 'normal';
@@ -99,9 +112,9 @@ class Utils{
         return $feed::getWebsiteLinkToShow($show_id);
     }
 
-    public static function launchDownloads( $preview = false ){
+    public static function launchDownloads( $preview = false, $show = null ){
         $feed = constant('FEED_CLASS');
-        return $feed::launchDownloads($preview);
+        return $feed::launchDownloads($preview, $show);
     }
 
     public static function downloadTorrent( $url, $preview ){

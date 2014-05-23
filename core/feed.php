@@ -3,16 +3,23 @@ require_once(dirname(__FILE__) . '/feed_interface.php');
 
 abstract class Feed implements FeedInterface{
 
-    public static function launchDownloads( $preview = false ){
+    public static function launchDownloads( $preview = false, $show = null ){
         $added = array();
         $could_be_added = array();
 
-        // Retrieve content of pages
-        $pages = self::doCurlMulti();
-
-        // Parse pages and retrieve links that could be added
-        foreach( $pages as $page ){
-            static::parsePage($page, $could_be_added);
+        if( isset($show) && !empty($show) ){
+            // Retrieve content of show page
+            $ch = self::getCurlHandle($show);
+            $page = curl_exec($ch);
+            curl_close($ch);
+            static::parsePage($page, $could_be_added, false);
+        }else{
+            // Retrieve content of pages
+            $pages = self::doCurlMulti();
+            // Parse pages and retrieve links that could be added
+            foreach( $pages as $page ){
+                static::parsePage($page, $could_be_added);
+            }
         }
 
         foreach( $could_be_added as $ep ){

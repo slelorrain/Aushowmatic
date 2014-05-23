@@ -36,10 +36,10 @@ class DailyTV extends Feed{
         return self::PATH . 'rss/show/' . $show . '?onlynew=yes&norar=yes&minage=8&prefer=' . PREFERRED_FORMAT;
     }
 
-    public static function parsePage( $page, &$could_be_added ){
+    public static function parsePage( $page, &$could_be_added, $use_min_date = true ){
         $xml = simplexml_load_string($page);
         foreach( $xml->channel->item as $item ){
-            if( strtotime($item->pubDate) >= strtotime(Utils::getMinDate()) ){
+            if( !$use_min_date || strtotime($item->pubDate) >= strtotime(Utils::getMinDate()) ){
 
                 $epTitle = $item->title;
                 $downloadLink = $item->link;

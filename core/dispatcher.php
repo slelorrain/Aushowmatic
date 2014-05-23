@@ -49,7 +49,9 @@ class Dispatcher{
         $to_echo = '';
         foreach( Utils::getShowList() as $show ){
             $to_echo .= '<a target="_blank" href="' . Utils::getWebsiteLinkToShow($show) . '">' . $show . '</a> ';
-            $to_echo .= '(<a title="Delete ' . $show . '" onclick="return confirm(\'Are you sure?\')" href="./?a=remove_show&param=' . bin2hex($show) . '">&#10007;</a>)<br>';
+            $to_echo .= '( <a title="Preview the show: ' . $show . '" href="./?a=preview&param=' . bin2hex($show) . '">?</a>';
+            $to_echo .= ' | <a title="Download the show: ' . $show . '" onclick="return confirm(\'Are you sure?\')" href="./?a=launch&param=' . bin2hex($show) . '">&#9660;</a>';
+            $to_echo .= ' | <a title="Delete ' . $show . '" onclick="return confirm(\'Are you sure?\')" href="./?a=remove_show&param=' . bin2hex($show) . '">&#10007;</a> )<br>';
         }
         return $to_echo;
     }
@@ -61,33 +63,21 @@ class Dispatcher{
         return self::shows();
     }
 
-    private static function remove_show( $name = '' ){
-        if( !empty($name) ){
+    private static function remove_show( $name ){
+        if( isset($name) && !empty($name) ){
             Utils::removeShow(hex2bin($name));
         }
         return self::shows();
     }
 
-    private static function preview(){
-        return self::launchDownloads(true);
+    private static function preview( $name = null ){
+        $links = Utils::launchDownloads(true, hex2bin($name));
+        return Utils::printLinks($links);
     }
 
-    private static function launch(){
-        return self::launchDownloads();
-    }
-
-    private static function launchDownloads( $preview = false ){
-        $to_echo = '';
-        $links = Utils::launchDownloads($preview);
-        if( count($links) ){
-            foreach( $links as $key => $link ){
-                $to_echo .= Utils::printLink($link, $key) . '<br>';
-            }
-            $to_echo = 'Links that will be processed:<br>' . $to_echo;
-        }else{
-            $to_echo = 'No link will be processed.';
-        }
-        return $to_echo;
+    private static function launch( $name = null ){
+        $links = Utils::launchDownloads(false, hex2bin($name));
+        return Utils::printLinks($links);
     }
 
     private static function update_date(){
