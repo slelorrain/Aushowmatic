@@ -1,4 +1,3 @@
-<?php require_once(dirname(__FILE__) . '/conf/config.php'); ?>
 <?php require_once(dirname(__FILE__) . '/core/dispatcher.php'); ?>
 
 <?php $feed = constant('FEED_CLASS'); ?>

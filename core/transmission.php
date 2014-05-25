@@ -6,11 +6,12 @@ class Transmission{
         if( method_exists('Transmission', $function) ){
             ob_start();
             call_user_func('self::' . $function);
-            $_SESSION['result'] = ob_get_contents();
+            $to_echo = ob_get_contents();
             ob_end_clean();
         }else{
-            $_SESSION['result'] = 'Transmission action not found';
+            $to_echo = 'Transmission action not found';
         }
+        return $to_echo;
     }
 
     private static function add( $torrent ){

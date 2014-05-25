@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__FILE__) . '/../conf/config.php');
 require_once(dirname(__FILE__) . '/utils.php');
 require_once(dirname(__FILE__) . '/feed.php');
 require_once(dirname(__FILE__) . '/system.php');
@@ -18,8 +19,6 @@ class Dispatcher{
         session_start();
 
         if( isset($_GET['a']) ){
-            $_SESSION['result'] = '';
-
             if( method_exists('Dispatcher', $_GET['a']) ){
                 if( !isset($_GET['param']) ){
                     $to_echo = call_user_func('self::' . $_GET['a']);
@@ -30,10 +29,13 @@ class Dispatcher{
                 $to_echo = 'Action not Found';
             }
 
-            if( !empty($to_echo) ) $_SESSION['result'] = $to_echo;
+            $_SESSION['result'] = $to_echo;
+            Utils::setGeneratedIn();
 
             // Avoid unwanted call of previous action
             header('Location: ./');
+        }else{
+            if( !isset($_SESSION['generated_in']) ) Utils::setGeneratedIn();
         }
     }
 
@@ -49,18 +51,18 @@ class Dispatcher{
 
     private static function shows(){
         $to_echo = '';
-        foreach( Utils::getShowList() as $show ){
-            $to_echo .= '<a target="_blank" href="' . Utils::getWebsiteLinkToShow($show) . '">' . $show . '</a> ';
-            $to_echo .= '( <a title="Preview the show: ' . $show . '" href="./?a=preview&param=' . bin2hex($show) . '">?</a>';
-            $to_echo .= ' | <a title="Download the show: ' . $show . '" onclick="return confirm(\'Are you sure?\')" href="./?a=launch&param=' . bin2hex($show) . '">&#9660;</a>';
-            $to_echo .= ' | <a title="Delete ' . $show . '" onclick="return confirm(\'Are you sure?\')" href="./?a=remove_show&param=' . bin2hex($show) . '">&#10007;</a> )<br>';
+        foreach( Utils::getShowList() as $label => $show ){
+            $to_echo .= '<a target="_blank" href="' . Utils::getWebsiteLinkToShow($show) . '">' . $label . ' (' . $show . ')</a> ';
+            $to_echo .= '( <a title="Preview the show" href="./?a=preview&param=' . bin2hex($show) . '">?</a>';
+            $to_echo .= ' | <a title="Download the show" onclick="return confirm(\'Are you sure?\')" href="./?a=launch&param=' . bin2hex($show) . '">&#9660;</a>';
+            $to_echo .= ' | <a title="Delete" onclick="return confirm(\'Are you sure?\')" href="./?a=remove_show&param=' . bin2hex($show) . '">&#10007;</a> )<br>';
         }
         return $to_echo;
     }
 
     private static function add_show(){
-        if( isset($_POST['name_of_show']) ){
-            Utils::addShow($_POST['name_of_show']);
+        if( isset($_POST['show_name']) ){
+            Utils::addShow($_POST['show_name'], $_POST['show_label']);
         }
         return self::shows();
     }
@@ -111,7 +113,7 @@ class Dispatcher{
     }
 
     private static function transmission( $function ){
-        Transmission::call($function);
+        return Transmission::call($function);
     }
 
 }

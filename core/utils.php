@@ -17,11 +17,16 @@ class Utils{
         return $info->min_date;
     }
 
-    public static function addShow( $name ){
+    public static function addShow( $name, $label = '' ){
         $info = self::getFeedInfo(true);
         $name = trim($name);
         if( !empty($name) ){
-            array_push($info['shows'], $name);
+            $label = trim($label);
+            if( !empty($label) && !isset($info['shows'][$label]) ){
+                $info['shows'][$label] = $name;
+            }else{
+                $info['shows'][] = $name;
+            }
             self::setFeedInfo($info);
         }
     }
@@ -58,9 +63,9 @@ class Utils{
     }
 
     private static function setFeedInfo( $info ){
-    	if ( is_writable(FEED_INFO) ) {
-    		file_put_contents(FEED_INFO, json_encode($info));
-    	}
+        if( is_writable(FEED_INFO) ){
+            file_put_contents(FEED_INFO, json_encode($info));
+        }
     }
 
     public static function printLink( $link, $alt = null ){
@@ -129,6 +134,10 @@ class Utils{
         }
 
         return $added_now;
+    }
+
+    public static function setGeneratedIn(){
+        $_SESSION['generated_in'] = round(microtime(true) - $GLOBALS['start'], 4);
     }
 
 }

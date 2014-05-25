@@ -1,6 +1,5 @@
-<?php require_once(dirname(__FILE__) . '/conf/config.php'); ?>
-<?php require_once(dirname(__FILE__) . '/core/dispatcher.php'); ?>
 <?php $GLOBALS['start'] = microtime(true); ?>
+<?php require_once(dirname(__FILE__) . '/core/dispatcher.php'); ?>
 <?php Dispatcher::dispatch(); ?>
 <!DOCTYPE html>
 <html>
@@ -55,8 +54,9 @@
                 <div class="clear"></div>
 
                 <form id="form_add_show" method="post" action="?a=add_show">
-                    <input id="name_of_show" name="name_of_show" type="text" placeholder="Show name or ID..."/>
-                    <input id="sumbit_add_show" class="yt-button big" type="submit" value="Add" />
+                    <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
+                    <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
+                    <input id="sumbit_add_show" class="yt-button big" type="submit" value="Add"/>
                 </form>
             </nav>
 
@@ -89,7 +89,7 @@
 
         <footer></footer>
 
-        <div id="generated">Generated in <?php echo round(microtime(true) - $GLOBALS['start'], 4); ?>s</div>
+        <div id="generated">Generated in <?php echo $_SESSION['generated_in']; ?>s</div>
 
         <script src="./assets/main.js"></script>
 
