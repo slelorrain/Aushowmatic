@@ -42,14 +42,14 @@
 
             <nav>
                 <ul class="yt-button-group left">
-                    <li><a href="?a=done" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'done') echo 'active'; ?>">See links already processed</a></li>
-                    <li><a href="?a=shows" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'shows') echo 'active'; ?>">See shows added</a></li>
+                    <li><a href="?a=done" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'done') echo 'active'; ?>">Links already processed</a></li>
+                    <li><a href="?a=shows" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'shows') echo 'active'; ?>">Shows added</a></li>
                     <li><a id="add_show" href="#add_show" class="yt-button">Add a show</a></li>
                 </ul>
 
                 <ul class="yt-button-group right">
-                    <li><a href="?a=preview" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'preview') echo 'active'; ?>">See links to be processed</a></li>
-                    <li><a href="?a=launch" class="yt-button primary <?php if(isset($_GET['a']) && $_GET['a'] == 'launch') echo 'active'; ?>">Launch downloading</a></li>
+                    <li><a href="?a=preview" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'preview') echo 'active'; ?>">Preview downloads</a></li>
+                    <li><a href="?a=launch" class="yt-button primary <?php if(isset($_GET['a']) && $_GET['a'] == 'launch') echo 'active'; ?>">Launch downloads</a></li>
                 </ul>
                 <div class="clear"></div>
 
