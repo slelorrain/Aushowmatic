@@ -56,7 +56,7 @@
                 <form id="form_add_show" method="post" action="?a=add_show">
                     <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
                     <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
-                    <input id="sumbit_add_show" class="yt-button big" type="submit" value="Add"/>
+                    <input id="sumbit_add_show" class="yt-button" type="submit" value="Add"/>
                 </form>
             </nav>
 

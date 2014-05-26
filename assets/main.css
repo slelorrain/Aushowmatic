@@ -66,9 +66,13 @@ h1 {
 }
 
 #show_name, #show_label {
-    height: 26px;
-    font-size: 24px;
-    padding: 2px 0 0 4px;
+    border: 1px solid #BBB;
+    height: 23px;
+    padding: 1px 4px;
+}
+
+#sumbit_add_show {
+    height: 27px;
 }
 
 #response {
