@@ -11,10 +11,6 @@ nav .yt-button-group:first-child {
     margin-bottom: 16px;
 }
 
-#sumbit_add_show {
-    margin-top: 10px;
-}
-
 #remote a {
     font-size: 12px;
 }
@@ -28,6 +24,6 @@ nav .yt-button-group:first-child {
     margin-top: 4%;
 }
 
-.yt-button {
+#show_name, #show_label, .yt-button {
     zoom: 1.5;
 }
