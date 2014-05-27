@@ -14,7 +14,7 @@ class Transmission{
         return $to_echo;
     }
 
-    private static function add( $torrent ){
+    public static function add( $torrent ){
         passthru(TRANSMISSION_CMD . ' -a ' . $torrent);
     }
 

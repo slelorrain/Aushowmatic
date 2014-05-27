@@ -42,7 +42,7 @@ class Utils{
 
     public static function addUrlDone( $url ){
         $info = self::getFeedInfo(true);
-        array_unshift($info['done'], $url);
+        array_unshift($info['done'], (string) $url);
         self::setFeedInfo($info);
     }
 
