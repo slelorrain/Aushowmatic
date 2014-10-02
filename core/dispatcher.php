@@ -7,11 +7,11 @@ require_once(dirname(__FILE__) . '/transmission.php');
 
 define('FEED_INFO', dirname(__FILE__) . '/../files/_' . FEED_CLASS . '.json');
 
-function __autoload( $class ){
+spl_autoload_register(function ( $class ){
     $class = strtolower($class);
     $path = dirname(__FILE__) . '/../feeds/' . $class . '.php';
     if( is_file($path) ) require_once($path);
-}
+});
 
 class Dispatcher{
 
