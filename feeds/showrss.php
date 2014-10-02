@@ -4,18 +4,6 @@ class showRSS extends Feed{
 
     const PATH = "http://showrss.info/";
 
-    public static function getFeedStats(){
-        return "n/a";
-    }
-
-    public static function getFeedUsageInPercentage(){
-        return -1;
-    }
-
-    public static function getFeedTimeRemaining(){
-        return "n/a";
-    }
-
     public static function getWebsiteLinkToShow( $show_id ){
         return self::PATH . '?cs=browse&show=' . $show_id;
     }

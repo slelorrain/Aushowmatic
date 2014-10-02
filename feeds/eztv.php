@@ -4,18 +4,6 @@ class EZTV extends Feed{
 
     const PATH = "http://eztv.it/";
 
-    public static function getFeedStats(){
-        return "n/a";
-    }
-
-    public static function getFeedUsageInPercentage(){
-        return -1;
-    }
-
-    public static function getFeedTimeRemaining(){
-        return "n/a";
-    }
-
     public static function getWebsiteLinkToShow( $show_id ){
         return self::PATH . 'shows/' . $show_id;
     }

@@ -100,18 +100,6 @@ class Utils{
         return $to_echo;
     }
 
-    public static function getClassForPercentage( $int ){
-        $int = (int) $int;
-        $class = 'normal';
-        if( $int >= 70 ){
-            $class = 'warning';
-            if( $int >= 90 ){
-                $class = 'alert';
-            }
-        }
-        return $class;
-    }
-
     public static function getWebsiteLinkToShow( $show_id ){
         $feed = constant('FEED_CLASS');
         return $feed::getWebsiteLinkToShow($show_id);

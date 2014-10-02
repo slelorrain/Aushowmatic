@@ -3,8 +3,6 @@
 // Others
 $(document).ready(function () {
 
-    if( $('footer').length ) loadFeedStats();
-
     $('#add_show').click(function () {
         $(this).toggleClass('active');
         $('#form_add_show').toggle();
@@ -16,10 +14,3 @@ $(document).ready(function () {
     });
 
 });
-
-function loadFeedStats(){
-    var url = './_stats.php';
-    $.get(url, function(resPlugin){
-        $('footer').hide().html(resPlugin).fadeIn(1000);
-    });
-}

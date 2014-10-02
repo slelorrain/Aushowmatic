@@ -25,9 +25,8 @@ nav {
 }
 
 footer {
-    display: block;
     margin-top: 28px;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
     font-style: italic;
 }
@@ -94,12 +93,6 @@ h1 {
 #hidden_actions {
     display: none;
     margin-top: 48px;
-}
-
-#generated {
-    font-size: 10px;
-    font-style: italic;
-    margin-top: 10px;;
 }
 
 /*** Classes ***/

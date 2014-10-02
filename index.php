@@ -87,9 +87,7 @@
 
         </div>
 
-        <footer></footer>
-
-        <div id="generated">Generated in <?php echo $_SESSION['generated_in']; ?>s</div>
+        <footer>Min. date : <?php echo Utils::getMinDate(); ?> / Generated in <?php echo $_SESSION['generated_in']; ?>s</footer>
 
         <script src="./assets/main.js"></script>
 
