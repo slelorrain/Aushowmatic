@@ -1,6 +1,6 @@
 <?php
 
-class showRSS extends Feed{
+class ShowRSS extends Feed{
 
     const PATH = "http://showrss.info/";
 
