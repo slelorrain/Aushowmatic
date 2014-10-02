@@ -17,6 +17,7 @@ class Dispatcher{
 
     public static function dispatch(){
         session_start();
+        $_SESSION['start'] = microtime(true);
 
         if( isset($_GET['a']) ){
             if( method_exists('Dispatcher', $_GET['a']) ){

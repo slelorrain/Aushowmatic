@@ -125,7 +125,7 @@ class Utils{
     }
 
     public static function setGeneratedIn(){
-        $_SESSION['generated_in'] = round(microtime(true) - $GLOBALS['start'], 4);
+        $_SESSION['generated_in'] = round(microtime(true) - $_SESSION['start'], 4);
     }
 
 }

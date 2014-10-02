@@ -1,4 +1,3 @@
-<?php $GLOBALS['start'] = microtime(true); ?>
 <?php require_once(dirname(__FILE__) . '/core/dispatcher.php'); ?>
 <?php Dispatcher::dispatch(); ?>
 <!DOCTYPE html>
