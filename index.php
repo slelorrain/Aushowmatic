@@ -52,7 +52,7 @@
                 </ul>
                 <div class="clear"></div>
 
-                <form id="form_add_show" method="post" action="?a=add_show">
+                <form id="form_add_show" method="post" action="?a=addShow">
                     <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
                     <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
                     <input id="sumbit_add_show" class="yt-button" type="submit" value="Add"/>
@@ -63,19 +63,19 @@
 
             <div id="bottom_links">
                 <div class="left">
-                    <a href="?a=update_date" class="yt-button">Update min. date</a>
-                    <a href="?a=empty_done" class="yt-button danger">Empty processed links</a>
+                    <a href="?a=updateDate" class="yt-button">Update min. date</a>
+                    <a href="?a=emptyDone" class="yt-button danger">Empty processed links</a>
                 </div>
                 <?php if( SYSTEM_CMDS_ENABLED ): ?>
 	                <div class="right">
 	                    <ul class="yt-button-group">
-	                        <li><a href="?a=status_xbmc" class="yt-button">XBMC Status</a></li>
-	                        <li><a href="?a=start_xbmc" class="yt-button primary">Start XBMC</a></li>
+	                        <li><a href="?a=statusXbmc" class="yt-button">XBMC Status</a></li>
+	                        <li><a href="?a=startXbmc" class="yt-button primary">Start XBMC</a></li>
 	                    </ul>
 	                    <a id="show_hidden_actions" href="#bottom_links" class="yt-button">&#9660;</a>
 
 	                    <div id="hidden_actions">
-	                        <a href="?a=kill_xbmc" class="yt-button danger big">Kill XBMC</a>
+	                        <a href="?a=killXbmc" class="yt-button danger big">Kill XBMC</a>
 	                        <a href="?a=reboot" class="yt-button danger big">Reboot</a>
 	                        <a href="?a=shutdown" class="yt-button danger big">Shutdown</a>
 	                    </div>

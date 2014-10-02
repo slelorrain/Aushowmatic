@@ -56,19 +56,19 @@ class Dispatcher{
             $to_echo .= '<a target="_blank" href="' . Utils::getWebsiteLinkToShow($show) . '">' . $label . ' (' . $show . ')</a> ';
             $to_echo .= '( <a title="Preview the show" href="./?a=preview&param=' . bin2hex($show) . '">?</a>';
             $to_echo .= ' | <a title="Download the show" onclick="return confirm(\'Are you sure?\')" href="./?a=launch&param=' . bin2hex($show) . '">&#9660;</a>';
-            $to_echo .= ' | <a title="Delete" onclick="return confirm(\'Are you sure?\')" href="./?a=remove_show&param=' . bin2hex($show) . '">&#10007;</a> )<br>';
+            $to_echo .= ' | <a title="Delete" onclick="return confirm(\'Are you sure?\')" href="./?a=removeShow&param=' . bin2hex($show) . '">&#10007;</a> )<br>';
         }
         return $to_echo;
     }
 
-    private static function add_show(){
+    private static function addShow(){
         if( isset($_POST['show_name']) ){
             Utils::addShow($_POST['show_name'], $_POST['show_label']);
         }
         return self::shows();
     }
 
-    private static function remove_show( $name ){
+    private static function removeShow( $name ){
         if( isset($name) && !empty($name) ){
             Utils::removeShow(hex2bin($name));
         }
@@ -85,23 +85,23 @@ class Dispatcher{
         return Utils::printLinks($links);
     }
 
-    private static function update_date(){
+    private static function updateDate(){
         Utils::updateDate();
     }
 
-    private static function empty_done(){
+    private static function emptyDone(){
         Utils::emptyDoneList();
     }
 
-    private static function start_xbmc(){
+    private static function startXbmc(){
         return System::startXBMC();
     }
 
-    private static function status_xbmc(){
+    private static function statusXbmc(){
         return System::getStatusOfXBMC();
     }
 
-    private static function kill_xbmc(){
+    private static function killXbmc(){
         System::killXBMC();
     }
 
