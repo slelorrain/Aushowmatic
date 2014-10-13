@@ -3,14 +3,13 @@
 // Others
 $(document).ready(function () {
 
-    $('#add_show').click(function () {
-        $(this).toggleClass('active');
-        $('#form_add_show').toggle();
-    });
-
-    $('#show_hidden_actions').click(function () {
-        $(this).toggleClass('active');
-        $('#hidden_actions').toggle();
-    });
+    $('#add_show').on('click', { toggle: '#form_add_show' }, showSomething);
+    $('#add_torrent').on('click', { toggle: '#form_add_torrent' }, showSomething);
+    $('#show_hidden_actions').on('click', { toggle: '#hidden_actions' }, showSomething);
 
 });
+
+function showSomething(event) {
+    $(this).toggleClass('active');
+    $(event.data.toggle).toggle();
+}

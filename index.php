@@ -44,6 +44,7 @@
                     <li><a href="?a=done" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'done') echo 'active'; ?>">Links already processed</a></li>
                     <li><a href="?a=shows" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'shows') echo 'active'; ?>">Shows added</a></li>
                     <li><a id="add_show" href="#add_show" class="yt-button">Add a show</a></li>
+                    <li><a id="add_torrent" href="#add_torrent" class="yt-button">Add a torrent</a></li>
                 </ul>
 
                 <ul class="yt-button-group right">
@@ -57,6 +58,11 @@
                     <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
                     <input id="sumbit_add_show" class="yt-button" type="submit" value="Add"/>
                 </form>
+
+                <form id="form_add_torrent" method="post" action="?a=addTorrent">
+                    <input id="torrent_link" name="torrent_link" type="text" placeholder="Torrent link"/>
+                    <input id="sumbit_add_torrent" class="yt-button" type="submit" value="Add"/>
+                </form>
             </nav>
 
             <pre id="response"><?php if( isset($_SESSION['result']) ) echo $_SESSION['result']; ?></pre>
@@ -68,6 +74,7 @@
                 </div>
                 <?php if( SYSTEM_CMDS_ENABLED ): ?>
 	                <div class="right">
+                        <a href="?a=diskUsage" class="yt-button">Disk space usage</a>
 	                    <ul class="yt-button-group">
 	                        <li><a href="?a=statusXbmc" class="yt-button">XBMC Status</a></li>
 	                        <li><a href="?a=startXbmc" class="yt-button primary">Start XBMC</a></li>

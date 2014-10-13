@@ -24,6 +24,6 @@ nav .yt-button-group:first-child {
     margin-top: 4%;
 }
 
-#show_name, #show_label, .yt-button {
+#show_name, #show_label, #torrent_link, .yt-button {
     zoom: 1.5;
 }

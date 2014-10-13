@@ -46,6 +46,10 @@ class System{
         pclose(popen("sudo reboot &", "r"));
     }
 
+    public static function diskUsage(){
+        return Utils::execCommand("df -h");
+    }
+
 }
 
 ?>

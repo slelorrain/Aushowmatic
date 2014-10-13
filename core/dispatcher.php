@@ -75,6 +75,13 @@ class Dispatcher{
         return self::shows();
     }
 
+    private static function addTorrent(){
+        if( isset($_POST['torrent_link']) ){
+            Utils::downloadTorrent($_POST['torrent_link'], false);
+        }
+        return self::done();
+    }
+
     private static function preview( $name = null ){
         $links = Utils::launchDownloads(true, hex2bin($name));
         return Utils::printLinks($links);
@@ -111,6 +118,10 @@ class Dispatcher{
 
     private static function shutdown(){
         System::shutdown();
+    }
+
+    private static function diskUsage(){
+        return System::diskUsage();
     }
 
     private static function transmission( $function ){

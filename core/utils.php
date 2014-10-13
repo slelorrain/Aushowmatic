@@ -79,6 +79,8 @@ class Utils{
                 // Normal link
                 $exploded = explode("/", $link);
                 $exploded = $exploded[count($exploded) - 1];
+                $exploded = explode(".torrent", $exploded);
+                $exploded = $exploded[0];
             }
             if( $alt != null && !is_int($alt) ) $exploded = $alt . ' - ' . $exploded;
             return '<a href="' . $link . '">' . $exploded . '</a>';
@@ -113,9 +115,9 @@ class Utils{
     public static function downloadTorrent( $url, $preview ){
         $added_now = null;
 
-        if( !in_array($url, self::getDoneList()) ){
+        if( !empty($url) && !in_array($url, self::getDoneList()) ){
             if( !$preview ){
-                Transmission::add($url);
+                Transmission::call('add', $url);
                 self::addUrlDone($url);
             }
             $added_now = $url;
@@ -126,6 +128,14 @@ class Utils{
 
     public static function setGeneratedIn(){
         $_SESSION['generated_in'] = round(microtime(true) - $_SESSION['start'], 4);
+    }
+
+    public static function execCommand( $command ){
+        ob_start();
+        passthru($command);
+        $to_echo = ob_get_contents();
+        ob_end_clean();
+        return $to_echo;
     }
 
 }
