@@ -4,10 +4,10 @@ class Transmission{
 
     public static function call( $function, $param = null ){
         if( method_exists('Transmission', $function) ){
-            if( $param != null ){
-                $to_call = call_user_func('self::' . $function, $param);
-            }else{
+            if( is_null($param) ){
                 $to_call = call_user_func('self::' . $function);
+            }else{
+                $to_call = call_user_func('self::' . $function, $param);
             }
             $to_echo = Utils::execCommand($to_call);
         }else{

@@ -82,7 +82,7 @@ class Utils{
                 $exploded = explode(".torrent", $exploded);
                 $exploded = $exploded[0];
             }
-            if( $alt != null && !is_int($alt) ) $exploded = $alt . ' - ' . $exploded;
+            if( !is_null($alt) && !is_int($alt) ) $exploded = $alt . ' - ' . $exploded;
             return '<a href="' . $link . '">' . $exploded . '</a>';
         }else{
             return '';
