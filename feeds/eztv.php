@@ -14,10 +14,11 @@ class EZTV extends Feed{
 
     // This parsing is crappy but the DOM is crappy too :p
     public static function parsePage( $page, &$could_be_added, $use_min_date = true ){
-
         $dom = new DomDocument();
         // Warnings are muted because DOM retrieved is not valid
-        @$dom->loadHTML($page);
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($page);
+        libxml_clear_errors();
         $finderEpinfo = new DomXPath($dom);
 
         // Find lines corresponding to an episode

@@ -13,7 +13,10 @@ class ShowRSS extends Feed{
     }
 
     public static function parsePage( $page, &$could_be_added, $use_min_date = true ){
-        if( $xml = @simplexml_load_string($page) ){
+        libxml_use_internal_errors(true);
+        $xml = simplexml_load_string($page);
+        libxml_clear_errors();
+        if( $xml ){
             foreach( $xml->channel->item as $item ){
                 if( !$use_min_date || strtotime($item->pubDate) >= strtotime(Utils::getMinDate()) ){
 
