@@ -2,7 +2,7 @@
 
 class EZTV extends Feed{
 
-    const PATH = "http://eztv.it/";
+    const PATH = "https://eztv.it/";
 
     public static function getWebsiteLinkToShow( $show_id ){
         return self::PATH . 'shows/' . $show_id;
