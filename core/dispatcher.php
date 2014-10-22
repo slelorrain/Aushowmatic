@@ -76,10 +76,16 @@ class Dispatcher{
     }
 
     private static function addTorrent(){
+        $to_echo = 'Error: invalid or corrupt torrent file';
+
         if( isset($_POST['torrent_link']) ){
-            Utils::downloadTorrent($_POST['torrent_link'], false);
+            $url_added = Utils::downloadTorrent($_POST['torrent_link'], false);
+
+            if( !is_null($url_added) && $_SESSION['last_cmd_status'] == "0" ){
+                $to_echo = 'Torrent successfully added<br>' . self::done();
+            }
         }
-        return self::done();
+        return $to_echo;
     }
 
     private static function preview( $name = null ){

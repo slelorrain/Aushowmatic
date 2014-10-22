@@ -113,17 +113,22 @@ class Utils{
     }
 
     public static function downloadTorrent( $url, $preview ){
-        $added_now = null;
+        $added = null;
+        $url = trim($url);
 
         if( !empty($url) && !in_array($url, self::getDoneList()) ){
             if( !$preview ){
                 Transmission::call('add', $url);
-                self::addUrlDone($url);
+                if( $_SESSION['last_cmd_status'] == "0" ){
+                    self::addUrlDone($url);
+                    $added = $url;
+                }
+            }else{
+                $added = $url;
             }
-            $added_now = $url;
         }
 
-        return $added_now;
+        return $added;
     }
 
     public static function setGeneratedIn(){
@@ -132,7 +137,7 @@ class Utils{
 
     public static function execCommand( $command ){
         ob_start();
-        passthru($command);
+        passthru(escapeshellcmd($command), $_SESSION['last_cmd_status']);
         $to_echo = ob_get_contents();
         ob_end_clean();
         return $to_echo;
