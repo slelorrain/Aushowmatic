@@ -1,35 +1,35 @@
 <?php
-define("PS_AUX_CMD", "ps aux | grep '" . constant("XBMC_CMD") . "'");
+define("PS_AUX_CMD", "ps aux | grep '" . constant("KODI_CMD") . "'");
 
 class System{
 
-    private static function isXBMCStarted(){
+    private static function isKodiStarted(){
         exec(PS_AUX_CMD, $ps_aux);
-        if( isset($ps_aux[0]) && strstr($ps_aux[0], XBMC_CMD) && !strstr($ps_aux[0], "grep") ){
+        if( isset($ps_aux[0]) && strstr($ps_aux[0], KODI_CMD) && !strstr($ps_aux[0], "grep") ){
             return true;
         }else{
             return false;
         }
     }
 
-    public static function startXBMC(){
-        if( !self::isXBMCStarted() ){
-            pclose(popen("clear ; " . XBMC_CMD . " &", "r"));
+    public static function startKodi(){
+        if( !self::isKodiStarted() ){
+            pclose(popen("clear ; " . KODI_CMD . " &", "r"));
             return "Done";
         }else{
-            return "XBMC is already started";
+            return "Kodi is already started";
         }
     }
 
-    public static function getStatusOfXBMC(){
-        if( self::isXBMCStarted() ){
-            return "XBMC is started";
+    public static function getStatusOfKodi(){
+        if( self::isKodiStarted() ){
+            return "Kodi is started";
         }else{
-            return "XBMC is not started";
+            return "Kodi is not started";
         }
     }
 
-    public static function killXBMC(){
+    public static function killKodi(){
         exec(PS_AUX_CMD, $ps_aux);
         $ps_aux = array_filter(explode(" ", $ps_aux[0]));
         if( array_shift($ps_aux) == 'root' ){

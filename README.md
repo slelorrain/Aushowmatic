@@ -48,10 +48,10 @@ And add a rule looking like this one (check at least the path):
 Check that your server application have write access on ./files/*. If not, you must update permissions.
 
 ###Step 4 (optional):
-If you want to be able to execute systems commands (like start/stop XBMC, poweroff or reboot) by sudo, you have to add some permissions by editing /etc/sudoers:
+If you want to be able to execute systems commands (like start/stop Kodi, poweroff or reboot) by sudo, you have to add some permissions by editing /etc/sudoers:
 
 
-	www-data ALL=NOPASSWD: /usr/lib/xbmc/xbmc.bin, /bin/kill, /sbin/poweroff, /sbin/reboot, /usr/bin/du
+	www-data ALL=NOPASSWD: /usr/lib/kodi/kodi.bin, /bin/kill, /sbin/poweroff, /sbin/reboot, /usr/bin/du
 
 
 WARNING: THIS IS NOT RECOMMENDED IF YOUR DEVICE IS ACCESSIBLE FROM WAN

@@ -106,16 +106,16 @@ class Dispatcher{
         Utils::emptyDoneList();
     }
 
-    private static function startXbmc(){
-        return System::startXBMC();
+    private static function startKodi(){
+        return System::startKodi();
     }
 
-    private static function statusXbmc(){
-        return System::getStatusOfXBMC();
+    private static function statusKodi(){
+        return System::getStatusOfKodi();
     }
 
-    private static function killXbmc(){
-        System::killXBMC();
+    private static function killKodi(){
+        System::killKodi();
     }
 
     private static function reboot(){

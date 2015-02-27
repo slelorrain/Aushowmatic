@@ -4,5 +4,5 @@
     "TRANSMISSION_CMD"      : "transmission-remote -n login:pass",
     "TRANSMISSION_WEB"      : "http://127.0.0.1:9091/transmission/web/",
     "SYSTEM_CMDS_ENABLED"   : true,
-    "XBMC_CMD"              : "sudo /usr/lib/xbmc/xbmc.bin"
+    "KODI_CMD"              : "sudo /usr/lib/kodi/kodi.bin"
 }

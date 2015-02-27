@@ -19,7 +19,7 @@
 
         <div id="remote">
             <ul class="yt-button-group">
-                <li><a href="?a=transmission&param=stop" class="yt-button" title="Stop all torrents">&#8718;</a></li>
+                <li><a href="?a=transmission&param=stop" class="yt-button" title="Stop all torrents">&#9632;</a></li>
                 <li><a href="?a=transmission&param=start" class="yt-button" title="Start all torrents">&#9658;</a></li>
             </ul>
             <ul class="yt-button-group">
@@ -76,13 +76,13 @@
 	                <div class="right">
                         <a href="?a=diskUsage" class="yt-button">Disk space usage</a>
 	                    <ul class="yt-button-group">
-	                        <li><a href="?a=statusXbmc" class="yt-button">XBMC Status</a></li>
-	                        <li><a href="?a=startXbmc" class="yt-button primary">Start XBMC</a></li>
+	                        <li><a href="?a=statusKodi" class="yt-button">Kodi Status</a></li>
+	                        <li><a href="?a=startKodi" class="yt-button primary">Start Kodi</a></li>
 	                    </ul>
 	                    <a id="show_hidden_actions" href="#bottom_links" class="yt-button">&#9660;</a>
 
 	                    <div id="hidden_actions">
-	                        <a href="?a=killXbmc" class="yt-button danger big">Kill XBMC</a>
+	                        <a href="?a=killKodi" class="yt-button danger big">Kill Kodi</a>
 	                        <a href="?a=reboot" class="yt-button danger big">Reboot</a>
 	                        <a href="?a=shutdown" class="yt-button danger big">Shutdown</a>
 	                    </div>
