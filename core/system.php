@@ -50,6 +50,12 @@ class System{
         return Utils::execCommand("df -h");
     }
 
+    public static function isTurtleActivated(){
+        $toFind = 'Download speed limit: Unlimited';
+        $info = Transmission::call('info');
+        return !strstr($info, $toFind);
+    }
+
 }
 
 ?>

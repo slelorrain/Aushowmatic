@@ -24,8 +24,9 @@
                 <li><a href="?a=transmission&param=start" class="yt-button" title="Start all torrents">&#9658;</a></li>
             </ul>
             <ul class="yt-button-group">
-                <li><a href="?a=transmission&param=altSpeedOn" class="yt-button" title="Turtle ON">Turtle</a></li>
-                <li><a href="?a=transmission&param=altSpeedOff" class="yt-button" title="Turtle OFF">&infin;</a></li>
+                <?php $isTurtleActivated = System::isTurtleActivated(); ?>
+                <li><a href="?a=transmission&param=altSpeedOn" class="yt-button <?php if($isTurtleActivated) echo 'active'; ?>" title="Turtle ON">Turtle</a></li>
+                <li><a href="?a=transmission&param=altSpeedOff" class="yt-button <?php if(!$isTurtleActivated) echo 'active'; ?>" title="Turtle OFF">&infin;</a></li>
             </ul>
             <ul class="yt-button-group">
                 <li><a href="?a=transmission&param=listFiles" class="yt-button" title="List torrents">&equiv;</a></li>
