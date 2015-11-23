@@ -26,6 +26,7 @@ nav {
 
 footer {
     margin-top: 28px;
+    margin-bottom: 10px;
     font-size: 12px;
     text-align: center;
     font-style: italic;
@@ -34,8 +35,8 @@ footer {
 h1 {
     margin-top: 0;
     margin-bottom: 24px;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 50px;
+    padding-bottom: 30px;
     font-size: 80px;
     letter-spacing: -2px;
     line-height: 1;

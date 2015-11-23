@@ -10,6 +10,8 @@ $(document).ready(function () {
 });
 
 function showSomething(event) {
+    $('.active').removeClass('active');
+    $('.to_hide').hide();
     $(this).toggleClass('active');
     $(event.data.toggle).toggle();
 }

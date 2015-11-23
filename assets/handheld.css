@@ -1,29 +1,36 @@
 h1 {
-    text-align: left;
+    text-align: center;
     font-size: 3em;
-    margin-left: 20px;
-    margin-bottom: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-bottom: 0;
 }
 
 nav .yt-button-group:first-child {
     margin-bottom: 16px;
 }
 
-#remote a {
-    font-size: 12px;
-}
-
-#response {
-    font-size: 18px;
-    margin: 16px auto;
-}
-
 #hidden_actions {
     margin-top: 4%;
 }
 
-#show_name, #show_label, #torrent_link, .yt-button {
-    zoom: 1.5;
+#remote {
+    position: relative;
+    top: auto;
+    right: auto;
+    padding-bottom: 20px;
+    background: #789;
+}
+
+#form_add_show, #form_add_torrent {
+    text-align: center;
+}
+
+.yt-button-group, #bottom_links .left, #bottom_links .right {
+    float: none;
+    text-align: center;
+}
+
+#bottom_links .right {
+    padding-top: 20px;
 }
