@@ -29,6 +29,7 @@ nav .yt-button-group:first-child {
 .yt-button-group, #bottom_links .left, #bottom_links .right {
     float: none;
     text-align: center;
+    margin-bottom: 15px;
 }
 
 #bottom_links .right {

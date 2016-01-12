@@ -43,8 +43,10 @@
 
             <nav>
                 <ul class="yt-button-group left">
-                    <li><a href="?a=done" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'done') echo 'active'; ?>">Links already processed</a></li>
-                    <li><a href="?a=shows" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'shows') echo 'active'; ?>">Shows added</a></li>
+                    <li><a href="?a=done" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'done') echo 'active'; ?>">Processed links</a></li>
+                    <li><a href="?a=shows" class="yt-button <?php if(isset($_GET['a']) && $_GET['a'] == 'shows') echo 'active'; ?>">Added shows</a></li>
+                </ul>
+                <ul class="yt-button-group left">
                     <li><a id="add_show" href="#add_show" class="yt-button">Add a show</a></li>
                     <li><a id="add_torrent" href="#add_torrent" class="yt-button">Add a torrent</a></li>
                 </ul>
@@ -55,13 +57,13 @@
                 </ul>
                 <div class="clear"></div>
 
-                <form id="form_add_show" class="to_hide" method="post" action="?a=addShow">
+                <form id="form_add_show" method="post" action="?a=addShow">
                     <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
                     <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
                     <input id="sumbit_add_show" class="yt-button" type="submit" value="Add"/>
                 </form>
 
-                <form id="form_add_torrent" class="to_hide" method="post" action="?a=addTorrent">
+                <form id="form_add_torrent" method="post" action="?a=addTorrent">
                     <input id="torrent_link" name="torrent_link" type="text" placeholder="Torrent link"/>
                     <input id="sumbit_add_torrent" class="yt-button" type="submit" value="Add"/>
                 </form>
@@ -83,7 +85,7 @@
 	                    </ul>
 	                    <a id="show_hidden_actions" href="#bottom_links" class="yt-button">&#9660;</a>
 
-	                    <div id="hidden_actions" class="to_hide">
+	                    <div id="hidden_actions">
 	                        <a href="?a=killKodi" class="yt-button danger big">Kill Kodi</a>
 	                        <a href="?a=reboot" class="yt-button danger big">Reboot</a>
 	                        <a href="?a=shutdown" class="yt-button danger big">Shutdown</a>
