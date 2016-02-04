@@ -56,10 +56,9 @@ If you want to be able to execute systems commands (like start/stop Kodi, powero
 
 WARNING: THIS IS NOT RECOMMENDED IF YOUR DEVICE IS ACCESSIBLE FROM WAN
 
-##TODO
-
-- improve CSS for handheld devices
-
 ##License
 
 Released under the WTFPL license - http://www.wtfpl.net/
+
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
+
