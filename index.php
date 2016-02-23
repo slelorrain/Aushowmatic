@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="./assets/main.css" />
 		<link rel="stylesheet" type="text/css" href="./assets/yt-buttons.min.css" />
         <link rel="stylesheet" type="text/css" media="only screen and (max-width:1080px)" href="assets/handheld.css" />
-        <meta name="viewport" content="width=device-width; maximum-scale=1; minimum-scale=1;" />
+        <meta name="viewport" content="width=device-width, height=device-height, minimum-scale=1, maximum-scale=1" />
 	</head>
 	<body>
 

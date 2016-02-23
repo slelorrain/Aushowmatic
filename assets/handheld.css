@@ -6,6 +6,10 @@ h1 {
     margin-bottom: 0;
 }
 
+#remote a {
+    height: 20px;
+}
+
 nav .yt-button-group:first-child {
     margin-bottom: 16px;
 }
