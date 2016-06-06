@@ -5,11 +5,11 @@ class ShowRSS extends Feed{
     const PATH = "http://showrss.info/";
 
     public static function getWebsiteLinkToShow( $show_id ){
-        return self::PATH . '?cs=browse&show=' . $show_id;
+        return self::PATH . 'browse/' . $show_id;
     }
 
     public static function getShowFeed( $show_id ){
-        return self::PATH . 'feeds/' . $show_id . '.rss';
+        return self::PATH . 'show/' . $show_id . '.rss';
     }
 
     public static function parsePage( $page, &$could_be_added, $use_min_date = true ){
