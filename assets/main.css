@@ -33,13 +33,13 @@ footer {
 }
 
 h1 {
-    margin-top: 0;
-    margin-bottom: 24px;
+    margin: 0 24px 24px 24px;
     padding-top: 50px;
     padding-bottom: 30px;
     font-size: 80px;
     letter-spacing: -2px;
     line-height: 1;
+    text-align: left;
 }
 
 /*** IDs ***/
@@ -55,7 +55,6 @@ h1 {
 }
 
 #main_container {
-    max-width: 1080px;
     padding: 0 24px;
 }
 
