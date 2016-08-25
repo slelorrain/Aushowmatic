@@ -2,7 +2,7 @@
 
 Aushowmatic is a light torrent-based PVR (personal video recorder). I'm currently using it on Raspbian but it should work on all distributions based on Debian
 
-**Note:** It used to parse DailyTVTorrents (dailytvtorrents.org) but it is offline at the moment, so now it parse showRSS (showrss.info) and EZTV (eztv.it). (Not ezRSS (ezrss.it) because their data seems not as good as others)
+**Note:** It's using showRSS (showrss.info) as source. Also, the EZTV parser wasn't updated because of the [hostile takeover](https://en.wikipedia.org/wiki/EZTV#Hostile_takeover)
 
 ##Requirements
 
