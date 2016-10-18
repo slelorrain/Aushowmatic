@@ -4,6 +4,8 @@ Aushowmatic is a light torrent-based PVR (personal video recorder). I'm currentl
 
 **Note:** It's using showRSS (showrss.info) as source. Also, the EZTV parser wasn't updated because of the [hostile takeover](https://en.wikipedia.org/wiki/EZTV#Hostile_takeover)
 
+![Screenshot](screenshot.png?raw=true)
+
 ##Requirements
 
 - PHP
