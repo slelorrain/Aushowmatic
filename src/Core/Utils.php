@@ -121,14 +121,12 @@ class Utils
 
     public static function getWebsiteLinkToShow($show_id)
     {
-        $feed = constant('FEED_CLASS');
-        return $feed::getWebsiteLinkToShow($show_id);
+        return $_ENV['FEED_CLASS']::getWebsiteLinkToShow($show_id);
     }
 
     public static function launchDownloads($preview = false, $show = null)
     {
-        $feed = constant('FEED_CLASS');
-        return $feed::launchDownloads($preview, $show);
+        return $_ENV['FEED_CLASS']::launchDownloads($preview, $show);
     }
 
     public static function downloadTorrent($url, $preview)
