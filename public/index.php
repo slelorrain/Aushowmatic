@@ -148,7 +148,7 @@ $isTurtleActivated = Core\System::isTurtleActivated();
     <span>Generated in <?= $_SESSION['generated_in'] ?>s</span>
 </footer>
 
-<script src="assets/main.js"></script>
+<script src="/assets/js/main.js"></script>
 
 </body>
 </html>
