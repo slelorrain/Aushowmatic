@@ -6,7 +6,7 @@
   "license": "WTFPL",
   "autoload": {
     "psr-4": {
-      "slelorrain\\aushowmatic\\": "src/"
+      "slelorrain\\Aushowmatic\\": "src/"
     }
   },
   "require": {
