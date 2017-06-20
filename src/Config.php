@@ -8,8 +8,6 @@ class Config
 {
     public function __construct()
     {
-        date_default_timezone_set('Europe/Luxembourg');
-
         $this->initialiseConfig();
     }
 
@@ -18,5 +16,7 @@ class Config
         $dotenv = new Dotenv\Dotenv(__DIR__ . '/..');
         $dotenv->load();
         $dotenv->required(['FEED_CLASS', 'SYSTEM_CMDS_ENABLED', 'PREFERRED_FORMAT']);
+
+        date_default_timezone_set($_ENV['TIMEZONE'] ?? 'UTC');
     }
 }
