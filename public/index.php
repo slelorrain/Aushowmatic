@@ -1,5 +1,14 @@
-<?php require_once(__DIR__ . '/../src/core/dispatcher.php'); ?>
-<?php Dispatcher::dispatch(); ?>
+<?php
+require_once '../vendor/autoload.php';
+
+use slelorrain\Aushowmatic;
+use slelorrain\Aushowmatic\Core;
+use slelorrain\Aushowmatic\Core\Utils;
+
+new Aushowmatic\Config();
+
+Core\Dispatcher::dispatch();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +33,7 @@
         <li><a href="?a=transmission&param=start" class="yt-button" title="Start all torrents">&#9658;</a></li>
     </ul>
     <ul class="yt-button-group">
-        <?php $isTurtleActivated = System::isTurtleActivated(); ?>
+        <?php $isTurtleActivated = Core\System::isTurtleActivated(); ?>
         <li><a href="?a=transmission&param=altSpeedOn" class="yt-button <?php if ($isTurtleActivated) {
                 echo 'active';
             } ?>" title="Turtle ON">Turtle</a></li>
@@ -35,13 +44,13 @@
     <ul class="yt-button-group">
         <li><a href="?a=transmission&param=listFiles" class="yt-button" title="List torrents">&equiv;</a></li>
         <li><a href="?a=transmission&param=info" class="yt-button" title="Info">&iexcl;</a></li>
-        <li><a href="<?php echo TRANSMISSION_WEB; ?>" target="_blank" class="yt-button" title="Transmission Web Interface">TWI</a></li>
+        <li><a href="<?= $_ENV['TRANSMISSION_WEB'] ?>" target="_blank" class="yt-button" title="Transmission Web Interface">TWI</a></li>
     </ul>
 </div>
 
 <div id="main_container" class="auto">
 
-    <?php if (!is_writable(FEED_INFO)): ?>
+    <?php if (!is_writable($_ENV['FEED_INFO'])): ?>
         <div class="alert">The feed file is not writable. Please update permissions.</div>
     <?php endif; ?>
 
@@ -90,7 +99,7 @@
             <a href="?a=updateDate" class="yt-button">Update min. date</a>
             <a href="?a=emptyDone" class="yt-button danger">Empty processed links</a>
         </div>
-        <?php if (SYSTEM_CMDS_ENABLED): ?>
+        <?php if ($_ENV['SYSTEM_CMDS_ENABLED']): ?>
             <div class="right">
                 <a href="?a=diskUsage" class="yt-button">Disk space usage</a>
                 <ul class="yt-button-group">
@@ -111,7 +120,7 @@
 
 </div>
 
-<footer>Min. date : <?php echo Utils::getMinDate(); ?> / Generated in <?php echo $_SESSION['generated_in']; ?>s</footer>
+<footer>Min. date : <?= Utils::getMinDate() ?> / Generated in <?= $_SESSION['generated_in'] ?>s</footer>
 
 <script src="assets/main.js"></script>
 

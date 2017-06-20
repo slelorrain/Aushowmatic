@@ -1,4 +1,6 @@
 <?php
-require_once(__DIR__ . '/src/core/dispatcher.php');
+use slelorrain\Aushowmatic\Core;
 
-Utils::launchDownloads();
+require_once 'vendor/autoload.php';
+
+Core\Utils::launchDownloads();
