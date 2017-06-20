@@ -1,4 +1,4 @@
-<?php require_once(__DIR__ . '/../core/dispatcher.php'); ?>
+<?php require_once(__DIR__ . '/../src/core/dispatcher.php'); ?>
 <?php Dispatcher::dispatch(); ?>
 <!DOCTYPE html>
 <html>
