@@ -1,5 +1,4 @@
 <?php
-require_once(dirname(__FILE__) . '/core/dispatcher.php');
+require_once(__DIR__ . '/src/core/dispatcher.php');
 
 Utils::launchDownloads();
-?>
