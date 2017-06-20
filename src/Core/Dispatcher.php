@@ -11,7 +11,7 @@ class Dispatcher
         $_SESSION['start'] = microtime(true);
 
         if (isset($_GET['a'])) {
-            if (method_exists('Dispatcher', $_GET['a'])) {
+            if (method_exists('slelorrain\Aushowmatic\Core\Dispatcher', $_GET['a'])) {
                 if (!isset($_GET['param'])) {
                     $to_echo = call_user_func('self::' . $_GET['a']);
                 } else {
