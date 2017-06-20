@@ -15,7 +15,8 @@ class Config
     {
         $dotenv = new Dotenv\Dotenv(__DIR__ . '/..');
         $dotenv->load();
-        $dotenv->required(['FEED_CLASS', 'SYSTEM_CMDS_ENABLED', 'PREFERRED_FORMAT']);
+        $dotenv->required(['FEED_CLASS', 'SYSTEM_CMDS_ENABLED'])->notEmpty();
+        $dotenv->required(['PREFERRED_FORMAT'])->notEmpty()->isInteger();
 
         date_default_timezone_set($_ENV['TIMEZONE'] ?? 'UTC');
     }

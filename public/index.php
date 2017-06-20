@@ -99,7 +99,7 @@ Core\Dispatcher::dispatch();
             <a href="?a=updateDate" class="yt-button">Update min. date</a>
             <a href="?a=emptyDone" class="yt-button danger">Empty processed links</a>
         </div>
-        <?php if ($_ENV['SYSTEM_CMDS_ENABLED']): ?>
+        <?php if ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true'): ?>
             <div class="right">
                 <a href="?a=diskUsage" class="yt-button">Disk space usage</a>
                 <ul class="yt-button-group">
