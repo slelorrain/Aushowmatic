@@ -8,5 +8,8 @@
     "psr-4": {
       "slelorrain\\aushowmatic\\": "src/"
     }
+  },
+  "require": {
+    "vlucas/phpdotenv": "^2.4"
   }
 }
