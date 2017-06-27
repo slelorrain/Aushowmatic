@@ -15,11 +15,11 @@ $isTurtleActivated = Core\System::isTurtleActivated();
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
     <title>Aushowmatic</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/favicon.png"/>
-    <link rel="apple-touch-icon" href="/assets/favicon-touch.png"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/yt-buttons.min.css"/>
-    <link rel="stylesheet" type="text/css" media="only screen and (max-width:1080px)" href="/assets/css/handheld.css"/>
+    <link rel="shortcut icon" type="image/png" href="./assets/favicon.png"/>
+    <link rel="apple-touch-icon" href="./assets/favicon-touch.png"/>
+    <link rel="stylesheet" type="text/css" href="./assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/css/yt-buttons.min.css"/>
+    <link rel="stylesheet" type="text/css" media="only screen and (max-width:1080px)" href="./assets/css/handheld.css"/>
     <meta name="viewport" content="width=device-width, height=device-height, minimum-scale=1, maximum-scale=1"/>
 </head>
 <body>
@@ -148,7 +148,7 @@ $isTurtleActivated = Core\System::isTurtleActivated();
     <span>Generated in <?= $_SESSION['generated_in'] ?>s</span>
 </footer>
 
-<script src="/assets/js/main.js"></script>
+<script src="./assets/js/main.js"></script>
 
 </body>
 </html>
