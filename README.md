@@ -16,19 +16,25 @@ Aushowmatic is a light torrent-based PVR (personal video recorder). I'm currentl
 ## Installation
 
 ### Step 1:
-Download source. If you have already [Git] installed, you can clone with:
+Clone the repository with [Git]:
 ```
 git clone https://github.com/slelorrain/Aushowmatic.git
-```
-
-Otherwise, you can download archive with Wget:
-```
-wget https://github.com/slelorrain/Aushowmatic/archive/master.zip
 ```
 
 And configure by editing `.env` (at least TRANSMISSION_CMD and TRANSMISSION_WEB)
 
 ### Step 2:
+Install [Composer] (optional if you already have it):
+```
+curl -s http://getcomposer.org/installer | php
+```
+
+Install dependencies:
+```
+php composer.phar install
+```
+
+### Step 3:
 Edit your crontab with:
 ```
 crontab -e
@@ -40,10 +46,10 @@ And add a rule looking like this one (check at least the path):
 ```
 (in this case, the script will be called every 8 hours. Modify according to your needs.)
 
-### Step 3:
+### Step 4:
 Check that your server application have write access on `./files/*`. If not, you must update permissions.
 
-### Step 4 (optional):
+### Step 5 (optional):
 If you want to be able to execute systems commands (like start/stop Kodi, poweroff or reboot) by sudo, you have to add some permissions by editing `/etc/sudoers`:
 ```
 www-data ALL=NOPASSWD: /usr/lib/kodi/kodi.bin, /bin/kill, /sbin/poweroff, /sbin/reboot, /usr/bin/du
@@ -58,5 +64,6 @@ Released under the [WTFPL license].
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
 
 [Git]: https://git-scm.com
+[Composer]: https://getcomposer.org
 [showrss.info]: https://showrss.info
 [WTFPL license]: http://www.wtfpl.net
