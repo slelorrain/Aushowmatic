@@ -18,6 +18,6 @@ class Config
         $dotenv->required(['FEED_CLASS', 'SYSTEM_CMDS_ENABLED'])->notEmpty();
         $dotenv->required(['PREFERRED_FORMAT'])->notEmpty()->isInteger();
 
-        date_default_timezone_set($_ENV['TIMEZONE'] ?? 'UTC');
+        date_default_timezone_set(isset($_ENV['TIMEZONE']) ? $_ENV['TIMEZONE'] : 'UTC');
     }
 }
