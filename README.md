@@ -61,6 +61,10 @@ www-data ALL=NOPASSWD: /usr/lib/kodi/kodi.bin, /bin/kill, /sbin/poweroff, /sbin/
 
 Released under the [WTFPL license].
 
+## Thanks
+
+[@PXgamer](https://github.com/PXgamer), [@zadkiel87](https://github.com/zadkiel87)
+
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
 
 [Git]: https://git-scm.com
