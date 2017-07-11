@@ -47,7 +47,7 @@ And add a rule looking like this one (check at least the path):
 (in this case, the script will be called every 8 hours. Modify according to your needs.)
 
 ### Step 4:
-Check that your server application have write access on `./files/*`. If not, you must update permissions.
+Check that your server application have write access on `./resources/feeds/*`. If not, you must update permissions.
 
 ### Step 5 (optional):
 If you want to be able to execute systems commands (like start/stop Kodi, poweroff or reboot) by sudo, you have to add some permissions by editing `/etc/sudoers`:
