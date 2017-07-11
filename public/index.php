@@ -1,5 +1,8 @@
 <?php
-require_once '../vendor/autoload.php';
+$autoload = '../vendor/autoload.php';
+if (!file_exists($autoload)) die('You must install dependencies');
+
+require_once $autoload;
 
 use slelorrain\Aushowmatic;
 use slelorrain\Aushowmatic\Core;
