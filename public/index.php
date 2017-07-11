@@ -86,10 +86,10 @@ $isTurtleActivated = Core\System::isTurtleActivated();
         </ul>
         <ul class="yt-button-group left">
             <li>
-                <a id="add_show" href="#add_show" class="yt-button">Add a show</a>
+                <a id="show_add_show" href="#add_show" class="yt-button showSomething">Add a show</a>
             </li>
             <li>
-                <a id="add_torrent" href="#add_torrent" class="yt-button">Add a torrent</a>
+                <a id="show_add_torrent" href="#add_torrent" class="yt-button showSomething">Add a torrent</a>
             </li>
         </ul>
 
@@ -105,13 +105,13 @@ $isTurtleActivated = Core\System::isTurtleActivated();
         </ul>
         <div class="clear"></div>
 
-        <form id="form_add_show" class="showable" method="post" action="?a=addShow">
+        <form id="add_show" class="showable" method="post" action="?a=addShow">
             <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
             <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
             <input id="sumbit_add_show" class="yt-button" type="submit" value="Add"/>
         </form>
 
-        <form id="form_add_torrent" class="showable" method="post" action="?a=addTorrent">
+        <form id="add_torrent" class="showable" method="post" action="?a=addTorrent">
             <input id="torrent_link" name="torrent_link" type="text" placeholder="Torrent link"/>
             <input id="sumbit_add_torrent" class="yt-button" type="submit" value="Add"/>
         </form>
@@ -131,7 +131,7 @@ $isTurtleActivated = Core\System::isTurtleActivated();
                     <li><a href="?a=statusKodi" class="yt-button">Kodi Status</a></li>
                     <li><a href="?a=startKodi" class="yt-button primary">Start Kodi</a></li>
                 </ul>
-                <a id="show_hidden_actions" href="#bottom_links" class="yt-button">&#9660;</a>
+                <a id="show_hidden_actions" href="#hidden_actions" class="yt-button showSomething">&#9660;</a>
 
                 <div id="hidden_actions" class="showable">
                     <a href="?a=killKodi" class="yt-button danger big">Kill Kodi</a>
