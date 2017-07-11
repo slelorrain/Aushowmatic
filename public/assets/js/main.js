@@ -12,7 +12,7 @@ $(document).ready(function () {
 });
 
 function showSomething(event) {
-    $('.yt-button.active').removeClass('active');
+    $('.yt-button.active:not(.forced)').removeClass('active');
 	$('.showable').hide();
     $(this).addClass('active');
     $(event.data.toggle).show();

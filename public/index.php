@@ -45,10 +45,10 @@ $isTurtleActivated = Core\System::isTurtleActivated();
     <ul class="yt-button-group">
         <li>
             <a href="?a=transmission&param=altSpeedOn"
-               class="yt-button <?= $isTurtleActivated ? 'active' : '' ?>" title="Turtle ON">Turtle</a>
+               class="yt-button <?= $isTurtleActivated ? 'active forced' : '' ?>" title="Turtle ON">Turtle</a>
         <li>
             <a href="?a=transmission&param=altSpeedOff"
-               class="yt-button  <?= !$isTurtleActivated ? 'active' : '' ?>" title="Turtle OFF">&infin;</a>
+               class="yt-button  <?= !$isTurtleActivated ? 'active forced' : '' ?>" title="Turtle OFF">&infin;</a>
         </li>
     </ul>
     <ul class="yt-button-group">
@@ -77,11 +77,11 @@ $isTurtleActivated = Core\System::isTurtleActivated();
         <ul class="yt-button-group left">
             <li>
                 <a href="?a=done"
-                   class="yt-button <?= isset($_GET['a']) && $_GET['a'] == 'done' ? 'active' : '' ?>">Processed links</a>
+                   class="yt-button">Processed links</a>
             </li>
             <li>
                 <a href="?a=shows"
-                   class="yt-button <?= isset($_GET['a']) && $_GET['a'] == 'shows' ? 'active' : '' ?>">Added shows</a>
+                   class="yt-button">Added shows</a>
             </li>
         </ul>
         <ul class="yt-button-group left">
@@ -96,11 +96,11 @@ $isTurtleActivated = Core\System::isTurtleActivated();
         <ul class="yt-button-group right">
             <li>
                 <a href="?a=preview"
-                   class="yt-button <?= isset($_GET['a']) && $_GET['a'] == 'done' ? 'preview' : '' ?>">Preview downloads</a>
+                   class="yt-button">Preview downloads</a>
             </li>
             <li>
                 <a href="?a=launch"
-                   class="yt-button primary <?= isset($_GET['a']) && $_GET['a'] == 'launch' ? 'active' : '' ?>">Launch downloads</a>
+                   class="yt-button primary">Launch downloads</a>
             </li>
         </ul>
         <div class="clear"></div>
@@ -146,9 +146,7 @@ $isTurtleActivated = Core\System::isTurtleActivated();
 </div>
 
 <footer>
-    <span>Min. date : <?= Utils::getMinDate() ?></span>
-    <span> / </span>
-    <span>Generated in <?= $_SESSION['generated_in'] ?>s</span>
+    <span>Min. date : <?= Utils::getMinDate() ?> / Generated in <?= $_SESSION['generated_in'] ?>s</span>
 </footer>
 
 <script src="./assets/js/main.js"></script>
