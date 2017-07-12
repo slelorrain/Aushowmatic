@@ -146,7 +146,7 @@ $isTurtleActivated = Core\System::isTurtleActivated();
 </div>
 
 <footer>
-    <span>Min. date : <?= Utils::getMinDate() ?> / Generated in <?= $_SESSION['generated_in'] ?>s</span>
+    <span>Min. date : <?= Core\FeedInfo::getMinDate() ?> / Generated in <?= $_SESSION['generated_in'] ?>s</span>
 </footer>
 
 <script src="./assets/js/main.js"></script>

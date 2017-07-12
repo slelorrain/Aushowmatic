@@ -16,7 +16,7 @@ abstract class Feed implements FeedInterface
             static::parsePage($page, $could_be_added, false);
         } else {
             // Retrieve content of pages
-            $pages = Curl::getPages(Utils::getShowList());
+            $pages = Curl::getPages(FeedInfo::getShowList());
             // Parse pages and retrieve links that could be added
             foreach ($pages as $page) {
                 static::parsePage($page, $could_be_added);

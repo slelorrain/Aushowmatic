@@ -26,7 +26,7 @@ class ShowRSS extends Core\Feed
         libxml_clear_errors();
         if ($xml) {
             foreach ($xml->channel->item as $item) {
-                if (!$use_min_date || strtotime($item->pubDate) >= strtotime(Core\Utils::getMinDate())) {
+                if (!$use_min_date || strtotime($item->pubDate) >= strtotime(Core\FeedInfo::getMinDate())) {
 
                     $epId = "";
                     $epTitle = $item->title;

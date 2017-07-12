@@ -38,7 +38,7 @@ class Dispatcher
     private static function done()
     {
         $to_echo = '';
-        foreach (Utils::getDoneList() as $done) {
+        foreach (FeedInfo::getDoneList() as $done) {
             $to_echo .= Utils::printLink($done) . '<br>';
         }
         return $to_echo;
@@ -47,7 +47,7 @@ class Dispatcher
     private static function shows()
     {
         $to_echo = '';
-        foreach (Utils::getShowList() as $label => $show) {
+        foreach (FeedInfo::getShowList() as $label => $show) {
             $to_echo .= '<a target="_blank" href="' . Utils::getWebsiteLinkToShow($show) . '">' . $label . ' (' . $show . ')</a> ';
             $to_echo .= '( <a title="Preview the show" href="./?a=preview&param=' . bin2hex($show) . '">?</a>';
             $to_echo .= ' | <a title="Download the show" onclick="return confirm(\'Are you sure?\')" href="./?a=launch&param=' . bin2hex($show) . '">&#9660;</a>';
@@ -59,7 +59,7 @@ class Dispatcher
     private static function addShow()
     {
         if (isset($_POST['show_name'])) {
-            Utils::addShow($_POST['show_name'], $_POST['show_label']);
+            FeedInfo::addShow($_POST['show_name'], $_POST['show_label']);
         }
         return self::shows();
     }
@@ -67,7 +67,7 @@ class Dispatcher
     private static function removeShow($name)
     {
         if (isset($name) && !empty($name)) {
-            Utils::removeShow(hex2bin($name));
+            FeedInfo::removeShow(hex2bin($name));
         }
         return self::shows();
     }
@@ -100,12 +100,12 @@ class Dispatcher
 
     private static function updateDate()
     {
-        Utils::updateDate();
+        FeedInfo::updateDate(time());
     }
 
     private static function emptyDone()
     {
-        Utils::emptyDoneList();
+        FeedInfo::emptyDoneList();
     }
 
     private static function startKodi()
