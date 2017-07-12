@@ -5,6 +5,12 @@ namespace slelorrain\Aushowmatic\Core;
 class Utils
 {
 
+    public static function getVersion()
+    {
+        $content = file(APP_BASE_PATH . 'VERSION');
+        return trim($content[0]);
+    }
+
     public static function printLink($link, $alt = null)
     {
         if ($link) {
