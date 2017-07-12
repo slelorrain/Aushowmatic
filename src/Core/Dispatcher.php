@@ -39,7 +39,9 @@ class Dispatcher
     {
         $to_echo = '';
         foreach (FeedInfo::getDoneList() as $done) {
-            $to_echo .= Utils::printLink($done) . '<br>';
+            $to_echo .= Utils::printLink($done);
+            $to_echo .= ' ( <a title="Redownload the link" onclick="return confirm(\'Are you sure?\')" href="./?a=redownload&param=' . bin2hex($done) . '">&#9660;</a>';
+            $to_echo .= ' | <a title="Delete" onclick="return confirm(\'Are you sure?\')" href="./?a=removeUrlDone&param=' . bin2hex($done) . '">&#10007;</a> )<br>';
         }
         return $to_echo;
     }
@@ -72,12 +74,32 @@ class Dispatcher
         return self::shows();
     }
 
+    private static function removeUrlDone($url)
+    {
+        if (isset($url) && !empty($url)) {
+            FeedInfo::removeUrlDone(hex2bin($url));
+        }
+        return self::done();
+    }
+
+    private static function redownload($torrent)
+    {
+        $link = hex2bin($torrent);
+        self::removeUrlDone($torrent);
+        return self::download($link);
+    }
+
     private static function addTorrent()
+    {
+        return self::download($_POST['torrent_link']);
+    }
+
+    private static function download($torrent)
     {
         $to_echo = 'Error: invalid or corrupt torrent file';
 
-        if (isset($_POST['torrent_link'])) {
-            $url_added = Utils::downloadTorrent($_POST['torrent_link'], false);
+        if (isset($torrent)) {
+            $url_added = Utils::downloadTorrent($torrent, false);
 
             if (!is_null($url_added) && $_SESSION['last_cmd_status'] == "0") {
                 $to_echo = 'Torrent successfully added<br>' . self::done();
