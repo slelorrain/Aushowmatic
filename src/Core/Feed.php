@@ -13,10 +13,15 @@ abstract class Feed implements FeedInterface
         if (isset($show) && !empty($show)) {
             // Retrieve content of show page
             $page = Curl::getPage(static::getShowFeed($show));
+            // Parse pages and retrieve links that could be added
             static::parsePage($page, $could_be_added, false);
         } else {
-            // Retrieve content of pages
-            $pages = Curl::getPages(FeedInfo::getShowList());
+            $urls = [];
+            foreach (FeedInfo::getShowList() as $show) {
+                $urls[] = static::getShowFeed($show);
+            }
+            // Retrieve content of show pages
+            $pages = Curl::getPages($urls);
             // Parse pages and retrieve links that could be added
             foreach ($pages as $page) {
                 static::parsePage($page, $could_be_added);
