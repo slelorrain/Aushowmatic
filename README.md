@@ -6,10 +6,16 @@ Aushowmatic is a light torrent-based PVR (personal video recorder). I'm currentl
 
 ![Screenshot](resources/screenshot.png?raw=true)
 
+## Contents
+
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [License](#license)
+* [Thanks](#thanks)
+
 ## Requirements
 
-- PHP
-- php5-curl
+- PHP >= 5.3 with cURL support
 - transmission-daemon
 - transmission-remote
 
