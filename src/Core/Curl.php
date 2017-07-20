@@ -5,24 +5,24 @@ namespace slelorrain\Aushowmatic\Core;
 class Curl
 {
 
-    public static function getPage($url)
+    public static function getPage($url, $userAgent = null)
     {
         if (isset($url)) {
-            $ch = self::getCurlHandle($url);
+            $ch = self::getCurlHandle($url, $userAgent);
             $page = curl_exec($ch);
             curl_close($ch);
             return $page;
         }
     }
 
-    public static function getPages($urls)
+    public static function getPages($urls, $userAgent = null)
     {
         if (isset($urls)) {
-            return self::doCurlMulti($urls);
+            return self::doCurlMulti($urls, $userAgent);
         }
     }
 
-    private static function getCurlHandle($url)
+    private static function getCurlHandle($url, $userAgent)
     {
         if (isset($url)) {
             $ch = curl_init();
@@ -33,6 +33,10 @@ class Curl
             curl_setopt($ch, CURLOPT_MAXREDIRS, 1);
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
+            if (isset($userAgent)) {
+                curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
+            }
+
             return $ch;
         }
     }
@@ -42,14 +46,14 @@ class Curl
     //
     // On php 5.3.18+, curl_multi_select() may return -1 forever until you call curl_multi_exec()
     // See https://bugs.php.net/bug.php?id=63411 for more information
-    private static function doCurlMulti($urls)
+    private static function doCurlMulti($urls, $userAgent)
     {
         // Create a new cURL multi handle
         $mh = curl_multi_init();
 
         // Get and add handles
         foreach ($urls as $url) {
-            $ch = self::getCurlHandle($url);
+            $ch = self::getCurlHandle($url, $userAgent);
             curl_multi_add_handle($mh, $ch);
             $handles[] = $ch;
         }
