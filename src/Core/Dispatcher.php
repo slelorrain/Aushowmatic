@@ -10,15 +10,15 @@ class Dispatcher
         session_start();
         $_SESSION['start'] = microtime(true);
 
-        if (isset($_GET['a'])) {
-            if (method_exists('slelorrain\Aushowmatic\Core\Dispatcher', $_GET['a'])) {
-                if (!isset($_GET['param'])) {
-                    $to_echo = call_user_func('self::' . $_GET['a']);
+        if (isset($_GET['action'])) {
+            if (method_exists('slelorrain\Aushowmatic\Core\Dispatcher', $_GET['action'])) {
+                if (!isset($_GET['parameter'])) {
+                    $to_echo = call_user_func('self::' . $_GET['action']);
                 } else {
-                    $to_echo = call_user_func('self::' . $_GET['a'], $_GET['param']);
+                    $to_echo = call_user_func('self::' . $_GET['action'], $_GET['parameter']);
                 }
             } else {
-                $to_echo = 'Action not Found';
+                $to_echo = 'Action not found';
             }
 
             $_SESSION['result'] = $to_echo;
@@ -40,8 +40,8 @@ class Dispatcher
         $to_echo = '';
         foreach (FeedInfo::getDoneList() as $done) {
             $to_echo .= Utils::printLink($done);
-            $to_echo .= ' ( <a title="Redownload the link" onclick="return confirm(\'Are you sure?\')" href="./?a=redownload&param=' . bin2hex($done) . '">&#9660;</a>';
-            $to_echo .= ' | <a title="Delete" onclick="return confirm(\'Are you sure?\')" href="./?a=removeUrlDone&param=' . bin2hex($done) . '">&#10007;</a> )<br>';
+            $to_echo .= ' ( ' . Link::action('&#9660;', 'redownload', bin2hex($done), 'Redownload the link', '', true);
+            $to_echo .= ' | ' . Link::action('&#10007;', 'removeUrlDone', bin2hex($done), 'Delete', '', true) . ' )<br>';
         }
         return $to_echo;
     }
@@ -50,10 +50,10 @@ class Dispatcher
     {
         $to_echo = '';
         foreach (FeedInfo::getShowList() as $label => $show) {
-            $to_echo .= '<a target="_blank" href="' . Utils::getWebsiteLinkToShow($show) . '">' . $label . ' (' . $show . ')</a> ';
-            $to_echo .= '( <a title="Preview the show" href="./?a=preview&param=' . bin2hex($show) . '">?</a>';
-            $to_echo .= ' | <a title="Download the show" onclick="return confirm(\'Are you sure?\')" href="./?a=launch&param=' . bin2hex($show) . '">&#9660;</a>';
-            $to_echo .= ' | <a title="Delete" onclick="return confirm(\'Are you sure?\')" href="./?a=removeShow&param=' . bin2hex($show) . '">&#10007;</a> )<br>';
+            $to_echo .= Link::out($label . ' (' . $show . ')', Utils::getWebsiteLinkToShow($show));
+            $to_echo .= ' ( ' . Link::action('?', 'preview', bin2hex($show), 'Preview the show', '', false);
+            $to_echo .= ' | ' . Link::action('&#9660;', 'launch', bin2hex($show), 'Download the show', '', true);
+            $to_echo .= ' | ' . Link::action('&#10007;', 'removeShow', bin2hex($show), 'Delete', '', true) . ' )<br>';
         }
         return $to_echo;
     }

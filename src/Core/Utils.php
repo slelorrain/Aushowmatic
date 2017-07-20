@@ -29,7 +29,7 @@ class Utils
             if (!is_null($alt) && !is_int($alt)) {
                 $exploded = $alt . ' - ' . $exploded;
             }
-            return '<a href="' . $link . '">' . $exploded . '</a>';
+            return Link::out($exploded, $link);
         } else {
             return '';
         }

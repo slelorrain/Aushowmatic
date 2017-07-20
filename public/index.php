@@ -7,6 +7,8 @@ require_once $autoload;
 use slelorrain\Aushowmatic;
 use slelorrain\Aushowmatic\Core;
 use slelorrain\Aushowmatic\Core\Utils;
+use slelorrain\Aushowmatic\Core\Button;
+use slelorrain\Aushowmatic\Core\Link;
 
 new Aushowmatic\Config();
 
@@ -34,35 +36,29 @@ $isTurtleActivated = Core\System::isTurtleActivated();
 <div id="remote">
     <ul class="yt-button-group">
         <li>
-            <a href="?a=transmission&param=stop"
-               class="yt-button" title="Stop all torrents">&#9632;</a>
+            <?= Button::action('&#9632;', 'transmission', 'stop', 'Stop all torrents') ?>
         </li>
         <li>
-            <a href="?a=transmission&param=start"
-               class="yt-button" title="Start all torrents">&#9658;</a>
+            <?= Button::action('&#9658;', 'transmission', 'start', 'Start all torrents') ?>
         </li>
     </ul>
     <ul class="yt-button-group">
         <li>
-            <a href="?a=transmission&param=altSpeedOn"
-               class="yt-button <?= $isTurtleActivated ? 'active forced' : '' ?>" title="Turtle ON">Turtle</a>
+            <?= Button::action('Turtle', 'transmission', 'altSpeedOn', 'Turtle ON', $isTurtleActivated ? 'active forced' : '') ?>
+        </li>
         <li>
-            <a href="?a=transmission&param=altSpeedOff"
-               class="yt-button  <?= !$isTurtleActivated ? 'active forced' : '' ?>" title="Turtle OFF">&infin;</a>
+            <?= Button::action('&infin;', 'transmission', 'altSpeedOff', 'Turtle OFF', !$isTurtleActivated ? 'active forced' : '') ?>
         </li>
     </ul>
     <ul class="yt-button-group">
         <li>
-            <a href="?a=transmission&param=listFiles"
-               class="yt-button" title="List torrents">&equiv;</a>
+            <?= Button::action('&equiv;', 'transmission', 'listFiles', 'List torrents') ?>
         </li>
         <li>
-            <a href="?a=transmission&param=info"
-               class="yt-button" title="Info">&iexcl;</a>
+            <?= Button::action('&iexcl;', 'transmission', 'info', 'Info') ?>
         </li>
         <li>
-            <a href="<?= $_ENV['TRANSMISSION_WEB'] ?>" target="_blank"
-               class="yt-button" title="Transmission Web Interface">TWI</a>
+            <?= Button::out('TWI', $_ENV['TRANSMISSION_WEB'], 'Transmission Web Interface') ?>
         </li>
     </ul>
 </div>
@@ -76,42 +72,37 @@ $isTurtleActivated = Core\System::isTurtleActivated();
     <nav>
         <ul class="yt-button-group left">
             <li>
-                <a href="?a=done"
-                   class="yt-button">Processed links</a>
+                <?= Button::action('Processed links', 'done') ?>
             </li>
             <li>
-                <a href="?a=shows"
-                   class="yt-button">Added shows</a>
+                <?= Button::action('Added shows', 'shows') ?>
             </li>
         </ul>
         <ul class="yt-button-group left">
             <li>
-                <a id="show_add_show" href="#add_show" class="yt-button showSomething">Add a show</a>
+                <?= Button::show('Add a show', 'add_show') ?>
             </li>
             <li>
-                <a id="show_add_torrent" href="#add_torrent" class="yt-button showSomething">Add a torrent</a>
+                <?= Button::show('Add a torrent', 'add_torrent') ?>
             </li>
         </ul>
-
         <ul class="yt-button-group right">
             <li>
-                <a href="?a=preview"
-                   class="yt-button">Preview downloads</a>
+                <?= Button::action('Preview downloads', 'preview') ?>
             </li>
             <li>
-                <a href="?a=launch"
-                   class="yt-button primary">Launch downloads</a>
+                <?= Button::action('Launch downloads', 'launch', '', '', 'primary') ?>
             </li>
         </ul>
         <div class="clear"></div>
 
-        <form id="add_show" class="showable" method="post" action="?a=addShow">
+        <form id="add_show" class="showable" method="post" action="?action=addShow">
             <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
             <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
             <input id="sumbit_add_show" class="yt-button" type="submit" value="Add"/>
         </form>
 
-        <form id="add_torrent" class="showable" method="post" action="?a=addTorrent">
+        <form id="add_torrent" class="showable" method="post" action="?action=addTorrent">
             <input id="torrent_link" name="torrent_link" type="text" placeholder="Torrent link"/>
             <input id="sumbit_add_torrent" class="yt-button" type="submit" value="Add"/>
         </form>
@@ -121,22 +112,22 @@ $isTurtleActivated = Core\System::isTurtleActivated();
 
     <div id="bottom_links">
         <div class="left">
-            <a href="?a=updateDate" class="yt-button">Update min. date</a>
-            <a href="?a=emptyDone" class="yt-button danger">Empty processed links</a>
+            <?= Button::action('Update min. date', 'updateDate') ?>
+            <?= Button::action('Empty processed links', 'emptyDone', '', '', 'danger') ?>
         </div>
         <?php if ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true') { ?>
             <div class="right">
-                <a href="?a=diskUsage" class="yt-button">Disk space usage</a>
+                <?= Button::action('Disk space usage', 'diskUsage') ?>
                 <ul class="yt-button-group">
-                    <li><a href="?a=statusKodi" class="yt-button">Kodi Status</a></li>
-                    <li><a href="?a=startKodi" class="yt-button primary">Start Kodi</a></li>
+                    <li><?= Button::action('Kodi Status', 'statusKodi') ?></li>
+                    <li><?= Button::action('Start Kodi', 'startKodi', '', '', 'primary') ?></li>
                 </ul>
-                <a id="show_hidden_actions" href="#hidden_actions" class="yt-button showSomething">&#9660;</a>
+                <?= Button::show('&#9660;', 'hidden_actions') ?>
 
                 <div id="hidden_actions" class="showable">
-                    <a href="?a=killKodi" class="yt-button danger big">Kill Kodi</a>
-                    <a href="?a=reboot" class="yt-button danger big">Reboot</a>
-                    <a href="?a=shutdown" class="yt-button danger big">Shutdown</a>
+                    <?= Button::action('Kill Kodi', 'killKodi', '', '', 'danger big') ?>
+                    <?= Button::action('Reboot', 'reboot', '', '', 'danger big') ?>
+                    <?= Button::action('Shutdown', 'shutdown', '', '', 'danger big') ?>
                 </div>
             </div>
         <?php } ?>
