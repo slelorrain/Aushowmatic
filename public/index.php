@@ -137,7 +137,12 @@ $isTurtleActivated = Core\System::isTurtleActivated();
 </div>
 
 <footer>
-    <span>Min. date : <?= Core\FeedInfo::getMinDate() ?> / Generated in <?= $_SESSION['generated_in'] ?>s / v<?= Utils::getVersion() ?></span>
+    Min. date : <?= Core\FeedInfo::getMinDate() ?>
+    / Generated in <?= $_SESSION['generated_in'] ?>s
+    / <?= Utils::getVersion() ?>
+    <?php if (Utils::hasUpdateAvailable()) { ?>
+        <?= Link::out('Update available', 'https://github.com/slelorrain/Aushowmatic/releases', 'GitHub') ?>
+    <?php } ?>
 </footer>
 
 <script src="./assets/js/main.js"></script>

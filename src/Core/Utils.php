@@ -8,7 +8,21 @@ class Utils
     public static function getVersion()
     {
         $content = file(APP_BASE_PATH . 'VERSION');
-        return trim($content[0]);
+        return 'v' . trim($content[0]);
+    }
+
+    public static function getLastVersion()
+    {
+        if (!isset($_SESSION['last_version'])) {
+            $content = Curl::getPage('https://api.github.com/repos/slelorrain/Aushowmatic/releases/latest', 'Aushowmatic');
+            $_SESSION['last_version'] = json_decode($content)->tag_name;
+        }
+        return $_SESSION['last_version'];
+    }
+
+    public static function hasUpdateAvailable()
+    {
+        return version_compare(self::getLastVersion(), self::getVersion()) > 0;
     }
 
     public static function printLink($link, $alt = null)
