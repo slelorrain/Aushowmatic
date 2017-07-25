@@ -14,6 +14,7 @@ new Aushowmatic\Config();
 
 Core\Dispatcher::dispatch();
 $isTurtleActivated = Core\System::isTurtleActivated();
+$availableShows = Core\Feed::getAvailableShows();
 ?>
 <!DOCTYPE html>
 <html>
@@ -97,8 +98,17 @@ $isTurtleActivated = Core\System::isTurtleActivated();
         <div class="clear"></div>
 
         <form id="add_show" class="showable" method="post" action="?action=addShow">
-            <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
-            <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
+            <?php if ($availableShows && !empty($availableShows)) { ?>
+                <select name="show_name">
+                    <option disabled selected value>--- select a show ---</option>
+                    <?php foreach ($availableShows as $name => $label) { ?>
+                        <option value=<?= $name ?>><?= $label ?></option>
+                    <?php } ?>
+                </select>
+            <?php } else { ?>
+                <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
+                <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
+            <?php } ?>
             <input id="sumbit_add_show" class="yt-button" type="submit" value="Add"/>
         </form>
 

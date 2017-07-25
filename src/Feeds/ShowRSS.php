@@ -19,6 +19,35 @@ class ShowRSS extends Core\Feed
         return self::PATH . 'show/' . $show_id . '.rss';
     }
 
+    public static function getAvailableShows()
+    {
+        $shows = array();
+
+        $page = Core\Curl::getPage(self::PATH . 'browse');
+
+        $dom = new \DOMDocument;
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($page);
+        libxml_clear_errors();
+
+        $selector = $dom->getElementById('showselector');
+
+        if ($selector) {
+            $options = $selector->getElementsByTagName('option');
+
+            foreach ($options as $option) {
+                $value = $option->getAttribute('value');
+                $text = $option->textContent;
+
+                if (is_numeric($value)) {
+                    $shows[$value] = $text;
+                }
+            }
+        }
+
+        return $shows;
+    }
+
     public static function parsePage($page, &$could_be_added, $use_min_date = true)
     {
         libxml_use_internal_errors(true);

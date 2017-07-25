@@ -9,6 +9,8 @@ interface FeedInterface
 
     static function getShowFeed($show);
 
+    static function getAvailableShows();
+
     static function parsePage($page, &$could_be_added, $use_min_date = true);
 
     static function launchDownloads($preview = false, $show = null);

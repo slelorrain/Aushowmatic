@@ -5,6 +5,14 @@ namespace slelorrain\Aushowmatic\Core;
 abstract class Feed implements FeedInterface
 {
 
+    public static function getAvailableShows()
+    {
+        if (!isset($_SESSION['available_shows'])) {
+            $_SESSION['available_shows'] = $_ENV['FEED_CLASS']::getAvailableShows();
+        }
+        return $_SESSION['available_shows'];
+    }
+
     public static function launchDownloads($preview = false, $show = null)
     {
         $added = array();

@@ -19,6 +19,11 @@ class EZTV extends Core\Feed
         return self::PATH . 'shows/' . $show;
     }
 
+    public static function getAvailableShows()
+    {
+        return false;
+    }
+
     // This parsing is crappy but the DOM is crappy too :p
     public static function parsePage($page, &$could_be_added, $use_min_date = true)
     {

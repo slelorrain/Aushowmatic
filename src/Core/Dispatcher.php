@@ -61,7 +61,15 @@ class Dispatcher
     private static function addShow()
     {
         if (isset($_POST['show_name'])) {
-            FeedInfo::addShow($_POST['show_name'], $_POST['show_label']);
+            $name = $_POST['show_name'];
+            $label = $_POST['show_label'];
+
+            $availableShows = Feed::getAvailableShows();
+            if ($availableShows && !empty($availableShows)) {
+                $label = $availableShows[$name];
+            }
+
+            FeedInfo::addShow($name, $label);
         }
         return self::shows();
     }
