@@ -23,10 +23,7 @@ $availableShows = Core\Feed::getAvailableShows();
     <title>Aushowmatic</title>
     <link rel="shortcut icon" type="image/png" href="./assets/favicon.png"/>
     <link rel="apple-touch-icon" href="./assets/favicon-touch.png"/>
-    <link rel="stylesheet" type="text/css" href="./assets/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="./assets/css/yt-buttons.min.css"/>
-    <link rel="stylesheet" type="text/css" href="./assets/css/select2_4.0.3.min.css"/>
-    <link rel="stylesheet" type="text/css" media="only screen and (max-width:1080px)" href="./assets/css/handheld.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/css/all.css"/>
     <meta name="viewport" content="width=device-width, height=device-height, minimum-scale=1, maximum-scale=1"/>
 </head>
 <body>
