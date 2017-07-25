@@ -27,7 +27,8 @@ class FeedInfo
     {
         $info = self::getFeedInfo(true);
         $name = trim($name);
-        if (!empty($name)) {
+        $pos = array_search($name, $info['shows']);
+        if (!empty($name) && $pos === false) {
             $label = trim($label);
             if (!empty($label) && !isset($info['shows'][$label])) {
                 $info['shows'][$label] = $name;
@@ -41,8 +42,9 @@ class FeedInfo
     public static function removeShow($name)
     {
         $info = self::getFeedInfo(true);
+        $name = trim($name);
         $pos = array_search($name, $info['shows']);
-        if ($pos !== false) {
+        if (!empty($name) && $pos !== false) {
             unset($info['shows'][$pos]);
             self::setFeedInfo($info);
         }
@@ -51,15 +53,20 @@ class FeedInfo
     public static function addUrlDone($url)
     {
         $info = self::getFeedInfo(true);
-        array_unshift($info['done'], (string)$url);
-        self::setFeedInfo($info);
+        $url = trim($url);
+        $pos = array_search($url, $info['done']);
+        if (!empty($url) && $pos === false) {
+            array_unshift($info['done'], (string)$url);
+            self::setFeedInfo($info);
+        }
     }
 
     public static function removeUrlDone($url)
     {
         $info = self::getFeedInfo(true);
+        $url = trim($url);
         $pos = array_search($url, $info['done']);
-        if ($pos !== false) {
+        if (!empty($url) && $pos !== false) {
             unset($info['done'][$pos]);
             $info['done'] = array_values($info['done']);
             self::setFeedInfo($info);
