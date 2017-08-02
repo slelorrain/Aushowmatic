@@ -11,7 +11,7 @@ class Dispatcher
         $_SESSION['start'] = microtime(true);
 
         if (isset($_GET['action'])) {
-            if (method_exists('slelorrain\Aushowmatic\Core\Dispatcher', $_GET['action'])) {
+            if (method_exists(__NAMESPACE__ . '\Dispatcher', $_GET['action'])) {
                 if (!isset($_GET['parameter'])) {
                     $to_echo = call_user_func('self::' . $_GET['action']);
                 } else {
@@ -170,7 +170,15 @@ class Dispatcher
 
     private static function transmission($function)
     {
-        return Transmission::call($function);
+        $torrent_id = null;
+        $exploded = explode('|id=', $function);
+
+        if (!is_null($exploded[1]) && is_numeric($exploded[1])) {
+            $function = $exploded[0];
+            $torrent_id = $exploded[1];
+        }
+
+        return Transmission::call($function, $torrent_id);
     }
 
 }
