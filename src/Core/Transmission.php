@@ -16,12 +16,16 @@ class Transmission
         "verify" => '--torrent all --verify',
     );
 
-    public static function call($action, $torrent_id = null)
+    public static function call($action, $torrent = null)
     {
         if (array_key_exists($action, Transmission::$options)) {
             $to_call = $_ENV['TRANSMISSION_CMD'] . ' ' . Transmission::$options[$action];
-            if (!is_null($torrent_id) && is_numeric($torrent_id)) {
-                $to_call = str_replace('all', $torrent_id, $to_call);
+            if (!is_null($torrent)) {
+                if (is_numeric($torrent)) {
+                    $to_call = str_replace('all', $torrent, $to_call);
+                } else {
+                    $to_call .= ' ' . $torrent;
+                }
             }
 
             $to_echo = Utils::execCommand($to_call);
