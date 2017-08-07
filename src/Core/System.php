@@ -37,11 +37,16 @@ class System
 
     public static function killKodi()
     {
-        exec(PS_AUX_CMD, $ps_aux);
-        $ps_aux = array_filter(explode(" ", $ps_aux[0]));
-        if (array_shift($ps_aux) == 'root') {
-            $pid = array_shift($ps_aux);
-            pclose(popen("sudo kill " . $pid . " &", "r"));
+        if (self::isKodiStarted()) {
+            exec(PS_AUX_CMD, $ps_aux);
+            $ps_aux = array_filter(explode(" ", $ps_aux[0]));
+            if (array_shift($ps_aux) == 'root') {
+                $pid = array_shift($ps_aux);
+                pclose(popen("sudo kill " . $pid . " &", "r"));
+                return "Kodi is killed";
+            }
+        } else {
+            return "Kodi is not started";
         }
     }
 

@@ -150,7 +150,7 @@ class Dispatcher
 
     private static function killKodi()
     {
-        System::killKodi();
+        return System::killKodi();
     }
 
     private static function reboot()
