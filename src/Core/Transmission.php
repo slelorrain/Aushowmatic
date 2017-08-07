@@ -43,11 +43,13 @@ class Transmission
 
         foreach ($lines as $line) {
             $columns = explode(' ', preg_replace('/\s+/', ' ', trim($line)));
+            // Character '*' is appended when downloaded file is corrupted
+            $id = str_replace('*', '', $columns[0]);
 
-            if (is_numeric($columns[0])) {
-                $stop = Link::action('&#9632;', 'transmission', 'stop|id=' . $columns[0], 'Stop torrent');
-                $start = Link::action('&#9658;', 'transmission', 'start|id=' . $columns[0], 'Start torrent');
-                $verify = Link::action('&check;', 'transmission', 'verify|id=' . $columns[0] , 'Verify torrent');
+            if (is_numeric($id)) {
+                $stop = Link::action('&#9632;', 'transmission', 'stop|id=' . $id, 'Stop torrent');
+                $start = Link::action('&#9658;', 'transmission', 'start|id=' . $id, 'Start torrent');
+                $verify = Link::action('&check;', 'transmission', 'verify|id=' . $id, 'Verify torrent');
                 $res .= $line . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' )' . PHP_EOL;
             } else {
                 $res .= $line . PHP_EOL;
