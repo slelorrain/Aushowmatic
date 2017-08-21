@@ -54,7 +54,7 @@ $availableShows = Core\Feed::getAvailableShows();
             <?= Button::action('&equiv;', 'transmission', 'listFiles', 'List torrents') ?>
         </li>
         <li>
-            <?= Button::action('&iexcl;', 'transmission', 'info', 'Info') ?>
+            <?= Button::action('&iexcl;', 'transmission', 'sessionInfo', 'Session information') ?>
         </li>
         <li>
             <?= Button::out('TWI', $_ENV['TRANSMISSION_WEB'], 'Transmission Web Interface') ?>

@@ -5,34 +5,52 @@ namespace slelorrain\Aushowmatic\Core;
 class Transmission
 {
 
+    const SLEEP_TIME = 20000;
+
     private static $options = array(
-        "add" => '--add',
-        "listFiles" => '--list',
-        "start" => '--torrent all --start',
-        "stop" => '--torrent all --stop',
-        "altSpeedOn" => '--alt-speed',
-        "altSpeedOff" => '--no-alt-speed',
-        "info" => '--session-info',
-        "verify" => '--torrent all --verify',
+        'add' => '--add',
+        'listFiles' => '--list',
+        'altSpeedOn' => '--alt-speed',
+        'altSpeedOff' => '--no-alt-speed',
+        'sessionInfo' => '--session-info',
+        'start' => '--torrent all --start',
+        'stop' => '--torrent all --stop',
+        'info' => '--torrent all --info',
+        'verify' => '--torrent all --verify',
     );
 
     public static function call($action, $torrent = null)
     {
         if (array_key_exists($action, Transmission::$options)) {
+            $continue = true;
+            $torrent_id = null;
             $to_call = Transmission::$options[$action];
+
             if (!is_null($torrent)) {
                 if (is_numeric($torrent)) {
-                    $to_call = str_replace('all', $torrent, $to_call);
+                    $torrent_id = $torrent;
+                    $to_call = str_replace('all', $torrent_id, $to_call);
                 } else {
                     $to_call .= ' ' . $torrent;
                 }
             }
 
-            $to_echo = System::transmission($to_call);
+            $before = 'before' . ucfirst($action);
+            if (method_exists(__NAMESPACE__ . '\Transmission', $before)) {
+                $continue = call_user_func('self::' . $before, $torrent_id);
+                usleep(self::SLEEP_TIME);
+            }
 
-            $after = 'after' . ucfirst($action);
-            if (method_exists(__NAMESPACE__ . '\Transmission', $after)) {
-                $to_echo = call_user_func('self::' . $after, $to_echo);
+            if ($continue) {
+                $to_echo = System::transmission($to_call);
+
+                $after = 'after' . ucfirst($action);
+                if (method_exists(__NAMESPACE__ . '\Transmission', $after)) {
+                    usleep(self::SLEEP_TIME);
+                    $to_echo = call_user_func('self::' . $after, $to_echo);
+                }
+            } else {
+                $to_echo = 'Execution impossible';
             }
         } else {
             $to_echo = 'Transmission action not found';
@@ -47,6 +65,22 @@ class Transmission
         $info = self::call('info');
         return !strstr($info, $to_find);
     }
+
+    // Before methods
+
+    private static function beforeVerify($torrent_id = null){
+        if ($torrent_id != null) {
+            self::call('start', $torrent_id);
+
+            if ($_SESSION['last_cmd_status'] == '0') {
+            	return true;
+        	}
+        }
+
+        return false;
+    }
+
+    // After methods
 
     private static function afterListFiles($command_result) {
         $res = '';
@@ -71,17 +105,14 @@ class Transmission
     }
 
     private static function afterStart(){
-        usleep(10000);
         return self::call('listFiles');
     }
 
     private static function afterStop(){
-        usleep(10000);
         return self::call('listFiles');
     }
 
     private static function afterVerify(){
-        usleep(10000);
         return self::call('listFiles');
     }
 
