@@ -98,13 +98,4 @@ class Utils
         $_SESSION['generated_in'] = round(microtime(true) - $_SESSION['start'], 4);
     }
 
-    public static function execCommand($command)
-    {
-        ob_start();
-        passthru(escapeshellcmd($command), $_SESSION['last_cmd_status']);
-        $to_echo = ob_get_contents();
-        ob_end_clean();
-        return $to_echo;
-    }
-
 }

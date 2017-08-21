@@ -19,7 +19,7 @@ class Transmission
     public static function call($action, $torrent = null)
     {
         if (array_key_exists($action, Transmission::$options)) {
-            $to_call = $_ENV['TRANSMISSION_CMD'] . ' ' . Transmission::$options[$action];
+            $to_call = Transmission::$options[$action];
             if (!is_null($torrent)) {
                 if (is_numeric($torrent)) {
                     $to_call = str_replace('all', $torrent, $to_call);
@@ -28,7 +28,7 @@ class Transmission
                 }
             }
 
-            $to_echo = Utils::execCommand($to_call);
+            $to_echo = System::transmission($to_call);
 
             $after = 'after' . ucfirst($action);
             if (method_exists(__NAMESPACE__ . '\Transmission', $after)) {
@@ -39,6 +39,13 @@ class Transmission
         }
 
         return $to_echo;
+    }
+
+    public static function isTurtleActivated()
+    {
+        $to_find = 'Download speed limit: Unlimited';
+        $info = self::call('info');
+        return !strstr($info, $to_find);
     }
 
     private static function afterListFiles($command_result) {

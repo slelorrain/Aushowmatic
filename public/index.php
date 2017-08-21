@@ -13,7 +13,7 @@ use slelorrain\Aushowmatic\Core\Link;
 new Aushowmatic\Config();
 
 Core\Dispatcher::dispatch();
-$isTurtleActivated = Core\System::isTurtleActivated();
+$isTurtleActivated = Core\Transmission::isTurtleActivated();
 $availableShows = Core\Feed::getAvailableShows();
 ?>
 <!DOCTYPE html>
