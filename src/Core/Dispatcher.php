@@ -181,4 +181,9 @@ class Dispatcher
         return Transmission::call($function, $torrent_id);
     }
 
+    private static function subtitles()
+    {
+        return Subtitle::download();
+    }
+
 }

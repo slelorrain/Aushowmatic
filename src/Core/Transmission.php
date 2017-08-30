@@ -82,6 +82,24 @@ class Transmission
         return false;
     }
 
+    private static function beforeDelete($torrent_id = null)
+    {
+        if ($torrent_id != null) {
+            $info = self::call('info', $torrent_id);
+
+            preg_match('/Name: (.+)/', $info, $matches);
+            $folder = $matches[1];
+            preg_match('/Location: (.+)/', $info, $matches);
+            $location = $matches[1];
+
+            if (!empty($location) && !empty($folder)) {
+                return Subtitle::removeSubtitles($location . '/' . $folder);
+            }
+        }
+
+        return false;
+    }
+
     // After methods
 
     private static function afterListFiles($command_result)

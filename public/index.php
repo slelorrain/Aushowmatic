@@ -93,6 +93,13 @@ $availableShows = Core\Feed::getAvailableShows();
                 <?= Button::action('Launch downloads', 'launch', '', '', 'primary') ?>
             </li>
         </ul>
+        <?php if ($_ENV['SUBTITLES_ENABLED'] == 'true') { ?>
+        <ul class="yt-button-group right">
+            <li>
+                <?= Button::action('Download subtitles', 'subtitles') ?>
+            </li>
+        </ul>
+        <?php } ?>
         <div class="clear"></div>
 
         <form id="add_show" class="showable" method="post" action="?action=addShow">
