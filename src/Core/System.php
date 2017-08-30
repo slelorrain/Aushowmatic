@@ -66,6 +66,11 @@ class System
         return self::execute('df -h');
     }
 
+    public static function unzip($file, $destination)
+    {
+        return self::execute('unzip ' . $file . ' -d' . $destination);
+    }
+
     public static function transmission($options)
     {
         return self::execute($_ENV['TRANSMISSION_CMD'] . ' ' . $options);
