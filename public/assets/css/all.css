@@ -130,6 +130,10 @@ h1 {
     font-weight: bold;
 }
 
+.danger:not(.yt-button) {
+	color: #BC403A;
+}
+
 /* Handheld */
 @media screen and (max-width: 1080px) {
     h1 {

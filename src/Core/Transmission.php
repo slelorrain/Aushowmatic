@@ -17,6 +17,7 @@ class Transmission
         'stop' => '--torrent all --stop',
         'info' => '--torrent all --info',
         'verify' => '--torrent all --verify',
+        'delete' => '--torrent all --remove-and-delete',
     );
 
     public static function call($action, $torrent = null)
@@ -97,7 +98,8 @@ class Transmission
                 $stop = Link::action('&#9632;', 'transmission', 'stop|id=' . $id, 'Stop torrent');
                 $start = Link::action('&#9658;', 'transmission', 'start|id=' . $id, 'Start torrent');
                 $verify = Link::action('&check;', 'transmission', 'verify|id=' . $id, 'Verify torrent');
-                $res .= $line . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' )' . PHP_EOL;
+                $delete = Link::action('&#10007;', 'transmission', 'delete|id=' . $id, 'Delete', 'danger', true);
+                $res .= $line . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' ) ' . $delete . PHP_EOL;
             } else {
                 $res .= $line . PHP_EOL;
             }
@@ -117,6 +119,11 @@ class Transmission
     }
 
     private static function afterVerify()
+    {
+        return self::call('listFiles');
+    }
+
+    private static function afterDelete()
     {
         return self::call('listFiles');
     }
