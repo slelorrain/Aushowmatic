@@ -68,13 +68,14 @@ class Transmission
 
     // Before methods
 
-    private static function beforeVerify($torrent_id = null){
+    private static function beforeVerify($torrent_id = null)
+    {
         if ($torrent_id != null) {
             self::call('start', $torrent_id);
 
             if ($_SESSION['last_cmd_status'] == '0') {
-            	return true;
-        	}
+                return true;
+            }
         }
 
         return false;
@@ -82,7 +83,8 @@ class Transmission
 
     // After methods
 
-    private static function afterListFiles($command_result) {
+    private static function afterListFiles($command_result)
+    {
         $res = '';
         $lines = explode(PHP_EOL, $command_result);
 
@@ -104,15 +106,18 @@ class Transmission
         return $res;
     }
 
-    private static function afterStart(){
+    private static function afterStart()
+    {
         return self::call('listFiles');
     }
 
-    private static function afterStop(){
+    private static function afterStop()
+    {
         return self::call('listFiles');
     }
 
-    private static function afterVerify(){
+    private static function afterVerify()
+    {
         return self::call('listFiles');
     }
 
