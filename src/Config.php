@@ -6,6 +6,14 @@ use Dotenv;
 
 class Config
 {
+
+    private static $notEmptyVariables = array(
+        'FEED_CLASS',
+        'FEED_INFO',
+        'PREFERRED_FORMAT',
+        'SYSTEM_CMDS_ENABLED',
+    );
+
     public function __construct($test = false)
     {
         define('APP_BASE_PATH', dirname(__DIR__) . '/');
@@ -16,8 +24,7 @@ class Config
     {
         $dotenv = new Dotenv\Dotenv(APP_BASE_PATH, $file);
         $dotenv->load();
-        $dotenv->required(['FEED_CLASS', 'SYSTEM_CMDS_ENABLED'])->notEmpty();
-        $dotenv->required(['PREFERRED_FORMAT'])->notEmpty()->isInteger();
+        $dotenv->required($notEmptyVariables)->notEmpty();
 
         date_default_timezone_set(isset($_ENV['TIMEZONE']) ? $_ENV['TIMEZONE'] : 'UTC');
 
