@@ -38,6 +38,28 @@ class Subtitle
         return true;
     }
 
+    public static function uploadSubtitle($video, $file = null)
+    {
+        if (isset($file['name'])) {
+            $path_parts = pathinfo($video);
+            $destination = self::TMP_PATH . basename($file['name']);
+            $moved = move_uploaded_file($file['tmp_name'], $destination);
+
+            if ($moved) {
+                if (self::moveAndClean($path_parts)) {
+                    return 'File uploaded.';
+                } else {
+                    unlink($destination);
+                    return 'Error: File not uploaded.';
+                }
+            } else {
+                return 'Error: File is not valid or cannot be moved.';
+            }
+        } else {
+            return 'Error: No file provided.';
+        }
+    }
+
     private static function searchAndDownloadAll($directories)
     {
         $results = [];

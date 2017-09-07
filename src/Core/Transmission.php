@@ -67,6 +67,24 @@ class Transmission
         return !strstr($info, $to_find);
     }
 
+    public static function getDirectory($torrent_id = null)
+    {
+        if ($torrent_id != null) {
+            $info = self::call('info', $torrent_id);
+
+            preg_match('/Name: (.+)/', $info, $matches);
+            $folder = $matches[1];
+            preg_match('/Location: (.+)/', $info, $matches);
+            $location = $matches[1];
+
+            if (!empty($location) && !empty($folder)) {
+                return $location . '/' . $folder;
+            }
+        }
+
+        return false;
+    }
+
     // Before methods
 
     private static function beforeVerify($torrent_id = null)
@@ -84,17 +102,10 @@ class Transmission
 
     private static function beforeDelete($torrent_id = null)
     {
-        if ($torrent_id != null) {
-            $info = self::call('info', $torrent_id);
+        $directory = self::getDirectory($torrent_id);
 
-            preg_match('/Name: (.+)/', $info, $matches);
-            $folder = $matches[1];
-            preg_match('/Location: (.+)/', $info, $matches);
-            $location = $matches[1];
-
-            if (!empty($location) && !empty($folder)) {
-                return Subtitle::removeSubtitles($location . '/' . $folder);
-            }
+        if ($directory != null) {
+            return Subtitle::removeSubtitles($directory);
         }
 
         return false;
@@ -113,11 +124,13 @@ class Transmission
             $id = str_replace('*', '', $columns[0]);
 
             if (is_numeric($id)) {
+                $upload_form = Upload::modal('subtitle', 'uploadSubtitle', $id);
                 $stop = Link::action('&#9632;', 'transmission', 'stop|id=' . $id, 'Stop torrent');
                 $start = Link::action('&#9658;', 'transmission', 'start|id=' . $id, 'Start torrent');
                 $verify = Link::action('&check;', 'transmission', 'verify|id=' . $id, 'Verify torrent');
                 $delete = Link::action('&#10007;', 'transmission', 'delete|id=' . $id, 'Delete', 'danger', true);
-                $res .= $line . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' ) ' . $delete . PHP_EOL;
+
+                $res .= $line . ' ' . $upload_form . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' ) ' . $delete . PHP_EOL;
             } else {
                 $res .= $line . PHP_EOL;
             }
