@@ -13,7 +13,7 @@ class Subtitle
     public static function download($directories = null)
     {
         if (!file_exists(self::TMP_PATH)) {
-            return self::TMP_PATH . ' does not exist';
+            return 'Error: ' . self::TMP_PATH . ' does not exist';
         }
 
         if (is_null($directories)) {
@@ -41,7 +41,7 @@ class Subtitle
     private static function searchAndDownloadAll($directories)
     {
         $results = [];
-        
+
         foreach ($directories as $directory) {
             $directory = str_replace('[', '\[', $directory);
             $videos = glob($directory . '/*.{' . $_ENV['SUBTITLES_SEARCH_EXTENSIONS'] . '}', GLOB_BRACE);
@@ -116,10 +116,10 @@ class Subtitle
             $to_echo = '';
 
             foreach ($results as $path => $found) {
-                $to_echo .= basename($path) . ' => ' . (($found) ? 'Found' : 'Not found') . '<br>';
+                $to_echo .= basename($path) . ' => ' . (($found) ? 'Found' : 'Not found') . PHP_EOL;
             }
 
-            $to_echo = 'Subtitles results:<br>' . $to_echo;
+            $to_echo = 'Subtitles results:' . PHP_EOL . $to_echo;
         } else {
             $to_echo = 'No subtitle to search.';
         }

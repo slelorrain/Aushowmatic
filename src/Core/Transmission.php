@@ -51,10 +51,10 @@ class Transmission
                     $to_echo = call_user_func('self::' . $after, $to_echo);
                 }
             } else {
-                $to_echo = 'Execution impossible';
+                $to_echo = 'Error: Execution impossible';
             }
         } else {
-            $to_echo = 'Transmission action not found';
+            $to_echo = 'Error: Transmission action not found';
         }
 
         return $to_echo;

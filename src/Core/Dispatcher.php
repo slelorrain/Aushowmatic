@@ -41,7 +41,7 @@ class Dispatcher
         foreach (FeedInfo::getDoneList() as $done) {
             $to_echo .= Utils::printLink($done);
             $to_echo .= ' ( ' . Link::action('&#9660;', 'redownload', bin2hex($done), 'Redownload the link', '', true);
-            $to_echo .= ' | ' . Link::action('&#10007;', 'removeUrlDone', bin2hex($done), 'Delete', '', true) . ' )<br>';
+            $to_echo .= ' | ' . Link::action('&#10007;', 'removeUrlDone', bin2hex($done), 'Delete', '', true) . ' )'. PHP_EOL;
         }
         return $to_echo;
     }
@@ -53,7 +53,7 @@ class Dispatcher
             $to_echo .= Link::out($label . ' (' . $show . ')', Utils::getWebsiteLinkToShow($show));
             $to_echo .= ' ( ' . Link::action('?', 'preview', bin2hex($show), 'Preview the show', '', false);
             $to_echo .= ' | ' . Link::action('&#9660;', 'launch', bin2hex($show), 'Download the show', '', true);
-            $to_echo .= ' | ' . Link::action('&#10007;', 'removeShow', bin2hex($show), 'Delete', '', true) . ' )<br>';
+            $to_echo .= ' | ' . Link::action('&#10007;', 'removeShow', bin2hex($show), 'Delete', '', true) . ' )'. PHP_EOL;
         }
         return $to_echo;
     }
@@ -104,13 +104,13 @@ class Dispatcher
 
     private static function download($torrent)
     {
-        $to_echo = 'Error: invalid or corrupt torrent file';
+        $to_echo = 'Error: Invalid or corrupt torrent file';
 
         if (isset($torrent)) {
             $url_added = Utils::downloadTorrent($torrent, false);
 
             if (!is_null($url_added) && $_SESSION['last_cmd_status'] == "0") {
-                $to_echo = 'Torrent successfully added<br>' . self::done();
+                $to_echo = 'Torrent successfully added' . PHP_EOL . PHP_EOL . self::done();
             }
         }
         return $to_echo;

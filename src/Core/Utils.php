@@ -54,9 +54,9 @@ class Utils
         if (count($links)) {
             $to_echo = '';
             foreach ($links as $key => $link) {
-                $to_echo .= self::printLink($link, $key) . '<br>';
+                $to_echo .= self::printLink($link, $key) . PHP_EOL;
             }
-            $to_echo = 'Links that will be processed:<br>' . $to_echo;
+            $to_echo = 'Links that will be processed:' . PHP_EOL . $to_echo;
         } else {
             $to_echo = 'No link will be processed.';
         }
