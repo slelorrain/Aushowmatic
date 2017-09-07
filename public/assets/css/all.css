@@ -136,6 +136,15 @@ h1 {
     color: #BC403A;
 }
 
+.upload.modal {
+    text-align: center;
+}
+
+.upload input[type="file"] {
+    border: 1px solid #ccc;
+    padding: 3px 4px;
+}
+
 /* Handheld */
 @media screen and (max-width: 1080px) {
     h1 {
