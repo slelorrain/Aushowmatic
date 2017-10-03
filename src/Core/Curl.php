@@ -5,26 +5,27 @@ namespace slelorrain\Aushowmatic\Core;
 class Curl
 {
 
-    public static function getPage($url, $userAgent = null)
+    const MAX_RETRY = 5;
+    const RETRY_DELAY = 1000000;
+    const MULTI_BATCH_SIZE = 20;
+
+    public static function getPage($url, $userAgent = null, $referer = null)
     {
-        if (isset($url)) {
-            $ch = self::getCurlHandle($url, $userAgent);
-            $page = curl_exec($ch);
-            curl_close($ch);
-            return $page;
+        if (!empty($url)) {
+            return self::doCurl($url, $userAgent, $referer);
         }
     }
 
-    public static function getPages($urls, $userAgent = null)
+    public static function getPages($urls, $userAgent = null, $referer = null)
     {
-        if (isset($urls)) {
-            return self::doCurlMulti($urls, $userAgent);
+        if (!empty($urls)) {
+            return self::doCurlMulti($urls, $userAgent, $referer);
         }
     }
 
-    private static function getCurlHandle($url, $userAgent)
+    private static function getCurlHandle($url, $userAgent, $referer)
     {
-        if (isset($url)) {
+        if (!empty($url)) {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -37,45 +38,82 @@ class Curl
                 curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
             }
 
+            if (isset($referer)) {
+                curl_setopt($ch, CURLOPT_REFERER, $referer);
+            }
+
             return $ch;
         }
     }
 
-    // Create cURL handles, add them to a multi handle, and then run them in parallel
-    // Based on the example of http://php.net/manual/en/function.curl-multi-exec.php
-    //
-    // On php 5.3.18+, curl_multi_select() may return -1 forever until you call curl_multi_exec()
-    // See https://bugs.php.net/bug.php?id=63411 for more information
-    private static function doCurlMulti($urls, $userAgent)
+    private static function doCurl($url, $userAgent, $referer)
     {
-        // Create a new cURL multi handle
+        $try = 0;
+        $done = false;
+        $ch = self::getCurlHandle($url, $userAgent, $referer);
+
+        while (!$done && $try < self::MAX_RETRY) {
+            if ($try++ > 1) {
+                usleep(self::RETRY_DELAY);
+            }
+
+            $page = curl_exec($ch);
+
+            if (curl_getinfo($ch)['http_code'] == 200) {
+                $done = true;
+            }
+        }
+
+        curl_close($ch);
+
+        return $page;
+    }
+
+    private static function doCurlMulti($urls, $userAgent, $referer)
+    {
+        $try = 0;
+        $done = false;
         $mh = curl_multi_init();
 
-        // Get and add handles
-        foreach ($urls as $url) {
-            $ch = self::getCurlHandle($url, $userAgent);
-            curl_multi_add_handle($mh, $ch);
-            $handles[] = $ch;
+        while (!$done && $try < self::MAX_RETRY) {
+            if ($try++ > 1) {
+                usleep(self::RETRY_DELAY);
+            }
+
+            // Get and add handles
+            $handles = array();
+            $extract = array_splice($urls, 0, self::MULTI_BATCH_SIZE);
+            foreach ($extract as $url) {
+                $ch = self::getCurlHandle($url, $userAgent, $referer);
+                curl_multi_add_handle($mh, $ch);
+                $handles[] = $ch;
+            }
+
+            // Process each of the handles in the stack
+            $running = null;
+            do {
+                curl_multi_exec($mh, $running);
+                curl_multi_select($mh);
+            } while ($running > 0);
+
+            // Retrieve the content of cURL handles and remove them
+            foreach ($handles as $ch) {
+                $info = curl_getinfo($ch);
+                if ($info['http_code'] != 200 && !in_array($info['url'], $urls)) {
+                    array_push($urls, $info['url']);
+                } else {
+                    $pages[] = curl_multi_getcontent($ch);
+                }
+
+                curl_multi_remove_handle($mh, $ch);
+                curl_close($ch);
+            }
+
+            if (empty($urls)) {
+                $done = true;
+            }
         }
 
-        // Process each of the handles in the stack
-        $active = null;
-        do {
-            $mrc = curl_multi_exec($mh, $active);
-        } while ($mrc == CURLM_CALL_MULTI_PERFORM);
-
-        do {
-            curl_multi_select($mh); // non-busy wait for state change
-            $mrc = curl_multi_exec($mh, $active); // get new state
-        } while ($active);
-
-        // Retrieve the content of cURL handles and remove them
-        foreach ($handles as $ch) {
-            $pages[] = curl_multi_getcontent($ch);
-            curl_multi_remove_handle($mh, $ch);
-        }
-
-        // Close the cURL multi handle
         curl_multi_close($mh);
 
         return $pages;
