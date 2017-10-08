@@ -1,6 +1,6 @@
 {
   "name": "slelorrain/aushowmatic",
-  "description": "Aushowmatic is a light torrent-based PVR (personal video recorder).",
+  "description": "Light torrent-based PVR (personal video recorder).",
   "minimum-stability": "stable",
   "type": "project",
   "license": "WTFPL",
