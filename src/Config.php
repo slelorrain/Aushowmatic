@@ -12,6 +12,7 @@ class Config
         'FEED_INFO',
         'PREFERRED_FORMAT',
         'SUBTITLES_ENABLED',
+        'SUBTITLES_CLASS',
         'SYSTEM_CMDS_ENABLED',
     );
 

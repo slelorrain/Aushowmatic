@@ -2,13 +2,10 @@
 
 namespace slelorrain\Aushowmatic\Core;
 
-define('SEARCH_PATH', 'https://www.opensubtitles.org/en/search/sublanguageid-' . $_ENV['SUBTITLES_LANGUAGE'] . '/moviename-');
-
-class Subtitle
+abstract class Subtitle implements SubtitleInterface
 {
 
     const TMP_PATH = '/tmp/';
-    const ZIP_FILE = 'tmp.zip';
 
     public static function download($directories = null)
     {
@@ -74,62 +71,12 @@ class Subtitle
                 $subtitle = substr_replace($video , $_ENV['SUBTITLES_EXTENSION'], strrpos($video, '.') + 1);
 
                 if (!in_array($subtitle, $subtitles)) {
-                    $results[$video] = self::searchAndDownload($path_parts);
+                    $results[$video] = static::searchAndDownload($path_parts);
                 }
             }
         }
 
         return $results;
-    }
-
-    private static function searchAndDownload($path_parts)
-    {
-        $download_url = self::getDownloadUrl($path_parts['filename']);
-
-        if (isset($download_url)) {
-            $result = copy($download_url, self::TMP_PATH . self::ZIP_FILE);
-
-            if ($result) {
-                $result = self::extractZip();
-
-                if ($result) {
-                    return self::moveAndClean($path_parts);
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private static function getDownloadUrl($search)
-    {
-        $search = str_replace($_ENV['PREFERRED_FORMAT'], '', $search);
-        $search_url = SEARCH_PATH . $search . '/simplexml';
-        $search_page = Curl::getPage($search_url);
-
-        libxml_use_internal_errors(true);
-        $xml = simplexml_load_string($search_page);
-        libxml_clear_errors();
-
-        if ($xml && is_object($xml->results->subtitle)) {
-            return $xml->results->subtitle->download;
-        }
-    }
-
-    private static function extractZip()
-    {
-        return System::unzip(self::TMP_PATH . self::ZIP_FILE, self::TMP_PATH);
-    }
-
-    private static function moveAndClean($path_parts)
-    {
-        $current_subtitle = glob(self::TMP_PATH . '*.' . $_ENV['SUBTITLES_EXTENSION'])[0];
-        $new_subtitle = $path_parts['dirname'] . '/' . $path_parts['filename'] . '.' . $_ENV['SUBTITLES_EXTENSION'];
-        $result = rename($current_subtitle, $new_subtitle);
-
-        unlink(self::TMP_PATH . self::ZIP_FILE);
-
-        return $result;
     }
 
     private static function printResults($results)

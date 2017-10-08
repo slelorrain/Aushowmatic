@@ -183,7 +183,7 @@ class Dispatcher
 
     private static function subtitles()
     {
-        return Subtitle::download();
+        return $_ENV['SUBTITLES_CLASS']::download();
     }
 
     private static function uploadSubtitle($torrent_id = null)
