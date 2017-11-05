@@ -43,7 +43,7 @@ abstract class Subtitle implements SubtitleInterface
             $moved = move_uploaded_file($file['tmp_name'], $destination);
 
             if ($moved) {
-                if (self::moveAndClean($path_parts)) {
+                if (static::moveAndClean($path_parts)) {
                     return 'File uploaded.';
                 } else {
                     unlink($destination);

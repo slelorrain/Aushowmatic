@@ -196,7 +196,7 @@ class Dispatcher
                 $videos = glob($directory . '/*.{' . $_ENV['SUBTITLES_SEARCH_EXTENSIONS'] . '}', GLOB_BRACE);
 
                 if (!empty($videos)) {
-                    $to_echo = Subtitle::uploadSubtitle($videos[0], $_FILES['subtitle']);
+                    $to_echo = $_ENV['SUBTITLES_CLASS']::uploadSubtitle($videos[0], $_FILES['subtitle']);
                 } else {
                     $to_echo = 'Error: No video found.';
                 }
