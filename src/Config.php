@@ -8,11 +8,10 @@ class Config
 {
 
     private static $not_empty_variables = array(
-        'FEED_CLASS',
-        'FEED_INFO',
+        'FEED_NAME',
         'PREFERRED_FORMAT',
         'SUBTITLES_ENABLED',
-        'SUBTITLES_CLASS',
+        'SUBTITLES_NAME',
         'SYSTEM_CMDS_ENABLED',
     );
 
@@ -30,6 +29,9 @@ class Config
 
         date_default_timezone_set(isset($_ENV['TIMEZONE']) ? $_ENV['TIMEZONE'] : 'UTC');
 
-        define("FEED_INFO", APP_BASE_PATH . $_ENV['FEED_INFO']);
+        $_ENV['FEED_CLASS'] = __NAMESPACE__ . '\\Feeds\\' . $_ENV['FEED_NAME'];
+        define('FEED_INFO', APP_BASE_PATH . 'resources/feeds/_' . $_ENV['FEED_NAME'] . '.json');
+
+        $_ENV['SUBTITLES_CLASS'] = __NAMESPACE__ . '\\Subtitles\\' . $_ENV['SUBTITLES_NAME'];
     }
 }
