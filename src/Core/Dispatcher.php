@@ -41,7 +41,7 @@ class Dispatcher
         foreach (FeedInfo::getDoneList() as $done) {
             $to_echo .= Utils::printLink($done);
             $to_echo .= ' ( ' . Link::action('&#9660;', 'redownload', bin2hex($done), 'Redownload the link', '', true);
-            $to_echo .= ' | ' . Link::action('&#10007;', 'removeUrlDone', bin2hex($done), 'Delete', '', true) . ' )'. PHP_EOL;
+            $to_echo .= ' | ' . Link::action('&#10007;', 'removeUrlDone', bin2hex($done), 'Delete', '', true) . ' )' . PHP_EOL;
         }
         return $to_echo;
     }
@@ -53,7 +53,7 @@ class Dispatcher
             $to_echo .= Link::out($label . ' (' . $show . ')', Utils::getWebsiteLinkToShow($show));
             $to_echo .= ' ( ' . Link::action('?', 'preview', bin2hex($show), 'Preview the show', '', false);
             $to_echo .= ' | ' . Link::action('&#9660;', 'launch', bin2hex($show), 'Download the show', '', true);
-            $to_echo .= ' | ' . Link::action('&#10007;', 'removeShow', bin2hex($show), 'Delete', '', true) . ' )'. PHP_EOL;
+            $to_echo .= ' | ' . Link::action('&#10007;', 'removeShow', bin2hex($show), 'Delete', '', true) . ' )' . PHP_EOL;
         }
         return $to_echo;
     }
@@ -173,7 +173,7 @@ class Dispatcher
         $torrent_id = null;
         $exploded = explode('|id=', $function);
 
-        if (!is_null($exploded[1]) && is_numeric($exploded[1])) {
+        if (isset($exploded[1]) && is_numeric($exploded[1])) {
             $function = $exploded[0];
             $torrent_id = $exploded[1];
         }
