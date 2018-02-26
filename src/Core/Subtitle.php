@@ -43,7 +43,7 @@ abstract class Subtitle implements SubtitleInterface
             $moved = move_uploaded_file($file['tmp_name'], $destination);
 
             if ($moved) {
-                if (static::moveAndClean($path_parts)) {
+                if (self::move($path_parts)) {
                     return 'File uploaded.';
                 } else {
                     unlink($destination);
@@ -55,6 +55,13 @@ abstract class Subtitle implements SubtitleInterface
         } else {
             return 'Error: No file provided.';
         }
+    }
+
+    public static function move($path_parts)
+    {
+        $current_subtitle = glob(self::TMP_PATH . '*.' . $_ENV['SUBTITLES_EXTENSION'])[0];
+        $new_subtitle = $path_parts['dirname'] . '/' . $path_parts['filename'] . '.' . $_ENV['SUBTITLES_EXTENSION'];
+        return rename($current_subtitle, $new_subtitle);
     }
 
     private static function searchAndDownloadAll($directories)

@@ -9,6 +9,6 @@ interface SubtitleInterface
 
     static function getDownloadUrl($search);
 
-    static function moveAndClean($path_parts);
+    static function move($path_parts);
 
 }

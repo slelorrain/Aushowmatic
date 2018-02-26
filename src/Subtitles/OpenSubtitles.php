@@ -24,9 +24,10 @@ class OpenSubtitles extends Core\Subtitle
 
                 if ($result) {
                     $result = Core\System::unzip(self::TMP_PATH . self::ZIP_FILE, self::TMP_PATH);
+                    unlink(self::TMP_PATH . self::ZIP_FILE);
 
                     if ($result) {
-                        return self::moveAndClean($path_parts);
+                        return self::move($path_parts);
                     }
                 }
             }
@@ -48,17 +49,8 @@ class OpenSubtitles extends Core\Subtitle
         if ($xml && is_object($xml->results->subtitle)) {
             return $xml->results->subtitle->download;
         }
-    }
 
-    public static function moveAndClean($path_parts)
-    {
-        $current_subtitle = glob(self::TMP_PATH . '*.' . $_ENV['SUBTITLES_EXTENSION'])[0];
-        $new_subtitle = $path_parts['dirname'] . '/' . $path_parts['filename'] . '.' . $_ENV['SUBTITLES_EXTENSION'];
-        $result = rename($current_subtitle, $new_subtitle);
-
-        unlink(self::TMP_PATH . self::ZIP_FILE);
-
-        return $result;
+        return false;
     }
 
 }

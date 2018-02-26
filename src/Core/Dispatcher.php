@@ -13,7 +13,7 @@ class Dispatcher
         $_SESSION['start'] = microtime(true);
 
         if (isset($_GET['action'])) {
-            if (method_exists(__NAMESPACE__ . '\Dispatcher', $_GET['action'])) {
+            if (method_exists(get_class(), $_GET['action'])) {
                 if (!isset($_GET['parameter'])) {
                     $to_echo = call_user_func('self::' . $_GET['action']);
                 } else {
@@ -198,7 +198,7 @@ class Dispatcher
                 $videos = glob($directory . '/*.{' . $_ENV['SUBTITLES_SEARCH_EXTENSIONS'] . '}', GLOB_BRACE);
 
                 if (!empty($videos)) {
-                    $to_echo = $_ENV['SUBTITLES_CLASS']::uploadSubtitle($videos[0], $_FILES['subtitle']);
+                    $to_echo = Subtitle::uploadSubtitle($videos[0], $_FILES['subtitle']);
                 } else {
                     $to_echo = 'Error: No video found.';
                 }
