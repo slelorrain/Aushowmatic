@@ -4,7 +4,7 @@ namespace slelorrain\Aushowmatic\Subtitles;
 
 use slelorrain\Aushowmatic\Core;
 
-define('SEARCH_PATH', 'https://www.opensubtitles.org/en/search/sublanguageid-' . $_ENV['SUBTITLES_LANGUAGE'] . '/moviename-');
+define('SEARCH_PATH', 'https://www.opensubtitles.org/en/search/sublanguageid-#LANG#/moviename-');
 define('USER_AGENT', 'Aushowmatic');
 
 class OpenSubtitles extends Core\Subtitle
@@ -39,7 +39,7 @@ class OpenSubtitles extends Core\Subtitle
     public static function getDownloadUrl($search)
     {
         $search = str_replace($_ENV['PREFERRED_FORMAT'], '', $search);
-        $search_url = SEARCH_PATH . $search . '/simplexml';
+        $search_url = str_replace('#LANG#', self::getLanguage(), SEARCH_PATH) . $search . '/simplexml';
         $search_page = Core\Curl::getPage($search_url);
 
         libxml_use_internal_errors(true);
@@ -51,6 +51,11 @@ class OpenSubtitles extends Core\Subtitle
         }
 
         return false;
+    }
+
+    public static function getLanguage()
+    {
+        return $_ENV['SUBTITLES_LANGUAGE'];
     }
 
 }

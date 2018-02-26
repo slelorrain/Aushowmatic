@@ -11,4 +11,6 @@ interface SubtitleInterface
 
     static function move($path_parts);
 
+    static function getLanguage();
+
 }

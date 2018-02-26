@@ -15,6 +15,9 @@ new Aushowmatic\Config();
 Core\Dispatcher::dispatch();
 $isTurtleActivated = Core\Transmission::isTurtleActivated();
 $availableShows = Core\Feed::getAvailableShows();
+$areSubtitlesEnabled = ($_ENV['SUBTITLES_ENABLED'] == 'true');
+$subtitlesLanguage = $_ENV['SUBTITLES_CLASS']::getLanguage();
+$showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,7 +68,11 @@ $availableShows = Core\Feed::getAvailableShows();
 <div id="main_container" class="auto">
 
     <?php if (!is_writable(FEED_INFO)) { ?>
-        <div class="alert">The feed file is not writable. Please update permissions.</div>
+        <div class="alert">The feed file is not writable. Please update permissions of <?= FEED_INFO ?>.</div>
+    <?php } ?>
+
+    <?php if ($areSubtitlesEnabled && !isset($subtitlesLanguage)) { ?>
+        <div class="alert">The subtitles language configuration is incorrect. Please update SUBTITLES_LANGUAGE.</div>
     <?php } ?>
 
     <nav>
@@ -93,7 +100,7 @@ $availableShows = Core\Feed::getAvailableShows();
                 <?= Button::action('Launch downloads', 'launch', '', '', 'primary') ?>
             </li>
         </ul>
-        <?php if ($_ENV['SUBTITLES_ENABLED'] == 'true') { ?>
+        <?php if ($areSubtitlesEnabled) { ?>
         <ul class="yt-button-group right">
             <li>
                 <?= Button::action('Download subtitles', 'subtitles') ?>
@@ -152,7 +159,7 @@ $availableShows = Core\Feed::getAvailableShows();
 </div>
 
 <footer>
-    Min. date : <?= Core\FeedInfo::getMinDate() ?>
+    Min. date: <?= Core\FeedInfo::getMinDate() ?>
     / Generated in <?= $_SESSION['generated_in'] ?>s
     / <?= Utils::getVersion() ?>
     <?php if (Utils::hasUpdateAvailable()) { ?>
