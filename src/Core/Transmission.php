@@ -2,6 +2,9 @@
 
 namespace slelorrain\Aushowmatic\Core;
 
+use slelorrain\Aushowmatic\Components\Link;
+use slelorrain\Aushowmatic\Components\Upload;
+
 class Transmission
 {
 

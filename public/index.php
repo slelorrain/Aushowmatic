@@ -7,8 +7,8 @@ require_once $autoload;
 use slelorrain\Aushowmatic;
 use slelorrain\Aushowmatic\Core;
 use slelorrain\Aushowmatic\Core\Utils;
-use slelorrain\Aushowmatic\Core\Button;
-use slelorrain\Aushowmatic\Core\Link;
+use slelorrain\Aushowmatic\Components\Button;
+use slelorrain\Aushowmatic\Components\Link;
 
 new Aushowmatic\Config();
 

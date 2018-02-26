@@ -2,6 +2,8 @@
 
 namespace slelorrain\Aushowmatic\Core;
 
+use slelorrain\Aushowmatic\Components\Link;
+
 class Utils
 {
 

@@ -1,6 +1,6 @@
 <?php
 
-use slelorrain\Aushowmatic\Core\Link;
+use slelorrain\Aushowmatic\Components\Link;
 
 class TestOfLink extends UnitTestCase
 {

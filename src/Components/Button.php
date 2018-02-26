@@ -1,6 +1,6 @@
 <?php
 
-namespace slelorrain\Aushowmatic\Core;
+namespace slelorrain\Aushowmatic\Components;
 
 class Button extends Link
 {

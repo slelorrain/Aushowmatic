@@ -1,6 +1,6 @@
 <?php
 
-use slelorrain\Aushowmatic\Core\Button;
+use slelorrain\Aushowmatic\Components\Button;
 
 class TestOfButton extends UnitTestCase
 {
