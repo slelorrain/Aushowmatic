@@ -33,7 +33,11 @@ class Utils
             if (strpos($link, 'magnet') !== false) {
                 // Magnet link
                 $exploded = explode("&dn=", $link);
-                $exploded = explode("&", $exploded[1]);
+                if (isset($exploded[1])){
+                    $exploded = explode("&", $exploded[1]);
+                } else {
+                    $exploded = explode("&", $exploded[0]);
+                }
                 $exploded = $exploded[0];
             } else {
                 // Normal link

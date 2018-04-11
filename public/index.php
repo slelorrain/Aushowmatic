@@ -137,7 +137,7 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
             <?= Button::action('Update min. date', 'updateDate') ?>
             <?= Button::action('Empty processed links', 'emptyDone', '', '', 'danger') ?>
         </div>
-        <?php if ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true') { ?>
+        <?php if ($showSystemCommands) { ?>
             <div class="right">
                 <?= Button::action('Disk space usage', 'diskUsage') ?>
                 <ul class="yt-button-group">
