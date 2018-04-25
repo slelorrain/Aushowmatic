@@ -154,7 +154,6 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
                 </ul>
                 <?= Button::show('&#9660;', 'hidden_actions_right') ?>
                 <div id="hidden_actions_right" class="showable">
-                    <?= Button::action('Kill Kodi', 'killKodi', '', '', 'danger') ?>
                     <?= Button::action('Reboot', 'reboot', '', '', 'danger') ?>
                     <?= Button::action('Shutdown', 'shutdown', '', '', 'danger') ?>
                 </div>

@@ -35,22 +35,6 @@ class System
         }
     }
 
-    public static function killKodi()
-    {
-        if (self::isKodiStarted()) {
-            exec(PS_AUX_CMD, $ps_aux);
-            $ps_aux = array_filter(explode(' ', $ps_aux[0]));
-
-            if (array_shift($ps_aux) == 'root') {
-                $pid = array_shift($ps_aux);
-                self::executeInBackground('sudo kill ' . $pid);
-                return 'Kodi is killed';
-            }
-        } else {
-            return 'Kodi is not started';
-        }
-    }
-
     public static function shutdown()
     {
         self::executeInBackground('sudo poweroff');

@@ -56,9 +56,9 @@ And add a rule looking like this one (check at least the path):
 Check that your server application have write access on `./resources/feeds/*`. If not, you must update permissions.
 
 ### Step 5 (optional):
-If you want to be able to execute systems commands (like start/stop Kodi, poweroff or reboot) by sudo, you have to add some permissions by editing `/etc/sudoers`:
+If you want to be able to execute systems commands (like start Kodi, poweroff or reboot) by sudo, you have to add some permissions by editing `/etc/sudoers`:
 ```
-www-data ALL=NOPASSWD: /usr/lib/kodi/kodi.bin, /bin/kill, /sbin/poweroff, /sbin/reboot
+www-data ALL=NOPASSWD: /usr/bin/kodi, /sbin/poweroff, /sbin/reboot
 ```
 
 **WARNING: THIS IS NOT RECOMMENDED IF YOUR DEVICE IS ACCESSIBLE FROM WAN**
@@ -77,5 +77,5 @@ Released under the [WTFPL license].
 [Composer]: https://getcomposer.org
 [showrss.info]: https://showrss.info
 [opensubtitles.org]: https://www.opensubtitles.org
-[addic7ed.com]: https://www.addic7ed.com
+[addic7ed.com]: http://www.addic7ed.com
 [WTFPL license]: http://www.wtfpl.net

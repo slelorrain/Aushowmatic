@@ -150,11 +150,6 @@ class Dispatcher
         return System::getStatusOfKodi();
     }
 
-    private static function killKodi()
-    {
-        return System::killKodi();
-    }
-
     private static function reboot()
     {
         System::reboot();
