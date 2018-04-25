@@ -23,14 +23,14 @@ class Addic7ed extends Core\Subtitle
         $finder = new \DomXPath($dom);
 
         $nodes = $finder->query("//*[contains(@class, 'language')]");
-        
+
         foreach ($nodes as $item) {
             $language = explode(" ", trim($item->nodeValue))[0];
             $is_desired_language = in_array($language, self::getLanguage());
             $is_completed = (trim($item->nextSibling->nextSibling->nodeValue) == 'Completed');
 
             if ($is_desired_language && $is_completed) {
-                // Use "." in front of the query because button is not a direct child 
+                // Use "." in front of the query because button is not a direct child
                 $download_button = $finder->query(".//*[contains(@class, 'buttonDownload')]", $item->parentNode)->item(0);
 
                 if ($download_button->nodeType == XML_ELEMENT_NODE && $download_button->hasAttribute('href')) {
