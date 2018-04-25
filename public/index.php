@@ -1,7 +1,6 @@
 <?php
 $autoload = '../vendor/autoload.php';
 if (!file_exists($autoload)) die('You must install dependencies');
-
 require_once $autoload;
 
 use slelorrain\Aushowmatic;
@@ -10,7 +9,11 @@ use slelorrain\Aushowmatic\Core\Utils;
 use slelorrain\Aushowmatic\Components\Button;
 use slelorrain\Aushowmatic\Components\Link;
 
-new Aushowmatic\Config();
+try {
+    new Aushowmatic\Config();
+} catch (Exception $e) {
+    print('Incorrect configuration:<br>' . $e->getMessage());
+}
 
 Core\Dispatcher::dispatch();
 $isTurtleActivated = Core\Transmission::isTurtleActivated();
