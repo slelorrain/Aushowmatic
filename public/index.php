@@ -58,9 +58,6 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
             <?= Button::action('&equiv;', 'transmission', 'listFiles', 'List torrents') ?>
         </li>
         <li>
-            <?= Button::action('&iexcl;', 'transmission', 'sessionInfo', 'Session information') ?>
-        </li>
-        <li>
             <?= Button::out('TWI', $_ENV['TRANSMISSION_WEB'], 'Transmission Web Interface') ?>
         </li>
     </ul>
@@ -110,47 +107,53 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
         <?php } ?>
         <div class="clear"></div>
 
-        <form id="add_show" class="showable" method="post" action="?action=addShow">
-            <?php if ($availableShows && !empty($availableShows)) { ?>
-                <select name="show_name">
-                    <option disabled selected value>--- select a show ---</option>
-                    <?php foreach ($availableShows as $name => $label) { ?>
-                        <option value=<?= $name ?>><?= $label ?></option>
-                    <?php } ?>
-                </select>
-            <?php } else { ?>
-                <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
-                <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
-            <?php } ?>
-            <input id="sumbit_add_show" class="yt-button" type="submit" value="Add"/>
-        </form>
+        <div class="left">
+	        <form id="add_show" class="showable" method="post" action="?action=addShow">
+	            <?php if ($availableShows && !empty($availableShows)) { ?>
+	                <select name="show_name">
+	                    <option disabled selected value>--- select a show ---</option>
+	                    <?php foreach ($availableShows as $name => $label) { ?>
+	                        <option value=<?= $name ?>><?= $label ?></option>
+	                    <?php } ?>
+	                </select>
+	            <?php } else { ?>
+	                <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
+	                <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
+	            <?php } ?>
+	            <input id="sumbit_add_show" class="yt-button" type="submit" value="Add"/>
+	        </form>
 
-        <form id="add_torrent" class="showable" method="post" action="?action=addTorrent">
-            <input id="torrent_link" name="torrent_link" type="text" placeholder="Torrent link"/>
-            <input id="sumbit_add_torrent" class="yt-button" type="submit" value="Add"/>
-        </form>
+	        <form id="add_torrent" class="showable" method="post" action="?action=addTorrent">
+	            <input id="torrent_link" name="torrent_link" type="text" placeholder="Torrent link"/>
+	            <input id="sumbit_add_torrent" class="yt-button" type="submit" value="Add"/>
+	        </form>
+	    </div>
+        <div class="clear"></div>
     </nav>
 
     <pre id="response"><?= isset($_SESSION['result']) ? $_SESSION['result'] : '' ?></pre>
 
     <div id="bottom_links">
         <div class="left">
-            <?= Button::action('Update min. date', 'updateDate') ?>
-            <?= Button::action('Empty processed links', 'emptyDone', '', '', 'danger') ?>
+            <?= Button::show('Parameters' , 'hidden_actions_left') ?>
+            <div id="hidden_actions_left" class="showable">
+            	<?= Button::action('Transmission information', 'transmission', 'sessionInfo') ?>
+                <?= Button::action('Disk space usage', 'diskUsage') ?>
+        		<?= Button::action('Update minimum date', 'updateDate') ?>
+        		<?= Button::action('Empty processed links', 'emptyDone', '', '', 'danger') ?>
+            </div>
         </div>
         <?php if ($showSystemCommands) { ?>
             <div class="right">
-                <?= Button::action('Disk space usage', 'diskUsage') ?>
                 <ul class="yt-button-group">
                     <li><?= Button::action('Kodi Status', 'statusKodi') ?></li>
                     <li><?= Button::action('Start Kodi', 'startKodi', '', '', 'primary') ?></li>
                 </ul>
-                <?= Button::show('&#9660;', 'hidden_actions') ?>
-
-                <div id="hidden_actions" class="showable">
-                    <?= Button::action('Kill Kodi', 'killKodi', '', '', 'danger big') ?>
-                    <?= Button::action('Reboot', 'reboot', '', '', 'danger big') ?>
-                    <?= Button::action('Shutdown', 'shutdown', '', '', 'danger big') ?>
+                <?= Button::show('&#9660;', 'hidden_actions_right') ?>
+                <div id="hidden_actions_right" class="showable">
+                    <?= Button::action('Kill Kodi', 'killKodi', '', '', 'danger') ?>
+                    <?= Button::action('Reboot', 'reboot', '', '', 'danger') ?>
+                    <?= Button::action('Shutdown', 'shutdown', '', '', 'danger') ?>
                 </div>
             </div>
         <?php } ?>

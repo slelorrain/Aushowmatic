@@ -64,20 +64,14 @@ h1 {
     padding: 0 24px;
 }
 
-#add_show, #add_torrent {
-    display: none;
-    margin-top: 24px;
-    text-align: left;
-}
-
 #show_name, #show_label, #torrent_link {
     border: 1px solid #BBB;
-    height: 23px;
+    height: 24px;
     padding: 1px 4px;
 }
 
 #sumbit_add_show, #sumbit_add_torrent {
-    height: 27px;
+    height: 28px;
 }
 
 #response {
@@ -92,21 +86,14 @@ h1 {
     box-shadow: rgba(0, 0, 0, 0.25) 0 1px 5px inset, #fff 0 1px 0;
 }
 
-#bottom_links .right {
-    text-align: right;
-}
-
-#hidden_actions {
-    display: none;
-    margin-top: 48px;
-}
-
 .left {
     float: left;
+    text-align: left;
 }
 
 .right {
     float: right;
+    text-align: right;
 }
 
 .clear {
@@ -136,6 +123,11 @@ h1 {
     color: #BC403A;
 }
 
+.showable {
+    display: none;
+    margin-top: 24px;
+}
+
 .upload.modal {
     text-align: center;
 }
@@ -150,42 +142,30 @@ h1 {
     h1 {
         text-align: center;
         font-size: 3em;
-        padding-top: 20px;
-        padding-bottom: 20px;
+        padding-top: 18px;
+        padding-bottom: 18px;
         margin-bottom: 0;
-    }
-
-    #remote a {
-        height: 20px;
-    }
-
-    nav .yt-button-group:first-child {
-        margin-bottom: 16px;
-    }
-
-    #hidden_actions {
-        margin-top: 4%;
     }
 
     #remote {
         position: relative;
         top: auto;
         right: auto;
-        padding-bottom: 20px;
+        padding-bottom: 18px;
         background: #789;
     }
 
-    #form_add_show, #form_add_torrent {
+    .showable {
         text-align: center;
     }
 
-    .yt-button-group, #bottom_links .left, #bottom_links .right {
+    .yt-button-group, .left, .right {
         float: none;
         text-align: center;
-        margin-bottom: 15px;
+        margin-bottom: 18px;
     }
 
     #bottom_links .right {
-        padding-top: 20px;
+        padding-top: 18px;
     }
 }
