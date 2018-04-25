@@ -17,6 +17,7 @@ class AllTests extends TestSuite
         $this->addFile(dirname(__FILE__) . '/Button_test.php');
         $this->addFile(dirname(__FILE__) . '/FeedInfo_test.php');
         $this->addFile(dirname(__FILE__) . '/Link_test.php');
+        $this->addFile(dirname(__FILE__) . '/Subtitle_test.php');
         $this->addFile(dirname(__FILE__) . '/Utils_test.php');
     }
 }
