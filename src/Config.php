@@ -33,5 +33,11 @@ class Config
         define('FEED_INFO', APP_BASE_PATH . 'resources/feeds/_' . $_ENV['FEED_NAME'] . '.json');
 
         $_ENV['SUBTITLES_CLASS'] = __NAMESPACE__ . '\\Subtitles\\' . $_ENV['SUBTITLES_NAME'];
+
+        if ($_ENV['DEBUG'] == 'true') {
+            ini_set('display_errors', 1);
+            ini_set('', 1);
+            error_reporting(E_ALL);
+        }
     }
 }
