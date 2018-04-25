@@ -15,8 +15,9 @@ new Aushowmatic\Config();
 Core\Dispatcher::dispatch();
 $isTurtleActivated = Core\Transmission::isTurtleActivated();
 $availableShows = Core\Feed::getAvailableShows();
-$areSubtitlesEnabled = ($_ENV['SUBTITLES_ENABLED'] == 'true');
+$subtitlesEnabled = ($_ENV['SUBTITLES_ENABLED'] == 'true');
 $subtitlesLanguage = $_ENV['SUBTITLES_CLASS']::getLanguage();
+$subtitlesEnabledAndLanguageSet = $subtitlesEnabled && isset($subtitlesLanguage);
 $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
 ?>
 <!DOCTYPE html>
@@ -71,7 +72,7 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
         <div class="alert">The feed file is not writable. Please update permissions of <?= FEED_INFO ?>.</div>
     <?php } ?>
 
-    <?php if ($areSubtitlesEnabled && !isset($subtitlesLanguage)) { ?>
+    <?php if ($subtitlesEnabled && !isset($subtitlesLanguage)) { ?>
         <div class="alert">The subtitles language configuration is incorrect. Please update SUBTITLES_LANGUAGE.</div>
     <?php } ?>
 
@@ -100,7 +101,7 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
                 <?= Button::action('Launch downloads', 'launch', '', '', 'primary') ?>
             </li>
         </ul>
-        <?php if ($areSubtitlesEnabled) { ?>
+        <?php if ($subtitlesEnabledAndLanguageSet) { ?>
         <ul class="yt-button-group right">
             <li>
                 <?= Button::action('Download subtitles', 'subtitles') ?>
@@ -159,7 +160,10 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
 </div>
 
 <footer>
-    Min. date: <?= Core\FeedInfo::getMinDate() ?>
+    Minimum date: <?= Core\FeedInfo::getMinDate() ?>
+    <?php if ($subtitlesEnabledAndLanguageSet) { ?>
+        / Subtitles language: <?= $_ENV['SUBTITLES_LANGUAGE'] ?>
+    <?php } ?>
     / Generated in <?= $_SESSION['generated_in'] ?>s
     / <?= Utils::getVersion() ?>
     <?php if (Utils::hasUpdateAvailable()) { ?>
