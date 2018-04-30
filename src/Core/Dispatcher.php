@@ -149,11 +149,6 @@ class Dispatcher
         return System::startKodi();
     }
 
-    private static function statusKodi()
-    {
-        return System::getStatusOfKodi();
-    }
-
     private static function reboot()
     {
         System::reboot();

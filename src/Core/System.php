@@ -26,15 +26,6 @@ class System
         }
     }
 
-    public static function getStatusOfKodi()
-    {
-        if (self::isKodiStarted()) {
-            return 'Kodi is started';
-        } else {
-            return 'Kodi is not started';
-        }
-    }
-
     public static function shutdown()
     {
         self::executeInBackground('sudo poweroff');

@@ -126,7 +126,6 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
         <?php if ($showSystemCommands) { ?>
             <div class="right">
                 <ul class="yt-button-group">
-                    <li><?= Button::action('Kodi Status', 'statusKodi') ?></li>
                     <li><?= Button::action('Start Kodi', 'startKodi', '', '', 'primary') ?></li>
                 </ul>
                 <?= Button::show('&#9660;', 'hidden_actions_right') ?>
