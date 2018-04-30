@@ -3,25 +3,28 @@ $autoload = '../vendor/autoload.php';
 if (!file_exists($autoload)) die('You must install dependencies');
 require_once $autoload;
 
-use slelorrain\Aushowmatic;
-use slelorrain\Aushowmatic\Core;
+use slelorrain\Aushowmatic\Config;
+use slelorrain\Aushowmatic\Core\Dispatcher;
+use slelorrain\Aushowmatic\Core\FeedInfo;
+use slelorrain\Aushowmatic\Core\System;
+use slelorrain\Aushowmatic\Core\Transmission;
 use slelorrain\Aushowmatic\Core\Utils;
 use slelorrain\Aushowmatic\Components\Button;
 use slelorrain\Aushowmatic\Components\Link;
 
 try {
-    new Aushowmatic\Config();
-} catch (Exception $e) {
-    print('Incorrect configuration:<br>' . $e->getMessage());
-}
+    new Config();
+    Dispatcher::dispatch();
 
-Core\Dispatcher::dispatch();
-$isTurtleActivated = Core\Transmission::isTurtleActivated();
-$availableShows = Core\Feed::getAvailableShows();
-$subtitlesEnabled = ($_ENV['SUBTITLES_ENABLED'] == 'true');
-$subtitlesLanguage = $_ENV['SUBTITLES_CLASS']::getLanguage();
-$subtitlesEnabledAndLanguageSet = $subtitlesEnabled && isset($subtitlesLanguage);
-$showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
+    $isTurtleActivated = Transmission::isTurtleActivated();
+    $isKodiStarted = System::isKodiStarted();
+    $subtitlesEnabled = ($_ENV['SUBTITLES_ENABLED'] == 'true');
+    $subtitlesLanguage = $_ENV['SUBTITLES_CLASS']::getLanguage();
+    $subtitlesEnabledAndLanguageSet = $subtitlesEnabled && isset($subtitlesLanguage);
+    $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
+} catch (Exception $e) {
+    die('Exception:<br>' . $e->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,29 +44,18 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
 
 <div id="remote">
     <ul class="yt-button-group">
-        <li>
-            <?= Button::action('&#9632;', 'transmission', 'stop', 'Stop all torrents') ?>
-        </li>
-        <li>
-            <?= Button::action('&#9658;', 'transmission', 'start', 'Start all torrents') ?>
-        </li>
+        <li><?= Button::action('&#9632;', 'transmission', 'stop', 'Stop all torrents') ?></li>
+        <li><?= Button::action('&#9658;', 'transmission', 'start', 'Start all torrents') ?></li>
     </ul>
     <ul class="yt-button-group">
-        <li>
-            <?= Button::action('Turtle', 'transmission', 'altSpeedOn', 'Turtle ON', $isTurtleActivated ? 'active forced' : '') ?>
-        </li>
-        <li>
-            <?= Button::action('&infin;', 'transmission', 'altSpeedOff', 'Turtle OFF', !$isTurtleActivated ? 'active forced' : '') ?>
-        </li>
+        <li><?= Button::action('Turtle', 'transmission', 'altSpeedOn', 'Turtle ON', $isTurtleActivated ? 'active forced' : '') ?></li>
+        <li><?= Button::action('&infin;', 'transmission', 'altSpeedOff', 'Turtle OFF', !$isTurtleActivated ? 'active forced' : '') ?></li>
     </ul>
-    <ul class="yt-button-group">
-        <li>
-            <?= Button::action('&equiv;', 'transmission', 'listFiles', 'List torrents') ?>
-        </li>
-        <li>
-            <?= Button::out('TWI', $_ENV['TRANSMISSION_WEB'], 'Transmission Web Interface') ?>
-        </li>
-    </ul>
+    <?php if(!$isKodiStarted) { ?>
+        <ul class="yt-button-group">
+            <li><?= Button::action('Start Kodi', 'startKodi', '', '', 'primary') ?></li>
+        </ul>
+    <?php } ?>
 </div>
 
 <div id="main_container" class="auto">
@@ -78,35 +70,19 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
 
     <nav>
         <ul class="yt-button-group left">
-            <li>
-                <?= Button::action('Processed links', 'done') ?>
-            </li>
-            <li>
-                <?= Button::action('Added shows', 'shows') ?>
-            </li>
+            <li><?= Button::action('Torrents', 'transmission', 'listFiles') ?></li>
         </ul>
         <ul class="yt-button-group left">
-            <li>
-                <?= Button::show('Add a show', 'add_show') ?>
-            </li>
-            <li>
-                <?= Button::show('Add a torrent', 'add_torrent') ?>
-            </li>
+            <li><?= Button::action('Shows', 'shows') ?></li>
         </ul>
         <ul class="yt-button-group right">
-            <li>
-                <?= Button::action('Preview downloads', 'preview') ?>
-            </li>
-            <li>
-                <?= Button::action('Launch downloads', 'launch', '', '', 'primary') ?>
-            </li>
+            <li><?= Button::action('Preview downloads', 'preview') ?></li>
+            <li><?= Button::action('Launch downloads', 'launch', '', '', 'primary') ?></li>
         </ul>
         <?php if ($subtitlesEnabledAndLanguageSet) { ?>
-        <ul class="yt-button-group right">
-            <li>
-                <?= Button::action('Download subtitles', 'subtitles') ?>
-            </li>
-        </ul>
+            <ul class="yt-button-group right">
+                <li><?= Button::action('Download subtitles', 'subtitles') ?></li>
+            </ul>
         <?php } ?>
         <div class="clear"></div>
     </nav>
@@ -115,19 +91,18 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
 
     <div id="bottom_links">
         <div class="left">
-            <?= Button::show('Parameters' , 'hidden_actions_left') ?>
+            <?= Button::show('Info' , 'hidden_actions_left') ?>
             <div id="hidden_actions_left" class="showable">
-            	<?= Button::action('Transmission information', 'transmission', 'sessionInfo') ?>
+                <ul class="yt-button-group">
+                    <li><?= Button::out('TWI', $_ENV['TRANSMISSION_WEB'], 'Transmission Web Interface') ?></li>
+                    <li><?= Button::action('Transmission information', 'transmission', 'sessionInfo') ?></li>
+                </ul>
+                <?= Button::action('Processed links', 'done') ?>
                 <?= Button::action('Disk space usage', 'diskUsage') ?>
-        		<?= Button::action('Update minimum date', 'updateDate') ?>
-        		<?= Button::action('Empty processed links', 'emptyDone', '', '', 'danger') ?>
             </div>
         </div>
         <?php if ($showSystemCommands) { ?>
             <div class="right">
-                <ul class="yt-button-group">
-                    <li><?= Button::action('Start Kodi', 'startKodi', '', '', 'primary') ?></li>
-                </ul>
                 <?= Button::show('&#9660;', 'hidden_actions_right') ?>
                 <div id="hidden_actions_right" class="showable">
                     <?= Button::action('Reboot', 'reboot', '', '', 'danger') ?>
@@ -141,7 +116,7 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
 </div>
 
 <footer>
-    Minimum date: <?= Core\FeedInfo::getMinDate() ?>
+    Minimum date: <?= FeedInfo::getMinDate() ?>
     <?php if ($subtitlesEnabledAndLanguageSet) { ?>
         / Subtitles language: <?= $_ENV['SUBTITLES_LANGUAGE'] ?>
     <?php } ?>

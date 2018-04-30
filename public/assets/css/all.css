@@ -8,7 +8,7 @@
 /* Main */
 body {
     font-family: Helvetica, Verdana, sans-serif;
-    text-align: center;
+    text-align: left;
     margin: 0 auto;
     padding: 0;
     background-color: #DDD;
@@ -75,7 +75,6 @@ h1 {
 }
 
 #response {
-    max-height: 420px;
     margin-top: 24px;
     margin-bottom: 24px;
     padding: 24px;
@@ -157,6 +156,7 @@ h1 {
 
     #remote {
         position: relative;
+        text-align: center;
         top: auto;
         right: auto;
         padding-bottom: 18px;
@@ -164,16 +164,12 @@ h1 {
     }
 
     .showable {
-        text-align: center;
+        margin-top: 18px;
     }
 
-    .yt-button-group, .left, .right {
-        float: none;
-        text-align: center;
-        margin-bottom: 18px;
+    .left .yt-button, .right .yt-button {
+        margin-bottom: 8px;
     }
 
-    #bottom_links .right {
-        padding-top: 18px;
-    }
+
 }
