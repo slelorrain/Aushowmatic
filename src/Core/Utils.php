@@ -58,20 +58,20 @@ class Utils
     public static function printLinks($links)
     {
         if (count($links)) {
-            $to_echo = '';
+            $toEcho = '';
             foreach ($links as $key => $link) {
-                $to_echo .= self::printLink($link, $key) . PHP_EOL;
+                $toEcho .= self::printLink($link, $key) . PHP_EOL;
             }
-            $to_echo = 'Links that will be processed:' . PHP_EOL . $to_echo;
+            $toEcho = 'Links that will be processed:' . PHP_EOL . $toEcho;
         } else {
-            $to_echo = 'No link will be processed.';
+            $toEcho = 'No link will be processed';
         }
-        return $to_echo;
+        return $toEcho;
     }
 
-    public static function getWebsiteLinkToShow($show_id)
+    public static function getWebsiteLinkToShow($showId)
     {
-        return $_ENV['FEED_CLASS']::getWebsiteLinkToShow($show_id);
+        return $_ENV['FEED_CLASS']::getWebsiteLinkToShow($showId);
     }
 
     public static function launchDownloads($preview = false, $show = null)

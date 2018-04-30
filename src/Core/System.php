@@ -6,10 +6,10 @@ define("PS_AUX_CMD", "ps aux | grep '" . $_ENV["KODI_CMD"] . "'");
 
 class System
 {
-    private static function isKodiStarted()
+    public static function isKodiStarted()
     {
-        exec(PS_AUX_CMD, $ps_aux);
-        if (isset($ps_aux[0]) && strstr($ps_aux[0], $_ENV['KODI_CMD']) && !strstr($ps_aux[0], 'grep')) {
+        exec(PS_AUX_CMD, $psAux);
+        if (isset($psAux[0]) && strstr($psAux[0], $_ENV['KODI_CMD']) && !strstr($psAux[0], 'grep')) {
             return true;
         } else {
             return false;
@@ -64,9 +64,9 @@ class System
     {
         ob_start();
         passthru(escapeshellcmd($command), $_SESSION['last_cmd_status']);
-        $to_echo = ob_get_contents();
+        $toEcho = ob_get_contents();
         ob_end_clean();
-        return $to_echo;
+        return $toEcho;
     }
 
     private static function executeInBackground($command)

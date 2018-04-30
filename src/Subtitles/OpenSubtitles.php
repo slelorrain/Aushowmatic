@@ -13,11 +13,11 @@ class OpenSubtitles extends Core\Subtitle
     public static function getDownloadUrl($search)
     {
         $search = str_replace($_ENV['PREFERRED_FORMAT'], '', $search);
-        $search_url = str_replace('#LANG#', self::getLanguage(), SEARCH_PATH) . $search . '/simplexml';
-        $search_page = Core\Curl::getPage($search_url, USER_AGENT);
+        $searchUrl = str_replace('#LANG#', self::getLanguage(), SEARCH_PATH) . $search . '/simplexml';
+        $searchPage = Core\Curl::getPage($searchUrl, USER_AGENT);
 
         libxml_use_internal_errors(true);
-        $xml = simplexml_load_string($search_page);
+        $xml = simplexml_load_string($searchPage);
         libxml_clear_errors();
 
         if ($xml && is_object($xml->results->subtitle)) {

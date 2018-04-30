@@ -25,7 +25,7 @@ class EZTV extends Core\Feed
     }
 
     // This parsing is crappy but the DOM is crappy too :p
-    public static function parsePage($page, &$could_be_added, $use_min_date = true)
+    public static function parsePage($page, &$couldBeAdded, $useMinDate = true)
     {
         $dom = new \DomDocument();
         // Warnings are muted because DOM retrieved is not valid
@@ -42,7 +42,7 @@ class EZTV extends Core\Feed
             $released = $item->parentNode->nextSibling->nextSibling->nextSibling->nextSibling->nodeValue;
 
             // At the moment, for EZTV we only handle episodes with a release date below a week
-            if (!$use_min_date || $released != ">1 week") {
+            if (!$useMinDate || $released != ">1 week") {
 
                 $episodeName = $item->nodeValue;
 
@@ -55,12 +55,12 @@ class EZTV extends Core\Feed
 
                 $downloadLink = $item->parentNode->nextSibling->nextSibling->firstChild->getAttribute('href');
 
-                if (!array_key_exists($infoLink, $could_be_added)) {
-                    $could_be_added[$infoLink] = $downloadLink;
+                if (!array_key_exists($infoLink, $couldBeAdded)) {
+                    $couldBeAdded[$infoLink] = $downloadLink;
                 } else {
                     // If current download link contains preferred format replace link previously set in array
                     if (strpos($downloadLink, $_ENV['PREFERRED_FORMAT']) !== false) {
-                        $could_be_added[$infoLink] = $downloadLink;
+                        $couldBeAdded[$infoLink] = $downloadLink;
                     }
                 }
             }

@@ -7,7 +7,7 @@ use Dotenv;
 class Config
 {
 
-    private static $not_empty_variables = array(
+    const NOT_EMPTY_VARIABLES = array(
         'FEED_NAME',
         'PREFERRED_FORMAT',
         'SUBTITLES_ENABLED',
@@ -25,7 +25,7 @@ class Config
     {
         $dotenv = new Dotenv\Dotenv(APP_BASE_PATH, $file);
         $dotenv->load();
-        $dotenv->required(self::$not_empty_variables)->notEmpty();
+        $dotenv->required(self::NOT_EMPTY_VARIABLES)->notEmpty();
 
         date_default_timezone_set(isset($_ENV['TIMEZONE']) ? $_ENV['TIMEZONE'] : 'UTC');
 

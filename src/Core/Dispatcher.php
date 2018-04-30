@@ -15,15 +15,15 @@ class Dispatcher
         if (isset($_GET['action'])) {
             if (method_exists(get_class(), $_GET['action'])) {
                 if (!isset($_GET['parameter'])) {
-                    $to_echo = call_user_func('self::' . $_GET['action']);
+                    $toEcho = call_user_func('self::' . $_GET['action']);
                 } else {
-                    $to_echo = call_user_func('self::' . $_GET['action'], $_GET['parameter']);
+                    $toEcho = call_user_func('self::' . $_GET['action'], $_GET['parameter']);
                 }
             } else {
-                $to_echo = 'Action not found';
+                $toEcho = 'Action not found';
             }
 
-            $_SESSION['result'] = $to_echo;
+            $_SESSION['result'] = $toEcho;
             Utils::setGeneratedIn();
 
             // Avoid unwanted call of previous action
@@ -39,36 +39,39 @@ class Dispatcher
 
     private static function done()
     {
-        $to_echo = '';
+        $toEcho = '';
         foreach (FeedInfo::getDoneList() as $done) {
-            $to_echo .= Utils::printLink($done);
-            $to_echo .= ' ( ' . Link::action('&#9660;', 'redownload', bin2hex($done), 'Redownload the link', '', true);
-            $to_echo .= ' | ' . Link::action('&#10007;', 'removeUrlDone', bin2hex($done), 'Delete', '', true) . ' )' . PHP_EOL;
+            $toEcho .= Utils::printLink($done);
+            $toEcho .= ' ( ' . Link::action('&#9660;', 'redownload', bin2hex($done), 'Redownload the link', '', true);
+            $toEcho .= ' | ' . Link::action('&#10007;', 'removeUrlDone', bin2hex($done), 'Delete', '', true) . ' )' . PHP_EOL;
         }
-        return $to_echo;
+        return $toEcho;
     }
 
     private static function shows()
     {
-        $to_echo = '';
+        $toEcho = '';
         foreach (FeedInfo::getShowList() as $label => $show) {
-            $to_echo .= Link::out($label . ' (' . $show . ')', Utils::getWebsiteLinkToShow($show));
-            $to_echo .= ' ( ' . Link::action('?', 'preview', bin2hex($show), 'Preview the show', '', false);
-            $to_echo .= ' | ' . Link::action('&#9660;', 'launch', bin2hex($show), 'Download the show', '', true);
-            $to_echo .= ' | ' . Link::action('&#10007;', 'removeShow', bin2hex($show), 'Delete', '', true) . ' )' . PHP_EOL;
+            $toEcho .= Link::out($label . ' (' . $show . ')', Utils::getWebsiteLinkToShow($show));
+            $toEcho .= ' ( ' . Link::action('?', 'preview', bin2hex($show), 'Preview the show', '', false);
+            $toEcho .= ' | ' . Link::action('&#9660;', 'launch', bin2hex($show), 'Download the show', '', true);
+            $toEcho .= ' | ' . Link::action('&#10007;', 'removeShow', bin2hex($show), 'Delete', '', true) . ' )' . PHP_EOL;
         }
-        return $to_echo;
+        return $toEcho;
     }
 
     private static function addShow()
     {
         if (isset($_POST['show_name'])) {
             $name = $_POST['show_name'];
-            $label = $_POST['show_label'];
 
-            $availableShows = Feed::getAvailableShows();
-            if ($availableShows && !empty($availableShows)) {
-                $label = $availableShows[$name];
+            if (isset($_POST['show_label'])) {
+                $label = $_POST['show_label'];
+            } else {
+                $availableShows = Feed::getAvailableShows();
+                if ($availableShows && !empty($availableShows)) {
+                    $label = $availableShows[$name];
+                }
             }
 
             FeedInfo::addShow($name, $label);
@@ -106,16 +109,16 @@ class Dispatcher
 
     private static function download($torrent)
     {
-        $to_echo = 'Error: Invalid or corrupt torrent file';
+        $toEcho = 'Error: Invalid or corrupt torrent file';
 
         if (isset($torrent)) {
-            $url_added = Utils::downloadTorrent($torrent, false);
+            $urlAdded = Utils::downloadTorrent($torrent, false);
 
-            if (!is_null($url_added) && $_SESSION['last_cmd_status'] == "0") {
-                $to_echo = 'Torrent successfully added' . PHP_EOL . PHP_EOL . self::done();
+            if (!is_null($urlAdded) && $_SESSION['last_cmd_status'] == "0") {
+                $toEcho = 'Torrent successfully added' . PHP_EOL . PHP_EOL . self::done();
             }
         }
-        return $to_echo;
+        return $toEcho;
     }
 
     private static function preview($name = null)
@@ -167,15 +170,15 @@ class Dispatcher
 
     private static function transmission($function)
     {
-        $torrent_id = null;
+        $torrentId = null;
         $exploded = explode('|id=', $function);
 
         if (isset($exploded[1]) && is_numeric($exploded[1])) {
             $function = $exploded[0];
-            $torrent_id = $exploded[1];
+            $torrentId = $exploded[1];
         }
 
-        return Transmission::call($function, $torrent_id);
+        return Transmission::call($function, $torrentId);
     }
 
     private static function subtitles()
@@ -183,28 +186,28 @@ class Dispatcher
         return $_ENV['SUBTITLES_CLASS']::download();
     }
 
-    private static function uploadSubtitle($torrent_id = null)
+    private static function uploadSubtitle($torrentId = null)
     {
-        if ($torrent_id != null) {
-            $directory = Transmission::getDirectory($torrent_id);
+        if ($torrentId != null) {
+            $directory = Transmission::getDirectory($torrentId);
 
             if ($directory != null) {
                 $directory = str_replace('[', '\[', $directory);
                 $videos = glob($directory . '/*.{' . $_ENV['SUBTITLES_SEARCH_EXTENSIONS'] . '}', GLOB_BRACE);
 
                 if (!empty($videos)) {
-                    $to_echo = Subtitle::uploadSubtitle($videos[0], $_FILES['subtitle']);
+                    $toEcho = Subtitle::uploadSubtitle($videos[0], $_FILES['subtitle']);
                 } else {
-                    $to_echo = 'Error: No video found.';
+                    $toEcho = 'Error: No video found';
                 }
             } else {
-                $to_echo = 'Error: Unable to get the directory.';
+                $toEcho = 'Error: Unable to get the directory';
             }
         } else {
-            $to_echo = 'Error: A torrent ID must be provided.';
+            $toEcho = 'Error: A torrent ID must be provided';
         }
 
-        return $to_echo . PHP_EOL . PHP_EOL . Transmission::call('listFiles');
+        return $toEcho . PHP_EOL . PHP_EOL . self::transmission('listFiles');
     }
 
 }

@@ -48,35 +48,35 @@ class ShowRSS extends Core\Feed
         return $shows;
     }
 
-    public static function parsePage($page, &$could_be_added, $use_min_date = true)
+    public static function parsePage($page, &$couldBeAdded, $useMinDate = true)
     {
         libxml_use_internal_errors(true);
         $xml = simplexml_load_string($page);
         libxml_clear_errors();
         if ($xml) {
             foreach ($xml->channel->item as $item) {
-                if (!$use_min_date || strtotime($item->pubDate) >= strtotime(Core\FeedInfo::getMinDate())) {
+                if (!$useMinDate || strtotime($item->pubDate) >= strtotime(Core\FeedInfo::getMinDate())) {
 
                     $epId = "";
                     $epTitle = $item->title;
                     $downloadLink = $item->link;
 
-                    if (preg_match("(.+\s[0-9]+x[0-9]+)", $epTitle, $n)) {
+                    if (preg_match("(.+\s[0-9]+x[0-9]+)", $epTitle, $matches)) {
                         // 2x09
-                        $epId = $n[0];
+                        $epId = $matches[0];
                     } else {
-                        if (preg_match("/([0-9]{4})-([0-9]{2})-([0-9]{2})/", $epTitle, $n)) {
+                        if (preg_match("/([0-9]{4})-([0-9]{2})-([0-9]{2})/", $epTitle, $matches)) {
                             // 2014-10-20
-                            $epId = $n[0];
+                            $epId = $matches[0];
                         }
                     }
 
-                    if (!array_key_exists($epId, $could_be_added)) {
-                        $could_be_added[$epId] = $downloadLink;
+                    if (!array_key_exists($epId, $couldBeAdded)) {
+                        $couldBeAdded[$epId] = $downloadLink;
                     } else {
                         // If current download link contains preferred format replace link previously set in array
                         if (strpos($downloadLink, $_ENV['PREFERRED_FORMAT']) !== false) {
-                            $could_be_added[$epId] = $downloadLink;
+                            $couldBeAdded[$epId] = $downloadLink;
                         }
                     }
                 }

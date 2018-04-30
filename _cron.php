@@ -1,9 +1,8 @@
 <?php
-
 require_once 'vendor/autoload.php';
 
-use slelorrain\Aushowmatic;
+use slelorrain\Aushowmatic\Config;
+use slelorrain\Aushowmatic\Core\Utils;
 
-new Aushowmatic\Config();
-
-Aushowmatic\Core\Utils::launchDownloads();
+new Config();
+Utils::launchDownloads();

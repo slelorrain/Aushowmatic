@@ -13,12 +13,12 @@ class Addic7ed extends Core\Subtitle
     public static function getDownloadUrl($search)
     {
         $search = str_replace($_ENV['PREFERRED_FORMAT'], '', $search);
-        $search_url = SEARCH_PATH . $search;
-        $search_page = Core\Curl::getPage($search_url, USER_AGENT);
+        $searchUrl = SEARCH_PATH . $search;
+        $searchPage = Core\Curl::getPage($searchUrl, USER_AGENT);
 
         $dom = new \DomDocument();
         libxml_use_internal_errors(true);
-        $dom->loadHTML($search_page);
+        $dom->loadHTML($searchPage);
         libxml_clear_errors();
         $finder = new \DomXPath($dom);
 
@@ -26,15 +26,15 @@ class Addic7ed extends Core\Subtitle
 
         foreach ($nodes as $item) {
             $language = explode(" ", trim($item->nodeValue))[0];
-            $is_desired_language = in_array($language, self::getLanguage());
-            $is_completed = (trim($item->nextSibling->nextSibling->nodeValue) == 'Completed');
+            $isDesiredLanguage = in_array($language, self::getLanguage());
+            $isCompleted = (trim($item->nextSibling->nextSibling->nodeValue) == 'Completed');
 
-            if ($is_desired_language && $is_completed) {
+            if ($isDesiredLanguage && $isCompleted) {
                 // Use "." in front of the query because button is not a direct child
-                $download_button = $finder->query(".//*[contains(@class, 'buttonDownload')]", $item->parentNode)->item(0);
+                $downloadButton = $finder->query(".//*[contains(@class, 'buttonDownload')]", $item->parentNode)->item(0);
 
-                if ($download_button->nodeType == XML_ELEMENT_NODE && $download_button->hasAttribute('href')) {
-                    return 'http://www.addic7ed.com' . $download_button->getAttribute('href');
+                if ($downloadButton->nodeType == XML_ELEMENT_NODE && $downloadButton->hasAttribute('href')) {
+                    return 'http://www.addic7ed.com' . $downloadButton->getAttribute('href');
                 }
             }
         }

@@ -27,53 +27,53 @@ class Transmission
     {
         if (array_key_exists($action, Transmission::$options)) {
             $continue = true;
-            $torrent_id = null;
-            $to_call = Transmission::$options[$action];
+            $torrentId = null;
+            $toCall = Transmission::$options[$action];
 
             if (!is_null($torrent)) {
                 if (is_numeric($torrent)) {
-                    $torrent_id = $torrent;
-                    $to_call = str_replace('all', $torrent_id, $to_call);
+                    $torrentId = $torrent;
+                    $toCall = str_replace('all', $torrentId, $toCall);
                 } else {
-                    $to_call .= ' ' . $torrent;
+                    $toCall .= ' ' . $torrent;
                 }
             }
 
             $before = 'before' . ucfirst($action);
             if (method_exists(__NAMESPACE__ . '\Transmission', $before)) {
-                $continue = call_user_func('self::' . $before, $torrent_id);
+                $continue = call_user_func('self::' . $before, $torrentId);
                 usleep(self::SLEEP_TIME);
             }
 
             if ($continue) {
-                $to_echo = System::transmission($to_call);
+                $toEcho = System::transmission($toCall);
 
                 $after = 'after' . ucfirst($action);
                 if (method_exists(__NAMESPACE__ . '\Transmission', $after)) {
                     usleep(self::SLEEP_TIME);
-                    $to_echo = call_user_func('self::' . $after, $to_echo);
+                    $toEcho = call_user_func('self::' . $after, $toEcho);
                 }
             } else {
-                $to_echo = 'Error: Execution impossible';
+                $toEcho = 'Error: Execution impossible';
             }
         } else {
-            $to_echo = 'Error: Transmission action not found';
+            $toEcho = 'Error: Transmission action not found';
         }
 
-        return $to_echo;
+        return $toEcho;
     }
 
     public static function isTurtleActivated()
     {
-        $to_find = 'Download speed limit: Unlimited';
+        $toFind = 'Download speed limit: Unlimited';
         $info = self::call('sessionInfo');
-        return !strstr($info, $to_find);
+        return !strstr($info, $toFind);
     }
 
-    public static function getDirectory($torrent_id = null)
+    public static function getDirectory($torrentId = null)
     {
-        if ($torrent_id != null) {
-            $info = self::call('info', $torrent_id);
+        if ($torrentId != null) {
+            $info = self::call('info', $torrentId);
 
             preg_match('/Name: (.+)/', $info, $matches);
             $folder = $matches[1];
@@ -90,10 +90,10 @@ class Transmission
 
     // Before methods
 
-    private static function beforeVerify($torrent_id = null)
+    private static function beforeVerify($torrentId = null)
     {
-        if ($torrent_id != null) {
-            self::call('start', $torrent_id);
+        if ($torrentId != null) {
+            self::call('start', $torrentId);
 
             if ($_SESSION['last_cmd_status'] == '0') {
                 return true;
@@ -103,9 +103,9 @@ class Transmission
         return false;
     }
 
-    private static function beforeDelete($torrent_id = null)
+    private static function beforeDelete($torrentId = null)
     {
-        $directory = self::getDirectory($torrent_id);
+        $directory = self::getDirectory($torrentId);
 
         if ($directory != null) {
             return Subtitle::removeSubtitles($directory);
@@ -116,10 +116,10 @@ class Transmission
 
     // After methods
 
-    private static function afterListFiles($command_result)
+    private static function afterListFiles($commandResult)
     {
         $res = '';
-        $lines = explode(PHP_EOL, $command_result);
+        $lines = explode(PHP_EOL, $commandResult);
 
         foreach ($lines as $line) {
             $columns = explode(' ', preg_replace('/\s+/', ' ', trim($line)));
@@ -127,13 +127,13 @@ class Transmission
             $id = str_replace('*', '', $columns[0]);
 
             if (is_numeric($id)) {
-                $upload_form = Upload::modal('subtitle', 'uploadSubtitle', $id);
+                $uploadForm = Upload::modal('subtitle', 'uploadSubtitle', $id);
                 $stop = Link::action('&#9632;', 'transmission', 'stop|id=' . $id, 'Stop torrent');
                 $start = Link::action('&#9658;', 'transmission', 'start|id=' . $id, 'Start torrent');
                 $verify = Link::action('&check;', 'transmission', 'verify|id=' . $id, 'Verify torrent');
                 $delete = Link::action('&#10007;', 'transmission', 'delete|id=' . $id, 'Delete', 'danger', true);
 
-                $res .= $line . ' ' . $upload_form . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' ) ' . $delete . PHP_EOL;
+                $res .= $line . ' ' . $uploadForm . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' ) ' . $delete . PHP_EOL;
             } else {
                 $res .= $line . PHP_EOL;
             }

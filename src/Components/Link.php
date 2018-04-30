@@ -12,7 +12,7 @@ class Link
         $href = '?action=' . $action;
         $href .= (!empty($parameter)) ? '&parameter=' . $parameter : '';
 
-        return self::link($content, $href, $title, $class, '', false, $confirm);
+        return self::build($content, $href, $title, $class, '', false, $confirm);
     }
 
     public static function show($content = '', $href = '', $title = '', $class = '')
@@ -21,15 +21,15 @@ class Link
         $href = '#' . $href;
         $class = 'showSomething ' . $class;
 
-        return self::link($content, $href, $title, $class, $id, false, false);
+        return self::build($content, $href, $title, $class, $id, false, false);
     }
 
     public static function out($content = '', $href = '', $title = '', $class = '')
     {
-        return self::link($content, $href, $title, $class, '', true, false);
+        return self::build($content, $href, $title, $class, '', true, false);
     }
 
-    private static function link($content = '', $href = '', $title = '', $class = '', $id = '', $newWindow = true, $confirm = false)
+    private static function build($content = '', $href = '', $title = '', $class = '', $id = '', $newWindow = true, $confirm = false)
     {
         $id = trim($id);
         $class = trim(static::DEFAULT_CLASS . ' ' . $class);
