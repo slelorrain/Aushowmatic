@@ -3,6 +3,7 @@
 namespace slelorrain\Aushowmatic\Core;
 
 use slelorrain\Aushowmatic\Components\Link;
+use slelorrain\Aushowmatic\Components\Template;
 use slelorrain\Aushowmatic\Components\Upload;
 
 class Transmission
@@ -118,7 +119,7 @@ class Transmission
 
     private static function afterListFiles($commandResult)
     {
-        $res = '';
+        $res = Template::get('torrentForm') . PHP_EOL;
         $lines = explode(PHP_EOL, $commandResult);
 
         foreach ($lines as $line) {

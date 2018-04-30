@@ -123,6 +123,14 @@ h1 {
     color: #BC403A;
 }
 
+.flex {
+    display: flex;
+}
+
+.flexAuto {
+    flex: auto;
+}
+
 .showable {
     display: none;
     margin-top: 24px;

@@ -109,29 +109,6 @@ $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
         </ul>
         <?php } ?>
         <div class="clear"></div>
-
-        <div class="left">
-	        <form id="add_show" class="showable" method="post" action="?action=addShow">
-	            <?php if ($availableShows && !empty($availableShows)) { ?>
-	                <select name="show_name">
-	                    <option disabled selected value>--- select a show ---</option>
-	                    <?php foreach ($availableShows as $name => $label) { ?>
-	                        <option value=<?= $name ?>><?= $label ?></option>
-	                    <?php } ?>
-	                </select>
-	            <?php } else { ?>
-	                <input id="show_name" name="show_name" type="text" placeholder="Show name or ID"/>
-	                <input id="show_label" name="show_label" type="text" placeholder="Show label (optional)"/>
-	            <?php } ?>
-	            <input id="sumbit_add_show" class="yt-button" type="submit" value="Add"/>
-	        </form>
-
-	        <form id="add_torrent" class="showable" method="post" action="?action=addTorrent">
-	            <input id="torrent_link" name="torrent_link" type="text" placeholder="Torrent link"/>
-	            <input id="sumbit_add_torrent" class="yt-button" type="submit" value="Add"/>
-	        </form>
-	    </div>
-        <div class="clear"></div>
     </nav>
 
     <pre id="response"><?= isset($_SESSION['result']) ? $_SESSION['result'] : '' ?></pre>

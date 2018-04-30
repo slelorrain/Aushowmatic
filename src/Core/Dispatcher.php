@@ -3,6 +3,7 @@
 namespace slelorrain\Aushowmatic\Core;
 
 use slelorrain\Aushowmatic\Components\Link;
+use slelorrain\Aushowmatic\Components\Template;
 
 class Dispatcher
 {
@@ -50,7 +51,7 @@ class Dispatcher
 
     private static function shows()
     {
-        $toEcho = '';
+        $toEcho = Template::get('showsForm') . PHP_EOL;
         foreach (FeedInfo::getShowList() as $label => $show) {
             $toEcho .= Link::out($label . ' (' . $show . ')', Utils::getWebsiteLinkToShow($show));
             $toEcho .= ' ( ' . Link::action('?', 'preview', bin2hex($show), 'Preview the show', '', false);
