@@ -30,7 +30,8 @@ class Dispatcher
             // Avoid unwanted call of previous action
             header('Location: ./');
         } else {
-            if (!isset($_SESSION['generated_in'])) {
+            if (!isset($_SESSION['result'])) {
+                $_SESSION['result'] = self::transmission('listFiles');
                 Utils::setGeneratedIn();
             }
         }

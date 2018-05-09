@@ -143,6 +143,16 @@ class Transmission
         return $res;
     }
 
+    private static function afterAltSpeedOn()
+    {
+        return self::call('listFiles');
+    }
+
+    private static function afterAltSpeedOff()
+    {
+        return self::call('listFiles');
+    }
+
     private static function afterStart()
     {
         return self::call('listFiles');
