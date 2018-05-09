@@ -28,12 +28,22 @@ class System
 
     public static function shutdown()
     {
-        self::executeInBackground('sudo poweroff');
+        if ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true') {
+            self::executeInBackground('sudo poweroff');
+            return 'Done';
+        } else {
+            return 'System commands are disabled';
+        }
     }
 
     public static function reboot()
     {
-        self::executeInBackground('sudo reboot');
+        if ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true') {
+            self::executeInBackground('sudo reboot');
+            return 'Done';
+        } else {
+            return 'System commands are disabled';
+        }
     }
 
     public static function diskUsage()
