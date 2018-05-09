@@ -89,13 +89,13 @@ class FeedInfo
 
     private static function getFeedInfo($assoc = false)
     {
-        return json_decode(file_get_contents(FEED_INFO), $assoc);
+        return json_decode(file_get_contents($_ENV['FEED_INFO']), $assoc);
     }
 
     private static function setFeedInfo($info)
     {
-        if (is_writable(FEED_INFO)) {
-            file_put_contents(FEED_INFO, json_encode($info));
+        if (is_writable($_ENV['FEED_INFO'])) {
+            file_put_contents($_ENV['FEED_INFO'], json_encode($info));
         }
     }
 

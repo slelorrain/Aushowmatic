@@ -60,8 +60,8 @@ try {
 
 <div id="main_container" class="auto">
 
-    <?php if (!is_writable(FEED_INFO)) { ?>
-        <div class="alert">The feed file is not writable. Please update permissions of <?= FEED_INFO ?>.</div>
+    <?php if (!is_writable($_ENV['FEED_INFO'])) { ?>
+        <div class="alert">The feed file is not writable. Please update permissions of <?= $_ENV['FEED_INFO'] ?>.</div>
     <?php } ?>
 
     <?php if ($subtitlesEnabled && !isset($subtitlesLanguage)) { ?>
