@@ -2,6 +2,7 @@
 
 namespace slelorrain\Aushowmatic\Core;
 
+use slelorrain\Aushowmatic\Config;
 use slelorrain\Aushowmatic\Components\Link;
 use slelorrain\Aushowmatic\Components\Template;
 
@@ -205,6 +206,20 @@ class Dispatcher
         }
 
         return $toEcho . PHP_EOL . PHP_EOL . self::transmission('listFiles');
+    }
+
+    private static function configuration()
+    {
+        return Template::get('configForm');
+    }
+
+    private static function updateEnv() {
+        if (Config::updateEnv($_POST['name'], $_POST['value'])) {
+            $toEcho = 'Config updated';
+        } else {
+            $toEcho = 'Error: A problem occured';
+        }
+        return $toEcho . PHP_EOL . PHP_EOL . self::configuration();
     }
 
 }

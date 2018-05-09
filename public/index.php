@@ -91,7 +91,8 @@ try {
 
     <div id="bottom_links">
         <div class="left">
-            <?= Button::show('Info' , 'hidden_actions_left') ?>
+            <?= Button::show('Info', 'hidden_actions_left') ?>
+            <?= Button::action('Config', 'configuration') ?>
             <div id="hidden_actions_left" class="showable">
                 <ul class="yt-button-group">
                     <li><?= Button::out('TWI', $_ENV['TRANSMISSION_WEB'], 'Transmission Web Interface') ?></li>

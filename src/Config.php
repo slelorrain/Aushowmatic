@@ -43,4 +43,67 @@ class Config
             error_reporting(E_ALL);
         }
     }
+
+    public static function updateEnv($name, $value)
+    {
+        if (isset($name) && isset($value) && self::isValid($name, $value)) {
+            $envFile = APP_BASE_PATH . '.env';
+
+            // Create backup
+            copy($envFile, $envFile . '.bak');
+
+            // Prepare value
+            if (!self::isBoolean($value)) {
+                $value = '\'' . $value  . '\'';
+            }
+
+            // Update variable
+            $lines = file($envFile);
+            foreach ($lines as $key => $line) {
+                if (strpos($line, $name . ' =') !== false) {
+                    // Keep comment
+                    $exploded = explode(' #', $line);
+
+                    $newLine = $name . ' = ' . $value;
+                    if (isset($exploded[1])) {
+                        $newLine .= ' # ' . trim($exploded[1]);
+                    }
+                    $lines[$key] = $newLine . PHP_EOL;
+                    break;
+                }
+            }
+
+            // Save file and reload env or restore backup
+            if (file_put_contents($envFile, $lines)) {
+                new Config();
+                unlink($envFile . '.bak');
+                return true;
+            } else {
+                copy($envFile . '.bak', $envFile);
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private static function isBoolean($value)
+    {
+        return !is_null(filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE));
+    }
+
+    private static function isValid($name, $value)
+    {
+        switch ($name) {
+            case 'SUBTITLES_NAME':
+                return is_subclass_of(SUBTITLES_PATH . $value, CORE_PATH . 'Subtitle');
+                break;
+
+            case 'SUBTITLES_ENABLED':
+            case 'SYSTEM_CMDS_ENABLED':
+            case 'DEBUG':
+                return self::isBoolean($value);
+                break;
+        }
+    }
+
 }
