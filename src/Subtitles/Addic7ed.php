@@ -2,19 +2,21 @@
 
 namespace slelorrain\Aushowmatic\Subtitles;
 
-use slelorrain\Aushowmatic\Core;
+use slelorrain\Aushowmatic\Core\Curl;
+use slelorrain\Aushowmatic\Core\IsoHelper;
+use slelorrain\Aushowmatic\Core\Subtitle;
 
 define('SEARCH_PATH', 'http://www.addic7ed.com/search.php?search=');
 define('USER_AGENT', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0');
 
-class Addic7ed extends Core\Subtitle
+class Addic7ed extends Subtitle
 {
 
     public static function getDownloadUrl($search)
     {
         $search = str_replace($_ENV['PREFERRED_FORMAT'], '', $search);
         $searchUrl = SEARCH_PATH . $search;
-        $searchPage = Core\Curl::getPage($searchUrl, USER_AGENT);
+        $searchPage = Curl::getPage($searchUrl, USER_AGENT);
 
         $dom = new \DomDocument();
         libxml_use_internal_errors(true);
@@ -42,12 +44,13 @@ class Addic7ed extends Core\Subtitle
 
     public static function afterDownload()
     {
-        return rename(self::TMP_PATH . self::TMP_FILE, self::TMP_PATH . self::TMP_FILE . '.' . $_ENV['SUBTITLES_EXTENSION']);
+        $file = self::TMP_PATH . self::TMP_FILE;
+        return rename($file, $file . '.' . $_ENV['SUBTITLES_EXTENSION']);
     }
 
     public static function getLanguage()
     {
-        return Core\IsoHelper::getEnglishNamesByIso6392Code($_ENV['SUBTITLES_LANGUAGE']);
+        return IsoHelper::getEnglishNamesByIso6392Code($_ENV['SUBTITLES_LANGUAGE']);
     }
 
 }

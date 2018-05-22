@@ -2,9 +2,11 @@
 
 namespace slelorrain\Aushowmatic\Feeds;
 
-use slelorrain\Aushowmatic\Core;
+use slelorrain\Aushowmatic\Core\Curl;
+use slelorrain\Aushowmatic\Core\Feed;
+use slelorrain\Aushowmatic\Core\FeedInfo;
 
-class ShowRSS extends Core\Feed
+class ShowRSS extends Feed
 {
 
     const PATH = "http://showrss.info/";
@@ -23,7 +25,7 @@ class ShowRSS extends Core\Feed
     {
         $shows = array();
 
-        $page = Core\Curl::getPage(self::PATH . 'browse');
+        $page = Curl::getPage(self::PATH . 'browse');
 
         $dom = new \DOMDocument;
         libxml_use_internal_errors(true);
@@ -55,7 +57,7 @@ class ShowRSS extends Core\Feed
         libxml_clear_errors();
         if ($xml) {
             foreach ($xml->channel->item as $item) {
-                if (!$useMinDate || strtotime($item->pubDate) >= strtotime(Core\FeedInfo::getMinDate())) {
+                if (!$useMinDate || strtotime($item->pubDate) >= strtotime(FeedInfo::getMinDate())) {
 
                     $epId = "";
                     $epTitle = $item->title;

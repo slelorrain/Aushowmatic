@@ -4,15 +4,17 @@ require_once dirname(__FILE__) . '/../vendor/autoload.php';
 require_once dirname(__FILE__) . '/../vendor/simpletest/simpletest/autorun.php';
 
 use slelorrain\Aushowmatic;
+use slelorrain\Aushowmatic\Config;
+use slelorrain\Aushowmatic\Core\Utils;
 
-new Aushowmatic\Config(true);
+new Config(true);
 
 class AllTests extends TestSuite
 {
 
     public function __construct()
     {
-        parent::__construct('All tests for Aushowmatic ' . Aushowmatic\Core\Utils::getVersion());
+        parent::__construct('All tests for Aushowmatic ' . Utils::getVersion());
 
         $this->addFile(dirname(__FILE__) . '/Button_test.php');
         $this->addFile(dirname(__FILE__) . '/FeedInfo_test.php');

@@ -2,9 +2,9 @@
 
 namespace slelorrain\Aushowmatic\Feeds;
 
-use slelorrain\Aushowmatic\Core;
+use slelorrain\Aushowmatic\Core\Feed;
 
-class EZTV extends Core\Feed
+class EZTV extends Feed
 {
 
     const PATH = "https://eztv.it/";
