@@ -3,9 +3,13 @@
 namespace slelorrain\Aushowmatic;
 
 use Dotenv;
+use slelorrain\Aushowmatic\Core\Backupable;
 
-class Config
+class Config extends Backupable
 {
+
+    private static $isTest = false;
+    private static $envFile = '.env';
 
     const NOT_EMPTY_VARIABLES = array(
         'FEED_NAME',
@@ -17,12 +21,17 @@ class Config
 
     public function __construct($test = false)
     {
+        if ($test) {
+            self::$isTest = true;
+            self::$envFile = '.env.example';
+        }
+
         if (!defined('APP_BASE_PATH')) define('APP_BASE_PATH', dirname(__DIR__) . '/');
         if (!defined('CORE_PATH')) define('CORE_PATH', __NAMESPACE__ . '\\Core\\');
         if (!defined('FEEDS_PATH')) define('FEEDS_PATH', __NAMESPACE__ . '\\Feeds\\');
         if (!defined('SUBTITLES_PATH')) define('SUBTITLES_PATH', __NAMESPACE__ . '\\Subtitles\\');
 
-        $dotenv = new Dotenv\Dotenv(APP_BASE_PATH, $test ? '.env.example' : '.env');
+        $dotenv = new Dotenv\Dotenv(APP_BASE_PATH, self::$envFile);
         $dotenv->overload();
         $dotenv->required(self::NOT_EMPTY_VARIABLES)->notEmpty();
 
@@ -44,13 +53,15 @@ class Config
         }
     }
 
+    public static function getBackupableFile()
+    {
+        return APP_BASE_PATH . self::$envFile;
+    }
+
     public static function updateEnv($name, $value)
     {
         if (isset($name) && isset($value) && self::isValid($name, $value)) {
-            $envFile = APP_BASE_PATH . '.env';
-
-            // Create backup
-            copy($envFile, $envFile . '.bak');
+            $envFile = self::getBackupableFile();
 
             // Prepare value
             if (!self::isBoolean($value)) {
@@ -75,11 +86,9 @@ class Config
 
             // Save file and reload env or restore backup
             if (file_put_contents($envFile, $lines)) {
-                new Config();
-                unlink($envFile . '.bak');
+                new Config(self::$isTest);
                 return true;
             } else {
-                copy($envFile . '.bak', $envFile);
                 return false;
             }
         }

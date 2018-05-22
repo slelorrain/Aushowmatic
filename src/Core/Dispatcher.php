@@ -214,9 +214,13 @@ class Dispatcher
     }
 
     private static function updateEnv() {
+        Config::createBackup();
+
         if (Config::updateEnv($_POST['name'], $_POST['value'])) {
+            Config::deleteBackup();
             $toEcho = 'Config updated';
         } else {
+            Config::restoreBackup();
             $toEcho = 'Error: A problem occured';
         }
         return $toEcho . PHP_EOL . PHP_EOL . self::configuration();
