@@ -5,6 +5,16 @@ use slelorrain\Aushowmatic\Core\FeedInfo;
 class TestOfFeedInfo extends UnitTestCase
 {
 
+    public function setUp()
+    {
+        FeedInfo::createBackup();
+    }
+
+    public function tearDown()
+    {
+        FeedInfo::restoreBackup();
+    }
+
     public function testAddShowRemoveShowAndGetShowList()
     {
         // Check initial state
@@ -86,15 +96,11 @@ class TestOfFeedInfo extends UnitTestCase
     public function testGetMinDateAndUpdateDate()
     {
         // Check initial state
-        $this->assertEqual(FeedInfo::getMinDate(), '2016-01-01 00:00:00');
-
-        // Check update
-        FeedInfo::updateDate(1483228800);
         $this->assertEqual(FeedInfo::getMinDate(), '2017-01-01 00:00:00');
 
-        // Reset to initial state
-        FeedInfo::updateDate(1451606400);
-        $this->assertEqual(FeedInfo::getMinDate(), '2016-01-01 00:00:00');
+        // Check update
+        FeedInfo::updateDate(1514761200);
+        $this->assertEqual(FeedInfo::getMinDate(), '2018-01-01 00:00:00');
     }
 
 }

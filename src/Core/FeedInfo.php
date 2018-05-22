@@ -2,8 +2,15 @@
 
 namespace slelorrain\Aushowmatic\Core;
 
-class FeedInfo
+use slelorrain\Aushowmatic\Core\Backupable;
+
+class FeedInfo extends Backupable
 {
+
+    public static function getBackupableFile()
+    {
+        return $_ENV['FEED_INFO'];
+    }
 
     public static function getShowList()
     {

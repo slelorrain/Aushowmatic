@@ -40,7 +40,7 @@ class Config extends Backupable
 
     private function init()
     {
-        date_default_timezone_set(isset($_ENV['TIMEZONE']) ? $_ENV['TIMEZONE'] : 'UTC');
+        date_default_timezone_set(isset($_ENV['TIMEZONE']) ? $_ENV['TIMEZONE'] : 'CET');
 
         $_ENV['FEED_CLASS'] = FEEDS_PATH . $_ENV['FEED_NAME'];
         $_ENV['FEED_INFO'] = APP_BASE_PATH . 'resources/feeds/_' . $_ENV['FEED_NAME'] . '.json';
