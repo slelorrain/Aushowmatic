@@ -66,7 +66,7 @@ class Transmission
 
     public static function isTurtleActivated()
     {
-        $toFind = 'Download speed limit: Unlimited';
+        $toFind = 'Enabled turtle limit:';
         $info = self::call('sessionInfo');
         return !strstr($info, $toFind);
     }
