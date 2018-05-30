@@ -76,6 +76,7 @@ Released under the [WTFPL license].
 [Git]: https://git-scm.com
 [Composer]: https://getcomposer.org
 [showrss.info]: https://showrss.info
+[eztv.ag]: https://eztv.ag
 [opensubtitles.org]: https://www.opensubtitles.org
 [addic7ed.com]: http://www.addic7ed.com
 [WTFPL license]: http://www.wtfpl.net
