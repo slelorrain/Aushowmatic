@@ -95,7 +95,7 @@ class Config extends Backupable
         return false;
     }
 
-    private static function isBoolean($value)
+    public static function isBoolean($value)
     {
         return !is_null(filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE));
     }

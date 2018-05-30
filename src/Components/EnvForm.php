@@ -2,12 +2,14 @@
 
 namespace slelorrain\Aushowmatic\Components;
 
+use slelorrain\Aushowmatic\Config;
+
 class EnvForm
 {
 
     public static function boolean($name = '')
     {
-        $values = array('Enabled' => 'true', 'Disabled' => 'false');
+        $values = array('true' => 'Enabled', 'false' => 'Disabled');
         $select = self::select($values, $_ENV[$name]);
         return self::build($name, $select);
     }
@@ -23,8 +25,10 @@ class EnvForm
         $attributes = 'name="value" class="flexAuto"';
 
         $options = '<option disabled selected value>--- Select a value ---</option>';
-        foreach ($values as $key => $value) {
-            $options .= '<option value="' . $value . '" ' . ($value == $selected ? 'selected' : '') . '>' . (is_int($key) ? $value : $key) . '</option>';
+        foreach ($values as $key => $name) {
+            $value = is_int($key) ? $name : $key;
+            $display =  ($key != $name && !is_int($key) && !Config::isBoolean($key) ? $key . ' (' . $name . ')' : $name);
+            $options .= '<option value="' . $value . '" ' . ($value == $selected ? 'selected' : '') . '>' . $display . '</option>';
         }
 
         return '<select ' . $attributes . '>' . $options . '</select>';
