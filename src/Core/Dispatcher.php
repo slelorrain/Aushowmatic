@@ -12,9 +12,15 @@ class Dispatcher
     public static function dispatch()
     {
         session_start();
-        $_SESSION['start'] = microtime(true);
 
-        if (isset($_GET['action'])) {
+        if (!isset($_GET['action']) && !isset($_SESSION['result'])) {
+            $_GET['action'] = 'transmission';
+            $_GET['parameter'] = 'listFiles';
+        }
+
+        if (isset($_GET['action']) && $_GET['action'] != __FUNCTION__) {
+            $_SESSION['start'] = microtime(true);
+
             if (method_exists(get_class(), $_GET['action'])) {
                 if (!isset($_GET['parameter'])) {
                     $toEcho = call_user_func('self::' . $_GET['action']);
@@ -26,15 +32,10 @@ class Dispatcher
             }
 
             $_SESSION['result'] = $toEcho;
-            Utils::setGeneratedIn();
+            $_SESSION['generated_in'] = round(microtime(true) - $_SESSION['start'], 4);
 
             // Avoid unwanted call of previous action
             header('Location: ./');
-        } else {
-            if (!isset($_SESSION['result'])) {
-                $_SESSION['result'] = self::transmission('listFiles');
-                Utils::setGeneratedIn();
-            }
         }
     }
 
@@ -213,7 +214,8 @@ class Dispatcher
         return Template::get('configForm');
     }
 
-    private static function updateEnv() {
+    private static function updateEnv()
+    {
         Config::createBackup();
 
         if (Config::updateEnv($_POST['name'], $_POST['value'])) {

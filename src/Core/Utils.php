@@ -33,7 +33,7 @@ class Utils
             if (strpos($link, 'magnet') !== false) {
                 // Magnet link
                 $exploded = explode("&dn=", $link);
-                if (isset($exploded[1])){
+                if (isset($exploded[1])) {
                     $exploded = explode("&", $exploded[1]);
                 } else {
                     $exploded = explode("&", $exploded[0]);
@@ -97,11 +97,6 @@ class Utils
         }
 
         return $added;
-    }
-
-    public static function setGeneratedIn()
-    {
-        $_SESSION['generated_in'] = round(microtime(true) - $_SESSION['start'], 4);
     }
 
 }
