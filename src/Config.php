@@ -4,6 +4,9 @@ namespace slelorrain\Aushowmatic;
 
 use Dotenv;
 use slelorrain\Aushowmatic\Core\Backupable;
+use slelorrain\Aushowmatic\Core\Feed;
+use slelorrain\Aushowmatic\Core\Resolution;
+use slelorrain\Aushowmatic\Core\Subtitle;
 
 class Config extends Backupable
 {
@@ -53,6 +56,11 @@ class Config extends Backupable
         }
     }
 
+    private static function clean()
+    {
+        unset($_SESSION['available_shows']);
+    }
+
     public static function getBackupableFile()
     {
         return APP_BASE_PATH . self::$envFile;
@@ -86,6 +94,7 @@ class Config extends Backupable
 
             // Save file and reload env or restore backup
             if (file_put_contents($envFile, $lines)) {
+                self::clean();
                 new Config(self::$isTest);
                 return true;
             } else {
@@ -103,15 +112,24 @@ class Config extends Backupable
     private static function isValid($name, $value)
     {
         switch ($name) {
-            case 'SUBTITLES_NAME':
-                return is_subclass_of(SUBTITLES_PATH . $value, CORE_PATH . 'Subtitle');
-                break;
-
+            case 'DEBUG':
             case 'SUBTITLES_ENABLED':
             case 'SYSTEM_CMDS_ENABLED':
-            case 'DEBUG':
                 return self::isBoolean($value);
                 break;
+
+            case 'FEED_NAME':
+                return in_array($value, Feed::getChoices());
+                break;
+
+            case 'PREFERRED_FORMAT':
+                return in_array($value, Resolution::getChoices());
+                break;
+
+            case 'SUBTITLES_NAME':
+                return in_array($value, Subtitle::getChoices());
+                break;
+
         }
     }
 

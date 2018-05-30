@@ -6,8 +6,8 @@ use slelorrain\Aushowmatic\Core\Curl;
 use slelorrain\Aushowmatic\Core\IsoHelper;
 use slelorrain\Aushowmatic\Core\Subtitle;
 
-define('SEARCH_PATH', 'http://www.addic7ed.com/search.php?search=');
-define('USER_AGENT', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0');
+if (!defined('SEARCH_PATH')) define('SEARCH_PATH', 'http://www.addic7ed.com/search.php?search=');
+if (!defined('USER_AGENT')) define('USER_AGENT', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0');
 
 class Addic7ed extends Subtitle
 {

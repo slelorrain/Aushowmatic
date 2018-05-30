@@ -6,8 +6,8 @@ use slelorrain\Aushowmatic\Core\Curl;
 use slelorrain\Aushowmatic\Core\Subtitle;
 use slelorrain\Aushowmatic\Core\System;
 
-define('SEARCH_PATH', 'https://www.opensubtitles.org/en/search/sublanguageid-#LANG#/moviename-');
-define('USER_AGENT', 'Aushowmatic');
+if (!defined('SEARCH_PATH')) define('SEARCH_PATH', 'https://www.opensubtitles.org/en/search/sublanguageid-#LANG#/moviename-');
+if (!defined('USER_AGENT')) define('USER_AGENT', 'Aushowmatic');
 
 class OpenSubtitles extends Subtitle
 {
