@@ -27,9 +27,9 @@ class Config extends Backupable
         }
 
         if (!defined('APP_BASE_PATH')) define('APP_BASE_PATH', dirname(__DIR__) . '/');
-        if (!defined('CORE_PATH')) define('CORE_PATH', __NAMESPACE__ . '\\Core\\');
-        if (!defined('FEEDS_PATH')) define('FEEDS_PATH', __NAMESPACE__ . '\\Feeds\\');
-        if (!defined('SUBTITLES_PATH')) define('SUBTITLES_PATH', __NAMESPACE__ . '\\Subtitles\\');
+        if (!defined('CORE_NAMESPACE')) define('CORE_NAMESPACE', __NAMESPACE__ . '\\Core\\');
+        if (!defined('FEEDS_NAMESPACE')) define('FEEDS_NAMESPACE', __NAMESPACE__ . '\\Feeds\\');
+        if (!defined('SUBTITLES_NAMESPACE')) define('SUBTITLES_NAMESPACE', __NAMESPACE__ . '\\Subtitles\\');
 
         $dotenv = new Dotenv\Dotenv(APP_BASE_PATH, self::$envFile);
         $dotenv->overload();
@@ -42,9 +42,9 @@ class Config extends Backupable
     {
         date_default_timezone_set(isset($_ENV['TIMEZONE']) ? $_ENV['TIMEZONE'] : 'CET');
 
-        $_ENV['FEED_CLASS'] = FEEDS_PATH . $_ENV['FEED_NAME'];
+        $_ENV['FEED_CLASS'] = FEEDS_NAMESPACE . $_ENV['FEED_NAME'];
         $_ENV['FEED_INFO'] = APP_BASE_PATH . 'resources/feeds/_' . $_ENV['FEED_NAME'] . '.json';
-        $_ENV['SUBTITLES_CLASS'] = SUBTITLES_PATH . $_ENV['SUBTITLES_NAME'];
+        $_ENV['SUBTITLES_CLASS'] = SUBTITLES_NAMESPACE . $_ENV['SUBTITLES_NAME'];
 
         if ($_ENV['DEBUG'] == 'true') {
             ini_set('display_errors', 1);
