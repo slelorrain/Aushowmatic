@@ -18,10 +18,10 @@ try {
 
     $isTurtleActivated = Transmission::isTurtleActivated();
     $isKodiStarted = System::isKodiStarted();
-    $subtitlesEnabled = ($_ENV['SUBTITLES_ENABLED'] == 'true');
+    $subtitlesEnabled = Config::isEnabled('SUBTITLES_ENABLED');
     $subtitlesLanguage = $_ENV['SUBTITLES_CLASS']::getLanguage();
     $subtitlesEnabledAndLanguageSet = $subtitlesEnabled && isset($subtitlesLanguage);
-    $showSystemCommands = ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true');
+    $showSystemCommands = Config::isEnabled('SYSTEM_CMDS_ENABLED');
 } catch (Exception $e) {
     die('Exception:<br>' . $e->getMessage());
 }
@@ -51,7 +51,7 @@ try {
         <li><?= Button::action('Turtle', 'transmission', 'altSpeedOn', 'Turtle ON', $isTurtleActivated ? 'active forced' : '') ?></li>
         <li><?= Button::action('&infin;', 'transmission', 'altSpeedOff', 'Turtle OFF', !$isTurtleActivated ? 'active forced' : '') ?></li>
     </ul>
-    <?php if(!$isKodiStarted) { ?>
+    <?php if (!$isKodiStarted) { ?>
         <ul class="yt-button-group">
             <li><?= Button::action('Start Kodi', 'startKodi', '', '', 'primary') ?></li>
         </ul>

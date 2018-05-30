@@ -28,7 +28,7 @@ class System
 
     public static function shutdown()
     {
-        if ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true') {
+        if (Config::isEnabled('SYSTEM_CMDS_ENABLED')) {
             self::executeInBackground('sudo poweroff');
             return 'Done';
         } else {
@@ -38,7 +38,7 @@ class System
 
     public static function reboot()
     {
-        if ($_ENV['SYSTEM_CMDS_ENABLED'] == 'true') {
+        if (Config::isEnabled('SYSTEM_CMDS_ENABLED')) {
             self::executeInBackground('sudo reboot');
             return 'Done';
         } else {

@@ -1,4 +1,5 @@
 <?php
+use slelorrain\Aushowmatic\Config;
 use slelorrain\Aushowmatic\Components\Button;
 use slelorrain\Aushowmatic\Components\EnvForm;
 use slelorrain\Aushowmatic\Core\Feed;
@@ -18,7 +19,7 @@ $subtitlesProviders = Subtitle::getChoices();
 <div>Subtitles:</div>
 <?= EnvForm::boolean('SUBTITLES_ENABLED') ?>
 <br>
-<?php if ($_ENV['SUBTITLES_ENABLED'] == 'true') { ?>
+<?php if (Config::isEnabled('SUBTITLES_ENABLED')) { ?>
     <div>Subtitles provider:</div>
     <?= EnvForm::normal('SUBTITLES_NAME', $subtitlesProviders) ?>
     <br>
