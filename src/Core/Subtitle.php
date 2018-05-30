@@ -2,11 +2,30 @@
 
 namespace slelorrain\Aushowmatic\Core;
 
-abstract class Subtitle implements SubtitleInterface
+abstract class Subtitle implements SubtitleInterface, ChoosableInterface
 {
 
     const TMP_PATH = '/tmp/';
     const TMP_FILE = 'tmp_subtitles';
+
+    const SUBTITLES_PATH = APP_BASE_PATH . 'src/Subtitles/';
+
+    public static function getChoices()
+    {
+        $subtitles = array();
+        $files = array_diff(scandir(self::SUBTITLES_PATH), array('.', '..'));
+
+        foreach ($files as $file) {
+            $info = pathinfo(self::SUBTITLES_PATH . $file);
+            $isSubclass = is_subclass_of(SUBTITLES_NAMESPACE . $info['filename'], get_class());
+
+            if (is_file(self::SUBTITLES_PATH . $file) && $isSubclass) {
+                $subtitles[] = $info['filename'];
+            }
+        }
+
+        return $subtitles;
+    }
 
     public static function download($directories = null)
     {

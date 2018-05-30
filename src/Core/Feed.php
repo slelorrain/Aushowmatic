@@ -2,8 +2,27 @@
 
 namespace slelorrain\Aushowmatic\Core;
 
-abstract class Feed implements FeedInterface
+abstract class Feed implements FeedInterface, ChoosableInterface
 {
+
+    const FEEDS_PATH = APP_BASE_PATH . 'src/Feeds/';
+
+    public static function getChoices()
+    {
+        $feeds = array();
+        $files = array_diff(scandir(self::FEEDS_PATH), array('.', '..'));
+
+        foreach ($files as $file) {
+            $info = pathinfo(self::FEEDS_PATH . $file);
+            $isSubclass = is_subclass_of(FEEDS_NAMESPACE . $info['filename'], get_class());
+
+            if (is_file(self::FEEDS_PATH . $file) && $isSubclass) {
+                $feeds[] = $info['filename'];
+            }
+        }
+
+        return $feeds;
+    }
 
     public static function getAvailableShows()
     {
@@ -28,6 +47,7 @@ abstract class Feed implements FeedInterface
             foreach (FeedInfo::getShowList() as $show) {
                 $urls[] = static::getShowFeed($show);
             }
+
             // Retrieve content of show pages
             $pages = Curl::getPages($urls);
             // Parse pages and retrieve links that could be added
