@@ -51,7 +51,7 @@ class Config extends Backupable
 
         if (Config::isEnabled('DEBUG')) {
             ini_set('display_errors', 1);
-            ini_set('', 1);
+            ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
         }
     }
