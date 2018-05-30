@@ -23,8 +23,6 @@ class ShowRSS extends Feed
 
     public static function getAvailableShows()
     {
-        $shows = array();
-
         $page = Curl::getPage(self::PATH . 'browse');
 
         $dom = new \DOMDocument;
@@ -34,6 +32,7 @@ class ShowRSS extends Feed
 
         $selector = $dom->getElementById('showselector');
 
+        $shows = array();
         if ($selector) {
             $options = $selector->getElementsByTagName('option');
 
@@ -46,7 +45,6 @@ class ShowRSS extends Feed
                 }
             }
         }
-
         return $shows;
     }
 
@@ -55,6 +53,7 @@ class ShowRSS extends Feed
         libxml_use_internal_errors(true);
         $xml = simplexml_load_string($page);
         libxml_clear_errors();
+
         if ($xml) {
             foreach ($xml->channel->item as $item) {
                 if (!$useMinDate || strtotime($item->pubDate) >= strtotime(FeedInfo::getMinDate())) {
@@ -73,13 +72,9 @@ class ShowRSS extends Feed
                         }
                     }
 
-                    if (!array_key_exists($epId, $couldBeAdded)) {
+                    // If not added or current link contains preferred format
+                    if (!array_key_exists($epId, $couldBeAdded) || strpos($downloadLink, $_ENV['PREFERRED_FORMAT']) !== false) {
                         $couldBeAdded[$epId] = $downloadLink;
-                    } else {
-                        // If current download link contains preferred format replace link previously set in array
-                        if (strpos($downloadLink, $_ENV['PREFERRED_FORMAT']) !== false) {
-                            $couldBeAdded[$epId] = $downloadLink;
-                        }
                     }
                 }
             }

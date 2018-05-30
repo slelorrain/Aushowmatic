@@ -2,7 +2,7 @@
 
 Aushowmatic is a light torrent-based PVR (personal video recorder). I'm currently using it on Raspbian but it should work on all distributions based on Debian.
 
-**Note:** It's using showRSS ([showrss.info]) as source. Also, the EZTV parser wasn't updated because of the [hostile takeover](https://en.wikipedia.org/wiki/EZTV#Hostile_takeover). Subtitles providers are OpenSubtitles ([opensubtitles.org]) and Addic7ed ([addic7ed.com]).
+**Note:** It's using showRSS ([showrss.info]) and EZTV ([eztv.ag]) as source. Subtitles providers are OpenSubtitles ([opensubtitles.org]) and Addic7ed ([addic7ed.com]).
 
 ![Screenshot](resources/screenshot.png?raw=true)
 
