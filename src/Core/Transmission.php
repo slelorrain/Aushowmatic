@@ -68,7 +68,7 @@ class Transmission
     {
         $toFind = 'Enabled turtle limit:';
         $info = self::call('sessionInfo');
-        return !strstr($info, $toFind);
+        return strpos($info, $toFind) !== false;
     }
 
     public static function getDirectory($torrentId = null)
