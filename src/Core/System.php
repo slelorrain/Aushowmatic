@@ -2,6 +2,8 @@
 
 namespace slelorrain\Aushowmatic\Core;
 
+use slelorrain\Aushowmatic\Config;
+
 define("PS_AUX_CMD", "ps aux | grep '" . $_ENV["KODI_CMD"] . "'");
 
 class System
