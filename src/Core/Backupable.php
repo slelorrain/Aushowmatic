@@ -27,5 +27,4 @@ abstract class Backupable implements BackupableInterface
     {
         return static::getBackupableFile() . self::BACKUP_EXTENSION;
     }
-
 }

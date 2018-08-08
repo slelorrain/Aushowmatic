@@ -36,5 +36,4 @@ class Upload
 
         return '<form ' . $attributes . '>' . $inputFile . $submit . '</form>' . $extraHtml;
     }
-
 }

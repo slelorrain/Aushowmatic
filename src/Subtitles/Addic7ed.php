@@ -52,5 +52,4 @@ class Addic7ed extends Subtitle
     {
         return IsoHelper::getEnglishNamesByIso6392Code($_ENV['SUBTITLES_LANGUAGE']);
     }
-
 }

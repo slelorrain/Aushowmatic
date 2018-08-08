@@ -80,5 +80,4 @@ class ShowRSS extends Feed
             }
         }
     }
-
 }

@@ -39,5 +39,4 @@ class OpenSubtitles extends Subtitle
     {
         return $_ENV['SUBTITLES_LANGUAGE'];
     }
-
 }

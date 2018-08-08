@@ -6,5 +6,4 @@ interface BackupableInterface
 {
 
     static function getBackupableFile();
-
 }

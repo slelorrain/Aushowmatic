@@ -76,5 +76,4 @@ class System
     {
         pclose(popen($command . ' &', 'r'));
     }
-
 }

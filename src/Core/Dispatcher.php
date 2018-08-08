@@ -227,5 +227,4 @@ class Dispatcher
         }
         return $toEcho . PHP_EOL . PHP_EOL . self::configuration();
     }
-
 }

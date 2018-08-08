@@ -42,5 +42,4 @@ class EnvForm
 
         return '<form ' . $attributes . '>' . $inputName . $select . $submit . '</form>';
     }
-
 }

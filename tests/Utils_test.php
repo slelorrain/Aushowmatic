@@ -9,5 +9,4 @@ class TestOfUtils extends UnitTestCase
     {
         $this->assertPattern('/v\d+(\.\d+)*$/', Utils::getVersion());
     }
-
 }

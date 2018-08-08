@@ -152,5 +152,4 @@ abstract class Subtitle implements SubtitleInterface, ChoosableInterface
 
         return $toEcho;
     }
-
 }

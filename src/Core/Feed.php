@@ -65,5 +65,4 @@ abstract class Feed implements FeedInterface, ChoosableInterface
 
         return $added;
     }
-
 }

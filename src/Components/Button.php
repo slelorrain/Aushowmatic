@@ -6,5 +6,4 @@ class Button extends Link
 {
 
     const DEFAULT_CLASS = 'yt-button';
-
 }

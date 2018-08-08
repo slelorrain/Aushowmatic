@@ -118,5 +118,4 @@ class Curl
 
         return $pages;
     }
-
 }

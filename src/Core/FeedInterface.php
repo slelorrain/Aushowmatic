@@ -14,5 +14,4 @@ interface FeedInterface
     static function parsePage($page, &$couldBeAdded, $useMinDate = true);
 
     static function launchDownloads($preview = false, $show = null);
-
 }

@@ -45,5 +45,4 @@ class TestOfButton extends UnitTestCase
         $this->assertPattern('/target="_blank"/', $out);
         $this->assertNoPattern('/class="yt-button showSomething"/', $out);
     }
-
 }

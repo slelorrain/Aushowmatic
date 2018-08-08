@@ -9,5 +9,4 @@ class Resolution implements ChoosableInterface
     {
         return array('720p', '1080p');
     }
-
 }
