@@ -57,7 +57,6 @@ class ShowRSS extends Feed
         if ($xml) {
             foreach ($xml->channel->item as $item) {
                 if (!$useMinDate || strtotime($item->pubDate) >= strtotime(FeedInfo::getMinDate())) {
-
                     $epId = "";
                     $epTitle = $item->title;
                     $downloadLink = $item->link;
