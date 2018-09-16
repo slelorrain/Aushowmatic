@@ -24,6 +24,10 @@ class Config extends Backupable
 
     public function __construct($test = false)
     {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
         if ($test) {
             self::$isTest = true;
             self::$envFile = '.env.example';
