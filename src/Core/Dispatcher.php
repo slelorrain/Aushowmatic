@@ -11,8 +11,6 @@ class Dispatcher
 
     public static function dispatch()
     {
-        session_start();
-
         if (!isset($_GET['action']) && !isset($_SESSION['result'])) {
             $_GET['action'] = 'transmission';
             $_GET['parameter'] = 'listFiles';
@@ -227,5 +225,4 @@ class Dispatcher
         }
         return $toEcho . PHP_EOL . PHP_EOL . self::configuration();
     }
-
 }

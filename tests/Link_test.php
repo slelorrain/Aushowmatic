@@ -45,5 +45,4 @@ class TestOfLink extends UnitTestCase
         $this->assertPattern('/target="_blank"/', $out);
         $this->assertNoPattern('/class="showSomething"/', $out);
     }
-
 }

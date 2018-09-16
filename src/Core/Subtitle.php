@@ -88,7 +88,7 @@ abstract class Subtitle implements SubtitleInterface, ChoosableInterface
 
             foreach ($videos as $video) {
                 $pathParts = pathinfo($video);
-                $subtitle = substr_replace($video , $_ENV['SUBTITLES_EXTENSION'], strrpos($video, '.') + 1);
+                $subtitle = substr_replace($video, $_ENV['SUBTITLES_EXTENSION'], strrpos($video, '.') + 1);
 
                 if (!in_array($subtitle, $subtitles)) {
                     $results[$video] = self::searchAndDownload($pathParts);
@@ -152,5 +152,4 @@ abstract class Subtitle implements SubtitleInterface, ChoosableInterface
 
         return $toEcho;
     }
-
 }

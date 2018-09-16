@@ -172,5 +172,4 @@ class Transmission
     {
         return self::call('listFiles');
     }
-
 }

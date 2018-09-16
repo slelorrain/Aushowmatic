@@ -96,5 +96,4 @@ class EZTV extends Feed
 
         return date("Y-m-d H:i:s", strtotime($released));
     }
-
 }

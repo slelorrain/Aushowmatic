@@ -48,5 +48,4 @@ class Link
 
         return '<a ' . $attributes . '>' . $content . '</a>';
     }
-
 }

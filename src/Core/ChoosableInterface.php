@@ -6,5 +6,4 @@ interface ChoosableInterface
 {
 
     static function getChoices();
-
 }

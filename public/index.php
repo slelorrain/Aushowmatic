@@ -6,18 +6,15 @@ require_once $autoload;
 use slelorrain\Aushowmatic\Config;
 use slelorrain\Aushowmatic\Core\Dispatcher;
 use slelorrain\Aushowmatic\Core\FeedInfo;
-use slelorrain\Aushowmatic\Core\System;
-use slelorrain\Aushowmatic\Core\Transmission;
 use slelorrain\Aushowmatic\Core\Utils;
 use slelorrain\Aushowmatic\Components\Button;
 use slelorrain\Aushowmatic\Components\Link;
+use slelorrain\Aushowmatic\Components\Template;
 
 try {
     new Config();
     Dispatcher::dispatch();
 
-    $isTurtleActivated = Transmission::isTurtleActivated();
-    $isKodiStarted = System::isKodiStarted();
     $subtitlesEnabled = Config::isEnabled('SUBTITLES_ENABLED');
     $subtitlesLanguage = $_ENV['SUBTITLES_CLASS']::getLanguage();
     $subtitlesEnabledAndLanguageSet = $subtitlesEnabled && isset($subtitlesLanguage);
@@ -42,21 +39,7 @@ try {
     <h1>Aushowmatic</h1>
 </header>
 
-<div id="remote">
-    <ul class="yt-button-group">
-        <li><?= Button::action('&#9632;', 'transmission', 'stop', 'Stop all torrents') ?></li>
-        <li><?= Button::action('&#9658;', 'transmission', 'start', 'Start all torrents') ?></li>
-    </ul>
-    <ul class="yt-button-group">
-        <li><?= Button::action('Turtle', 'transmission', 'altSpeedOn', 'Turtle ON', $isTurtleActivated ? 'active forced' : '') ?></li>
-        <li><?= Button::action('&infin;', 'transmission', 'altSpeedOff', 'Turtle OFF', !$isTurtleActivated ? 'active forced' : '') ?></li>
-    </ul>
-    <?php if (!$isKodiStarted) { ?>
-        <ul class="yt-button-group">
-            <li><?= Button::action('Start Kodi', 'startKodi', '', '', 'primary') ?></li>
-        </ul>
-    <?php } ?>
-</div>
+<?= Template::get('remote') ?>
 
 <div id="main_container" class="auto">
 

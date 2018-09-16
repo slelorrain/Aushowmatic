@@ -105,5 +105,4 @@ class FeedInfo extends Backupable
             file_put_contents($_ENV['FEED_INFO'], json_encode($info));
         }
     }
-
 }

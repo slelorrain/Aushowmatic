@@ -23,5 +23,4 @@ class TestOfSubtitle extends UnitTestCase
         Subtitle::removeSubtitles($folder);
         $this->assertEqual(glob($folder . '/*.' . $_ENV['SUBTITLES_EXTENSION']), array());
     }
-
 }

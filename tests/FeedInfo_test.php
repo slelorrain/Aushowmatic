@@ -102,5 +102,4 @@ class TestOfFeedInfo extends UnitTestCase
         FeedInfo::updateDate(1514761200);
         $this->assertEqual(FeedInfo::getMinDate(), '2018-01-01 00:00:00');
     }
-
 }

@@ -10,5 +10,4 @@ interface SubtitleInterface
     static function afterDownload();
 
     static function getLanguage();
-
 }

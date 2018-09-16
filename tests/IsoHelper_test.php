@@ -11,5 +11,4 @@ class TestOfIsoHelper extends UnitTestCase
 
         $this->assertNull(IsoHelper::getEnglishNamesByIso6392Code(''));
     }
-
 }

@@ -13,5 +13,4 @@ class Template
         $template = preg_replace('/>\s+</', '><', ob_get_clean());
         return $template;
     }
-
 }
