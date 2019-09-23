@@ -31,6 +31,9 @@ try {
     <link rel="shortcut icon" type="image/png" href="./assets/favicon.png"/>
     <link rel="apple-touch-icon" href="./assets/favicon-touch.png"/>
     <link rel="stylesheet" type="text/css" href="./assets/css/all.css"/>
+    <link rel="manifest" href="./manifest.json"/>
+    <meta name="theme-color" content="#778899"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="viewport" content="width=device-width, height=device-height, minimum-scale=1, maximum-scale=1"/>
 </head>
 <body>
