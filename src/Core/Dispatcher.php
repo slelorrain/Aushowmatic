@@ -178,9 +178,13 @@ class Dispatcher
         return Transmission::call($function, $torrentId);
     }
 
-    private static function subtitles()
+    private static function subtitles($torrentId = null)
     {
-        return $_ENV['SUBTITLES_CLASS']::download();
+        $directory = null;
+        if ($torrentId != null) {
+            $directory = Transmission::getDirectory($torrentId);
+        }
+        return $_ENV['SUBTITLES_CLASS']::download($directory);
     }
 
     private static function uploadSubtitle($torrentId = null)
