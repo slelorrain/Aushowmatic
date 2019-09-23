@@ -1,0 +1,15 @@
+{
+    "short_name": "Aushowmatic",
+    "name": "Aushowmatic",
+    "icons": [
+        {
+        "src": "./assets/favicon-touch.png",
+        "type": "image/png",
+        "sizes": "128x128"
+        }
+    ],
+    "start_url": "/",
+    "background_color": "#778899",
+    "display": "standalone",
+    "theme_color": "#778899"
+}

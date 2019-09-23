@@ -129,12 +129,13 @@ class Transmission
 
             if (is_numeric($id)) {
                 $uploadForm = Upload::modal('subtitle', 'uploadSubtitle', $id);
+                $download = Link::action('&#9778;', 'subtitles', $id, 'Download subtitles');
                 $stop = Link::action('&#9632;', 'transmission', 'stop|id=' . $id, 'Stop torrent');
                 $start = Link::action('&#9658;', 'transmission', 'start|id=' . $id, 'Start torrent');
                 $verify = Link::action('&check;', 'transmission', 'verify|id=' . $id, 'Verify torrent');
                 $delete = Link::action('&#10007;', 'transmission', 'delete|id=' . $id, 'Delete', 'danger', true);
 
-                $res .= $line . ' ' . $uploadForm . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' ) ' . $delete . PHP_EOL;
+                $res .= $line . ' ' . $uploadForm . ' | ' . $download . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' ) ' . $delete . PHP_EOL;
             } else {
                 $res .= $line . PHP_EOL;
             }

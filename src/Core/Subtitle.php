@@ -81,6 +81,10 @@ abstract class Subtitle implements SubtitleInterface, ChoosableInterface
     {
         $results = [];
 
+        if (is_string($directories)) {
+            $directories = array($directories);
+        }
+
         foreach ($directories as $directory) {
             $directory = str_replace('[', '\[', $directory);
             $videos = glob($directory . '/*.{' . $_ENV['SUBTITLES_SEARCH_EXTENSIONS'] . '}', GLOB_BRACE);
