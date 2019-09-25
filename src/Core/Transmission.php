@@ -3,6 +3,7 @@
 namespace slelorrain\Aushowmatic\Core;
 
 use slelorrain\Aushowmatic\Components\Link;
+use slelorrain\Aushowmatic\Components\SubtitlesList;
 use slelorrain\Aushowmatic\Components\Template;
 use slelorrain\Aushowmatic\Components\Upload;
 
@@ -128,14 +129,18 @@ class Transmission
             $id = str_replace('*', '', $columns[0]);
 
             if (is_numeric($id)) {
+                $directory = self::getDirectory($id);
+                $subtitles = ($directory != null) ? Subtitle::getSubtitles($directory) : [];
+
                 $uploadForm = Upload::modal('subtitle', 'uploadSubtitle', $id);
-                $download = Link::action('&#9778;', 'subtitles', $id, 'Download subtitles');
+                $download = Link::action('Download', 'subtitles', $id, 'Download subtitles');
+                $subtitlesList = SubtitlesList::modal($id, $subtitles, $download);
                 $stop = Link::action('&#9632;', 'transmission', 'stop|id=' . $id, 'Stop torrent');
                 $start = Link::action('&#9658;', 'transmission', 'start|id=' . $id, 'Start torrent');
                 $verify = Link::action('&check;', 'transmission', 'verify|id=' . $id, 'Verify torrent');
                 $delete = Link::action('&#10007;', 'transmission', 'delete|id=' . $id, 'Delete', 'danger', true);
 
-                $res .= $line . ' ' . $uploadForm . ' | ' . $download . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' ) ' . $delete . PHP_EOL;
+                $res .= $line . ' ' . $uploadForm . ' | ' . $subtitlesList . ' ( ' . $stop . ' | ' . $start . ' | ' . $verify . ' ) ' . $delete . PHP_EOL;
             } else {
                 $res .= $line . PHP_EOL;
             }
