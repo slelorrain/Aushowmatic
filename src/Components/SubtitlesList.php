@@ -28,7 +28,7 @@ class SubtitlesList
         // Remove useless whitespaces
         $attributes = preg_replace('/\s+/', ' ', trim($id . ' ' . $style));
 
-        $list = '<h3>Subtitles</h3>';
+        $list = '<h3>Subtitles</h3><pre class="subtitles">';
         if (!empty($content)) {
             foreach ($content as $value) {
                 $list .= $value . '<br>';
@@ -36,6 +36,7 @@ class SubtitlesList
         } else {
             $list .= 'No subtitles<br>';
         }
+        $list .= '</pre>';
 
         return '<div ' . $attributes . '>' . $list . '<br>' . $extraContent . '</div>' . $extraHtml;
     }
