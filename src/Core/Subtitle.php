@@ -42,10 +42,16 @@ abstract class Subtitle implements SubtitleInterface, ChoosableInterface
         return self::printResults($results);
     }
 
-    public static function removeSubtitles($directory)
+    public static function getSubtitles($directory)
     {
         $directory = str_replace('[', '\[', $directory);
         $subtitles = glob($directory . '/*.' . $_ENV['SUBTITLES_EXTENSION']);
+        return $subtitles;
+    }
+
+    public static function removeSubtitles($directory)
+    {
+        $subtitles = self::getSubtitles($directory);
         $results = array_map('unlink', $subtitles);
 
         foreach ($results as $result) {
